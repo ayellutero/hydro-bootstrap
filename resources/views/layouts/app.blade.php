@@ -169,6 +169,12 @@
     <script src="{{ asset('vendor/datatables-plugins/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
 
+    <!-- Calendar Script -->
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/jquery-ui.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/js/fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/fullcalendar-script.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             var panels = $('.user-infos');
@@ -194,6 +200,28 @@
                         currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
                     }
                 })
+            });
+
+            // hide email and sms input fields
+            $('input[name="email_to_notif"]').hide();
+            $('input[name="sms_to_notif"]').hide();
+            //show when the checkbox is clicked
+            $('input[name="notify_email"]').on('click', function(){
+                if ( $(this).prop('checked') ) {
+                    $('input[name="email_to_notif"]').fadeIn();
+                } 
+                else {
+                    $('input[name="email_to_notif"]').hide();
+                }
+            });
+        
+            $('input[name="notify_sms"]').on('click', function(){
+                if ( $(this).prop('checked') ) {
+                    $('input[name="sms_to_notif"]').fadeIn();
+                } 
+                else {
+                    $('input[name="sms_to_notif"]').hide();
+                }
             });
 
             // hide PW field button
