@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Schedule; 
+use Request;
 
 class CalendarController extends Controller
 {
@@ -11,5 +11,19 @@ class CalendarController extends Controller
         $events = Schedule::all();
         
         return view('Calendar.index', compact('calendar'))->with('events', $events);
+    }
+
+    public function store(){
+        $schedule=Request::all();
+        Schedule::create($schedule);
+        return redirect('calendar')->with('message', 'Successfully scheduled a maintenance!');
+    }
+
+    public function destroy($id){
+
+    }
+
+    public function update($id){
+
     }
 }

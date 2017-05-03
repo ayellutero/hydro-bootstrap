@@ -211,7 +211,7 @@
             $('#all-users').DataTable();
             $('#all-reports').DataTable();
             $('#pending-reports').DataTable();
-
+    
             //tooltip
             $('[data-toggle="tooltip"]').tooltip(); 
 

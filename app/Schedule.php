@@ -9,9 +9,11 @@ class Schedule extends Model
     protected $fillable=[
         'sched_id',
         'title',
-        'date',
+        'start_date',
         'staff',
         'notify_email',
-        'notify_sms'
+        'email_to_notif',
+        'notify_sms',
+        'sms_to_notif'
     ];
 }
