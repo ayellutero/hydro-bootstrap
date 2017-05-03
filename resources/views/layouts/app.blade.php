@@ -121,7 +121,6 @@
                     <li>
                         <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
                     </li>
-                    @endif
                     <li>
                         <a href=""><i class="fa fa-bar-chart-o fa-fw"></i> Sensor Statistics</a>
                     </li>
@@ -143,6 +142,7 @@
                     <li>
                         <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
                     </li>
+                    @endif
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
