@@ -25,7 +25,6 @@
     <!-- Custom Fonts -->
     <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
-    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -167,94 +166,63 @@
     <script src="{{ asset('vendor/datatables-plugins/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
 
-    <!-- Google Maps JS API -->
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-    
-    <!-- GMaps Library -->
-    <script src="{{ asset('dist/js/gmaps.js') }}"></script>
-    
-    
-
-    <script>
-        var stations = <?php print_r(json_encode($stations)) ?>;
-
-        var mymap = new GMaps({
-            el: '#mymap',
-            lat: 14.1648,
-            lng: 121.2413,
-            zoom:10
-        });
-
-        $.each( stations, function( index, value ){
-            mymap.addMarker({
-                lat: value.lat,
-                lng: value.lng,
-                title: value.location,
-
-                click: function(e) {
-                    alert('This is ' + value.location);
-                }
-            });
-        });
-
+    <script type="text/javascript">
         $(document).ready(function() {
-    
-        var panels = $('.user-infos');
-        var panelsButton = $('.dropdown-user');
-        panels.hide();
+            var panels = $('.user-infos');
+            var panelsButton = $('.dropdown-user');
+            panels.hide();
 
-        //Click dropdown
-        panelsButton.click(function() {
-            //get data-for attribute
-            var dataFor = $(this).attr('data-for');
-            var idFor = $(dataFor);
+            //Click dropdown
+            panelsButton.click(function() {
+                //get data-for attribute
+                var dataFor = $(this).attr('data-for');
+                var idFor = $(dataFor);
 
-            //current button
-            var currentButton = $(this);
-            idFor.slideToggle(400, function() {
-                //Completed slidetoggle
-                if(idFor.is(':visible'))
-                {
-                    currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
-                }
-                else
-                {
-                    currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
-                }
-            })
-        });
-
-        // hide PW field button
-        $('#change_pw').hide();
-        $('#pw_btn').on('click', function (event) {
-           $('#pw_btn').hide();
-           $('#change_pw').show();
-        });
-        $('#cancel-button').on('click', function (event) {
-           $('#pw_btn').show();
-           $('#change_pw').hide();
-        });
-
-        // Datatable JS
-        $('#all-users').DataTable();
-        $('#all-reports').DataTable();
-        $('#pending-reports').DataTable();
-
-        //tooltip
-        $('[data-toggle="tooltip"]').tooltip(); 
-
-        // scheduler
-        scheduler.init('scheduler_here', new Date(),"month");
-
-        var events = [
-                {id:1, text:"Meeting",   start_date:"04/11/2013 14:00",end_date:"04/11/2013 17:00"},
-                {id:2, text:"Conference",start_date:"04/15/2013 12:00",end_date:"04/18/2013 19:00"},
-                {id:3, text:"Interview", start_date:"04/24/2013 09:00",end_date:"04/24/2013 10:00"}
-                ];
-                
-        scheduler.parse(events, "json");//takes the name and format of the data source
+                //current button
+                var currentButton = $(this);
+                idFor.slideToggle(400, function() {
+                    //Completed slidetoggle
+                    if(idFor.is(':visible'))
+                    {
+                        currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+                    }
+                    else
+                    {
+                        currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
+                    }
+                })
             });
-    });
+
+            // hide PW field button
+            $('#change_pw').hide();
+            $('#pw_btn').on('click', function (event) {
+                $('#pw_btn').hide();
+                $('#change_pw').show();
+            });
+            $('#cancel-button').on('click', function (event) {
+                $('#pw_btn').show();
+                $('#change_pw').hide();
+            });
+
+            // Datatable JS
+            $('#all-users').DataTable();
+            $('#all-reports').DataTable();
+            $('#pending-reports').DataTable();
+
+            //tooltip
+            $('[data-toggle="tooltip"]').tooltip(); 
+
+            // scheduler
+            scheduler.init('scheduler_here', new Date(),"month");
+
+            var events = [
+                    {id:1, text:"Meeting",   start_date:"04/11/2013 14:00",end_date:"04/11/2013 17:00"},
+                    {id:2, text:"Conference",start_date:"04/15/2013 12:00",end_date:"04/18/2013 19:00"},
+                    {id:3, text:"Interview", start_date:"04/24/2013 09:00",end_date:"04/24/2013 10:00"}
+            ];
+                    
+            scheduler.parse(events, "json");//takes the name and format of the data source
+        });
     </script>
 </body>
 

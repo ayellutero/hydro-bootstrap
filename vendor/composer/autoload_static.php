@@ -279,6 +279,7 @@ class ComposerStaticInitefbd4bfe8c1433c8d28821bd4cce8382
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\HydroNotifEvent' => __DIR__ . '/../..' . '/app/Events/HydroNotifEvent.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -286,6 +287,7 @@ class ComposerStaticInitefbd4bfe8c1433c8d28821bd4cce8382
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\CalendarController' => __DIR__ . '/../..' . '/app/Http/Controllers/CalendarController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\GmapController' => __DIR__ . '/../..' . '/app/Http/Controllers/GmapController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\MaintenanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/MaintenanceController.php',
         'App\\Http\\Controllers\\NotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotificationController.php',
