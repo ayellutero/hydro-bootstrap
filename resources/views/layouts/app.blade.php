@@ -25,6 +25,7 @@
     <!-- Custom Fonts -->
     <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -172,6 +173,8 @@
     <!-- GMaps Library -->
     <script src="{{ asset('dist/js/gmaps.js') }}"></script>
     
+    
+
     <script>
         var stations = <?php print_r(json_encode($stations)) ?>;
 
@@ -239,6 +242,18 @@
 
         //tooltip
         $('[data-toggle="tooltip"]').tooltip(); 
+
+        // scheduler
+        scheduler.init('scheduler_here', new Date(),"month");
+
+        var events = [
+                {id:1, text:"Meeting",   start_date:"04/11/2013 14:00",end_date:"04/11/2013 17:00"},
+                {id:2, text:"Conference",start_date:"04/15/2013 12:00",end_date:"04/18/2013 19:00"},
+                {id:3, text:"Interview", start_date:"04/24/2013 09:00",end_date:"04/24/2013 10:00"}
+                ];
+                
+        scheduler.parse(events, "json");//takes the name and format of the data source
+            });
     });
     </script>
 </body>

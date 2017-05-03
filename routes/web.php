@@ -16,6 +16,10 @@
 //GMaps
 Route::get('/', 'HomeController@gmaps');
 
+Route::get('sample', function () {
+    return view('sample');
+});
+
 Route::get('/users/serverSide', [
     'as'   => 'users.serverSide',
     'uses' => function () {
@@ -27,6 +31,11 @@ Route::get('/users/serverSide', [
 
 Route::get('/userProfile', function () {
     return view('userProfile');
+});
+
+Route::get('/pusher', function(){
+    event(new App\Events\HydroNotifEvent('Hi there'));
+    return "Event created";
 });
 
 // Group of ROUTES w Permissions
