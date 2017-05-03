@@ -323,7 +323,7 @@ class ComposerStaticInitefbd4bfe8c1433c8d28821bd4cce8382
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateReportsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_25_082520_create_reports_table.php',
         'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_24_233037_create_roles_table.php',
-        'CreateStationsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_03_012347_create_stations_table.php',
+        'CreateStationsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_03_031819_create_stations_table.php',
         'CreateUserRoleTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_24_233116_create_user_role_table.php',
         'CreateUseractivityTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_25_082628_create_useractivity_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
