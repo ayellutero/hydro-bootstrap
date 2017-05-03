@@ -25,6 +25,9 @@
     <!-- Custom Fonts -->
     <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
+    <!-- Calendar CSS -->    
+    <link href="{{ asset('vendor/fullcalendar/css/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -165,6 +168,12 @@
     <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-plugins/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
+
+    <!-- Calendar Script -->
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/jquery-ui.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/js/fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/fullcalendar-script.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
