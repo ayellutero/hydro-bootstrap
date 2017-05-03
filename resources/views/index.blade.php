@@ -23,7 +23,7 @@
                 lng: value.lng,
 	            title: value.location + value.province,
                 infoWindow:{
-                    content: '<b>Device ID: {{ lat }}</b>'
+                    content: '<b>Device ID:</b>'
                 },
                 mouseover: function(e){
                     this['infowindow'].open(mymap, this); 
