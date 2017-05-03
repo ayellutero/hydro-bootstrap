@@ -1,17 +1,49 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Laravel 5 - Multiple markers in google map using gmaps.js</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="http://maps.google.com/maps/api/js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.js"></script>
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+  	<style type="text/css">
+    	#mymap {
+      		border:1px solid red;
+      		width: 800px;
+      		height: 500px;
+    	}
+  	</style>
 
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+</head>
+<body>
+
+  <h1>Laravel 5 - Multiple markers in google map using gmaps.js</h1>
+
+  <div id="mymap"></div>
+
+  <script type="text/javascript">
+
+    var stations = <?php print_r(json_encode($stations)) ?>;
+
+    var mymap = new GMaps({
+      el: '#mymap',
+      lat: 14.1648,
+      lng: 121.2413,
+      zoom:10
+    });
+
+    $.each( stations, function( index, value ){
+	    mymap.addMarker({
+	      lat: value.lat,
+	      lng: value.lng,
+	      title: value.city,
+	      click: function(e) {
+	        alert('This is '+value.city+', gujarat from India.');
+	      }
+	    });
+   });
+
+  </script>
+
+</body>
+</html>
