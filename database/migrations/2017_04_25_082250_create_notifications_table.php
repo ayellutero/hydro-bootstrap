@@ -18,7 +18,7 @@ class CreateNotificationsTable extends Migration
         {
             $table->increments('notif_id');
             $table->integer('receiver_id')->unsigned();
-            $table->integer('sender_id')->unsigned();             
+            $table->string('sender_id');             
             $table->string('message');
             $table->boolean('is_read')->default(0);
             $table->date('sent_at_date');//->nullable();
