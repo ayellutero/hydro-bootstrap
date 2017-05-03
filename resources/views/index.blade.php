@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <div id="map" style="width:100%;height:565px"></div>
+    <div id="mymap" style="width:100%;height:565px"></div>
 
 @endsection

@@ -166,11 +166,34 @@
     <script src="{{ asset('vendor/datatables-plugins/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
 
-    <!-- Google map API -->
-    <script type="text/javascript" src="{{ asset('dist/js/script-map.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6xvLOfDOXnS5nPnI9dHa4kg664Tu_TtU&libraries=places"></script>
+    <!-- Google Maps JS API -->
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    
+    <!-- GMaps Library -->
+    <script src="{{ asset('dist/js/gmaps.js') }}"></script>
     
     <script>
+        var stations = <?php print_r(json_encode($stations)) ?>;
+
+        var mymap = new GMaps({
+            el: '#mymap',
+            lat: 14.1648,
+            lng: 121.2413,
+            zoom:10
+        });
+
+        $.each( stations, function( index, value ){
+            mymap.addMarker({
+                lat: value.lat,
+                lng: value.lng,
+                title: value.location,
+
+                click: function(e) {
+                    alert('This is ' + value.location);
+                }
+            });
+        });
+
         $(document).ready(function() {
     
         var panels = $('.user-infos');
