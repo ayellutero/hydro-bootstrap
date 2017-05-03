@@ -279,6 +279,7 @@ class ComposerStaticInitefbd4bfe8c1433c8d28821bd4cce8382
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\HydroNotifEvent' => __DIR__ . '/../..' . '/app/Events/HydroNotifEvent.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -306,6 +307,7 @@ class ComposerStaticInitefbd4bfe8c1433c8d28821bd4cce8382
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Report' => __DIR__ . '/../..' . '/app/Report.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
+        'App\\Schedule' => __DIR__ . '/../..' . '/app/Schedule.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\UserActivity' => __DIR__ . '/../..' . '/app/UserActivity.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
@@ -322,6 +324,7 @@ class ComposerStaticInitefbd4bfe8c1433c8d28821bd4cce8382
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateReportsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_25_082520_create_reports_table.php',
         'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_24_233037_create_roles_table.php',
+        'CreateSchedulesTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_02_155151_create_schedules_table.php',
         'CreateUserRoleTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_24_233116_create_user_role_table.php',
         'CreateUseractivityTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_25_082628_create_useractivity_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',

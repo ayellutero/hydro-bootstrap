@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Schedule; 
 
 class CalendarController extends Controller
 {
     public function index(){
-        return view('Calendar.index', compact('calendar'));
+        $events = Schedule::all();
+        
+        return view('Calendar.index', compact('calendar'))->with('events', $events);
     }
 }

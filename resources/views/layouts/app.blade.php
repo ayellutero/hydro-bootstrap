@@ -25,6 +25,10 @@
     <!-- Custom Fonts -->
     <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
+    <!-- Calendar CSS -->    
+    <link href="{{ asset('vendor/fullcalendar/css/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+
+
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -171,7 +175,12 @@
     <script type="text/javascript" src="{{ asset('dist/js/script-map.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6xvLOfDOXnS5nPnI9dHa4kg664Tu_TtU&libraries=places"></script>
     
-    
+    <!-- Calendar Script -->
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/jquery-ui.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/js/fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/fullcalendar-script.js') }}"></script>
+
 
     <script>
         $(document).ready(function() {
@@ -219,19 +228,84 @@
 
         //tooltip
         $('[data-toggle="tooltip"]').tooltip(); 
+        /*
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
 
-        // scheduler
-        scheduler.init('scheduler_here', new Date(),"month");
+       $('#button_id').click(function() {
+            var newEvent = {
+                title: 'NEW EVENT',
+                start: new Date(y, m, d)
+            };
+            $('#calendar').fullCalendar( 'renderEvent', newEvent , 'stick');
+        });
 
-        var events = [
-                {id:1, text:"Meeting",   start_date:"04/11/2013 14:00",end_date:"04/11/2013 17:00"},
-                {id:2, text:"Conference",start_date:"04/15/2013 12:00",end_date:"04/18/2013 19:00"},
-                {id:3, text:"Interview", start_date:"04/24/2013 09:00",end_date:"04/24/2013 10:00"}
-                ];
-                
-        scheduler.parse(events, "json");//takes the name and format of the data source
-            });
+    */
+   /* var events = {!! $events !!}
+    // foreach(events as event){
+        $('#button_id').click(function() {
+        var newEvent = {
+                title: events[0].title,
+                start: events[0].date
+        }
+        $('#calendar').fullCalendar('renderEvent',newEvent,true)
+    // }
     });
+
+    // alert( events[0].title); */
+
+       
+
+    /**************/
+    /*
+            var calendar = $('#calendar').fullCalendar({
+            defaultView: 'agendaWeek',
+            editable: true,
+                selectable: true,
+            //header and other values
+            select: function(start, end, allDay) {
+                endtime = $.fullCalendar.formatDate(end,'h:mm tt');
+                starttime = $.fullCalendar.formatDate(start,'ddd, MMM d, h:mm tt');
+                var mywhen = starttime + ' - ' + endtime;
+                $('#createEventModal #apptStartTime').val(start);
+                $('#createEventModal #apptEndTime').val(end);
+                $('#createEventModal #apptAllDay').val(allDay);
+                $('#createEventModal #when').text(mywhen);
+                $('#createEventModal').modal('show');
+            }
+            });
+
+        $('#submitButton').on('click', function(e){
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+
+            doSubmit();
+        });
+
+        function doSubmit(){
+            $("#createEventModal").modal('hide');
+            console.log($('#apptStartTime').val());
+            console.log($('#apptEndTime').val());
+            console.log($('#apptAllDay').val());
+            alert("form submitted");
+                
+            $("#calendar").fullCalendar('renderEvent',
+                {
+                    title: $('#patientName').val(),
+                    start: new Date($('#apptStartTime').val()),
+                    end: new Date($('#apptEndTime').val()),
+                    allDay: ($('#apptAllDay').val() == "true"),
+                },
+                true);
+        }
+        
+    */
+    });
+
+
+
     </script>
 </body>
 

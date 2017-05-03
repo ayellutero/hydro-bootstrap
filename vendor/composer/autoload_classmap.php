@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\Events\\HydroNotifEvent' => $baseDir . '/app/Events/HydroNotifEvent.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
@@ -34,6 +35,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Report' => $baseDir . '/app/Report.php',
     'App\\Role' => $baseDir . '/app/Role.php',
+    'App\\Schedule' => $baseDir . '/app/Schedule.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\UserActivity' => $baseDir . '/app/UserActivity.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
@@ -50,6 +52,7 @@ return array(
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateReportsTable' => $baseDir . '/database/migrations/2017_04_25_082520_create_reports_table.php',
     'CreateRolesTable' => $baseDir . '/database/migrations/2017_04_24_233037_create_roles_table.php',
+    'CreateSchedulesTable' => $baseDir . '/database/migrations/2017_05_02_155151_create_schedules_table.php',
     'CreateUserRoleTable' => $baseDir . '/database/migrations/2017_04_24_233116_create_user_role_table.php',
     'CreateUseractivityTable' => $baseDir . '/database/migrations/2017_04_25_082628_create_useractivity_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
