@@ -125,7 +125,7 @@
                         <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
                     </li>
                     <li>
-                        <a href=""><i class="fa fa-bar-chart-o fa-fw"></i> Sensor Statistics</a>
+                        <a href="statistics"><i class="fa fa-bar-chart-o fa-fw"></i> Statistics</a>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
