@@ -18,6 +18,8 @@
 
     <div>
         <a class="btn btn-success" data-toggle="modal" data-target="#createSched"><i class="fa fa-plus" aria-hidden="true"></i> Create New Schedule</a>
+        <a class="btn btn-small" href="{{ URL::to('notify/' . Auth::user()->id) }}">Notify</a>
+ 
     </div>
 
     <!-- View Report Modal -->
@@ -32,13 +34,13 @@
                 
                 <div class="modal-body" style="text-align: left">
                     {!! Form::open(['url' => 'calendar']) !!}
-                        <div class="form-group hide">
-                            {!! Form::text('title', 'Station maintenance',['class'=>'form-control', 'required' => 'true']) !!}
-                        </div>
-
                         <div class="form-group">
-                            {!! Form::label('station_label', 'Station Name:') !!}
-                            {!! Form::text('station', null,['class'=>'form-control', 'required' => 'true']) !!}
+                            {!! Form::label('title', 'Station Name:') !!}
+                            <select class="form-control" name="title" id="title" required>
+                               @foreach($stations as $station)
+                                    <option value ="{{$station->device_id ." ". $station->location}}">{{ $station->device_id . " " . $station->location }}</option>
+                               @endforeach
+                            </select>
 	                    </div>
 
                         <div class="form-group">
@@ -47,23 +49,21 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('staff-in-charge', 'Staff-in-Charge:') !!}
-                            {!! Form::text('staff', null,['class'=>'form-control', 'required' => 'true']) !!}
-	                    </div>
+                            {!! Form::label('staff-in-charge', 'Staff-in-Charge:') !!}   
+                            <select class="form-control" name="staff" id="staff" required>
+                               @foreach($users as $user)
+                                    <option value ="{{$user->employee_id}}">{{ $user->lastname . ", " . $user->firstname }}</option>
+                               @endforeach
+                            </select>
+                        </div>
 
                         <div class="form-group">
-                            {!! Form::label('notify-via', 'Notify via:') !!}
-                            <br>
-                            <div id="notify_email">
-                                {{ Form::checkbox('notify_email', true) }} E-mail
-                            </div>
-                            {!! Form::text('email_to_notif', null,['id' => 'email_notif', 'class'=>'form-control']) !!}
-                            <br>
                             <div id="notify_sms">
-                                {{ Form::checkbox('notify_sms', 'true') }} SMS
+                                {{ Form::checkbox('notify_sms', 1) }}
+                                {!! Form::label('notify-via', 'Notify via SMS') !!}
                             </div>
-                            {!! Form::text('sms_to_notif', null,['id' => 'sms_notif', 'class'=>'form-control']) !!}
-                            
+                            <br>
+                            <i>Reminders will automatically be sent via electronic mail.</i>
 	                    </div>
                 </div>
                 <div class="modal-footer">

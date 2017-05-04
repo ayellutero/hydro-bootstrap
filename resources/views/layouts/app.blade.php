@@ -202,27 +202,7 @@
                 })
             });
 
-            // hide email and sms input fields
-            $('input[name="email_to_notif"]').hide();
-            $('input[name="sms_to_notif"]').hide();
-            //show when the checkbox is clicked
-            $('input[name="notify_email"]').on('click', function(){
-                if ( $(this).prop('checked') ) {
-                    $('input[name="email_to_notif"]').fadeIn();
-                } 
-                else {
-                    $('input[name="email_to_notif"]').hide();
-                }
-            });
-        
-            $('input[name="notify_sms"]').on('click', function(){
-                if ( $(this).prop('checked') ) {
-                    $('input[name="sms_to_notif"]').fadeIn();
-                } 
-                else {
-                    $('input[name="sms_to_notif"]').hide();
-                }
-            });
+            
 
             // hide PW field button
             $('#change_pw').hide();
@@ -243,17 +223,8 @@
             //tooltip
             $('[data-toggle="tooltip"]').tooltip(); 
 
-            // scheduler
-            scheduler.init('scheduler_here', new Date(),"month");
-
-            var events = [
-                    {id:1, text:"Meeting",   start_date:"04/11/2013 14:00",end_date:"04/11/2013 17:00"},
-                    {id:2, text:"Conference",start_date:"04/15/2013 12:00",end_date:"04/18/2013 19:00"},
-                    {id:3, text:"Interview", start_date:"04/24/2013 09:00",end_date:"04/24/2013 10:00"}
-            ];
-                    
-            scheduler.parse(events, "json");//takes the name and format of the data source
-        });
+            /***** CALENDAR EK EK ******/
+     });
     </script>
 </body>
 

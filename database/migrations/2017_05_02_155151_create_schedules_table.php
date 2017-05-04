@@ -19,7 +19,7 @@ class CreateSchedulesTable extends Migration
             $table->string('title');
             $table->string('start_date');
             $table->string('staff');
-            $table->boolean('notify_email')->default(false);
+            $table->boolean('notify_email')->default(true);
             $table->string('email_to_notif')->nullable();
             $table->boolean('notify_sms')->default(false);
             $table->string('sms_to_notif')->nullable();

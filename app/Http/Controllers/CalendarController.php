@@ -3,19 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Schedule; 
+use App\User;
+use App\Station;
 use Request;
+use Carbon\Carbon; 
+use App\Notifications\UpcomingMaintenance;
 
 class CalendarController extends Controller
 {
     public function index(){
         $events = Schedule::all();
+        $users = User::orderBy('lastname')->get();
+        $stations = Station::orderBy('location')
+                    ->get();
         
-        return view('Calendar.index', compact('calendar'))->with('events', $events);
+        return view('Calendar.index', compact('calendar'))
+                    ->with('events', $events)
+                    ->with('stations', $stations)
+                    ->with('users', $users);
     }
 
     public function store(){
         $schedule=Request::all();
+
+        // Get user chosen in the by the employee_id
+        $staff = User::where('employee_id',  $schedule['staff'])->get();
+        
+        // echo Carbon::now()->subDays(3);
+        // Automatically set the email_to_notif to the chosen user's email
+        $schedule['email_to_notif'] =  $staff[0]->email;
+        // echo $schedule['email_to_notif'];
+
+        if(Request::has('notify_sms'))  // If notify via SMS is checked,
+            if($schedule['notify_sms'] == 1) 
+                // Automatically set the email_to_notif to the chosen user's email
+                $schedule['sms_to_notif'] =  $staff[0]->contact_num;
+
+
+        static::notifyUser($staff[0]->id, $schedule['start_date'], $schedule['title']);
         Schedule::create($schedule);
+
+        
         return redirect('calendar')->with('message', 'Successfully scheduled a maintenance!');
     }
 
@@ -25,5 +53,10 @@ class CalendarController extends Controller
 
     public function update($id){
 
+    }
+
+    public function notifyUser($id, $date, $title){
+        $user = User::findOrFail($id);
+        $user->notify(new UpcomingMaintenance($user, $date, $title));
     }
 }
