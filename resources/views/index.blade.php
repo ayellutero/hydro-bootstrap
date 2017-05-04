@@ -21,7 +21,8 @@
             mymap.addMarker({
                 lat: value.lat,
                 lng: value.lng,
-	            title: value.location + value.province,
+	            title: value.location + ' ' + value.province,
+
                 infoWindow:{
                     content: '<b>Device ID:</b>'
                 },

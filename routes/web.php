@@ -33,6 +33,10 @@ Route::get('/userProfile', function () {
     return view('userProfile');
 });
 
+Route::get('statistics', function() {
+    return view('statistics');
+});
+
 Route::get('/pusher', function(){
     event(new App\Events\HydroNotifEvent('Hi there'));
     return "Event created";
