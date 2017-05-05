@@ -38,6 +38,7 @@ class CreateReportsTable extends Migration
             $table->string('noted_by')->nullable();
             $table->string('n_position')->nullable();
             $table->tinyInteger('if_approved')->default(0);
+            $table->date('date_approved')->nullable();
             $table->timestamps();
         });
 

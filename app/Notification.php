@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Notification extends Model
 {
     //
-    protected $fillable   = ['receiver_id', 'sender_id', 'message', 'sent_at_date', 'sent_at_time'];
+    protected $fillable   = ['receiver_id', 'sender_id', 'message', 'is_read', 'sent_at_date', 'sent_at_time'];
  
    /* public function getDates()
     {

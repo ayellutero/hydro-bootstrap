@@ -17,12 +17,13 @@ class UpcomingMaintenance extends Notification
      *
      * @return void
      */
-    public function __construct(User $user, $maintenanceDate, $station)
+    public function __construct(User $user, $maintenanceDate, $station, $id)
     {
         //
         $this->user = $user; 
         $this->maintenanceDate = $maintenanceDate;
         $this->station = $station;
+        $this->id = $id;
     }
 
     /**
@@ -46,9 +47,9 @@ class UpcomingMaintenance extends Notification
     {
         return (new MailMessage)
                     ->subject('Upcoming Hydromet Station Maintenance')
-                    ->line('The this is to remind you of the upcoming maintenance for the Hydromet station '.$this->station.' due on '.$this->maintenanceDate.'.')
+                    ->line('The this is to remind you of the upcoming maintenance for the Hydromet station '.$this->station.' due on '.\Carbon\Carbon::parse($this->maintenanceDate)->format('M d, Y').'.')
                     ->line('If maintenance has already been done, please confirm by clicking the button below.')
-                    ->action('Confirm Schedule', url('/'));
+                    ->action('Confirm Schedule', url('confirmSchedule', $this->id));
                     //  ->line('Thank you for using our application!');
     }
 
@@ -63,5 +64,12 @@ class UpcomingMaintenance extends Notification
         return [
             //
         ];
+    }
+
+    public function toNexmo($notifiable)
+    {
+        return (new NexmoMessage)
+                    ->content('Your SMS message content');
+                    // ->from('number')
     }
 }

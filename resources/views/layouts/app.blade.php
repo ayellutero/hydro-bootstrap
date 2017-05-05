@@ -81,7 +81,13 @@
                         </li>
                         @endif
                         <li class="message-preview">
-                            <a href="notifications"><span class="badge badge-pill badge-danger"> {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}</span> All Notifications</a>
+                            <?php $notifications = DB::table('notifications')->get(); ?>
+                            {!! Form::model($notifications,['method' => 'PATCH','route'=>['notifications.update', Auth::user()->employee_id]]) !!}
+                                <div class="hide">
+                                    {!! Form::text('is_read', 1,['class'=>'form-control', 'readonly'=>'true' ]) !!}
+                                </div>
+                                <button href="#" class="btn btn-flat" style="background:white"><span class="badge badge-pill badge-danger"> {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}</span> All Notifications</button>
+                            {!! Form::close() !!}
                         </li>
                     </ul>
                 </li>
@@ -145,6 +151,8 @@
                     <li>
                         <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
                     </li>
+
+                    <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
                     @endif
                 </ul>
             </div>
@@ -205,25 +213,39 @@
             
 
             // hide PW field button
-            $('#change_pw').hide();
-            $('#pw_btn').on('click', function (event) {
+            // $('#change_pw').hide();
+            /*$('#pw_btn').on('click', function (event) {
                 $('#pw_btn').hide();
                 $('#change_pw').show();
             });
             $('#cancel-button').on('click', function (event) {
                 $('#pw_btn').show();
                 $('#change_pw').hide();
-            });
+            });*/
 
             // Datatable JS
             $('#all-users').DataTable();
-            $('#all-reports').DataTable();
-            $('#pending-reports').DataTable();
+            var tableMyReps = $('#my-reports').DataTable({
+                order: [[ 4, "desc" ]]
+            });
+            var tableAllReps = $('#all-reports').DataTable({
+                order: [[ 4, "desc" ]]
+            });
+            var tablePenReps = $('#pending-reports').DataTable({
+                order: [[ 4, "desc" ]]
+            });
+            var tableUserAct = $('#user-activity').DataTable({
+                order: [[ 0, "desc" ]]
+            });
+            var tableAllNotifs = $('#all-notifs').dataTable({
+                order: [[ 0, "desc"]]
+            });
+
+        
     
             //tooltip
             $('[data-toggle="tooltip"]').tooltip(); 
 
-            /***** CALENDAR EK EK ******/
      });
     </script>
 </body>

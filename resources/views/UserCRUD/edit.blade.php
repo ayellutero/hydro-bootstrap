@@ -25,8 +25,8 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Password:</strong>
-            <a class="btn btn-primary" id="pw_btn">Change</a>
-            <input type="password" id="change_pw">
+            <a class="btn btn-primary" id="pw_btn" onclick="showPW()">Change</a>
+            <input type="password" id="aaa">
         </div>
     </div><br>
 

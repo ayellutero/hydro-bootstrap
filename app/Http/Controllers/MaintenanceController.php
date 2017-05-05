@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Station;
 
 class MaintenanceController extends Controller
 {
     //
     public function addRepView(){
-        return view('/Reports/add_report');
+        $stations = Station::orderBy('location')->get();
+
+        return view('/Reports/add_report')->with('stations', $stations);
     }
 
     public function allRepsView(){

@@ -2,6 +2,13 @@
 
 @section('content')
 
+@if(Session::has('message'))
+<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  {{ Session::get('message') }}
+</div>
+@endif
+
 <div class="card-panel" style="margin:1.5%; text-align: center;">
     <h5>ADD NEW REPORT</h5>
 </div>
@@ -13,9 +20,13 @@
 			{!! Form::text('emp_id',Auth::user()->employee_id,['class'=>'form-control', 'hidden' =>'true', 'readonly'=>'true']) !!}
 		</div>
 		<div class="form-group">
-	        {!! Form::label('station_name', 'Station Name:') !!}
-	        {!! Form::text('station_name',null,['class'=>'form-control', 'required' => 'true']) !!}
-	    </div>
+			{!! Form::label('station_name', 'Station Name:') !!}
+			<select class="form-control" name="station_name" id="title" required>
+				@foreach($stations as $station)
+					<option value ="{{$station->device_id ." ". $station->location}}">{{ $station->device_id . " " . $station->location }}</option>
+				@endforeach
+			</select>
+		</div>
 
 	    <div class="form-group">
 	        {!! Form::label('location', 'Location (Town, Province):') !!}
@@ -107,7 +118,7 @@
 
 			<!-- NOTIFICATIONS -->
 			{!! Form::text('sender_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-			{!! Form::text('receiver_id', '201229207',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+			{!! Form::text('receiver_id', '0',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 			{!! Form::text('message', Auth::user()->employee_id . ' added a new report',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 			{!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 			{!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	

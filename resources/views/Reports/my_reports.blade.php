@@ -2,20 +2,28 @@
 
 @section('content')
 
+@if(Session::has('message'))
+<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  {{ Session::get('message') }}
+</div>
+
+@endif
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading"> My Reports </div>
 
             <div class="panel-body">
-                <table id="all-users" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="my-reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Station Name</th>
                             <th>Location</th>
                             <th>Sensor Type</th>
-                            <th>Date Assessed</th>
+                            <th>Date Visited</th>
+                            <th>Date Approved</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -28,7 +36,8 @@
                                 <td>{{ $report->station_name }}</td>
                                 <td>{{ $report->location }}</td>
                                 <td>{{ $report->sensor_type }}</td>
-                                <td>{{ $report->date_assessed }}</td>
+                                <td>{{ $report->date_visited }}</td>
+                                <td>{{ $report->date_approved }}</td>
                                 <td>
                                     <a class="btn" data-toggle="modal" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                     @if($report->if_approved == 1)

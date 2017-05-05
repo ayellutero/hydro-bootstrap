@@ -15,7 +15,7 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function(Blueprint $table)
         {
-            $table->increments('sched_id');
+            $table->increments('id');
             $table->string('title');
             $table->string('start_date');
             $table->string('staff');
@@ -23,6 +23,7 @@ class CreateSchedulesTable extends Migration
             $table->string('email_to_notif')->nullable();
             $table->boolean('notify_sms')->default(false);
             $table->string('sms_to_notif')->nullable();
+            $table->boolean('is_confirmed')->default(false);
             $table->timestamps();
         });
 

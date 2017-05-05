@@ -179,6 +179,9 @@ return [
 
         // Laravel Collective
         Collective\Html\HtmlServiceProvider::class,
+
+        //Nexmo (SMS notifs)
+        Nexmo\Laravel\NexmoServiceProvider::class,
     ],
 
     /*
@@ -229,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Nexmo' => \Nexmo\Laravel\Facade\Nexmo::class,
     ],
 
 ];

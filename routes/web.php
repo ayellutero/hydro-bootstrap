@@ -131,6 +131,13 @@ Route::group(['middleware' => 'web'], function () {
     /* NOTIFS ROUTES*/
     Route::resource('notifications','NotificationController');
 
+    Route::get('myNotifications', [
+        'uses'=> 'NotificationController@index',
+        'as' => 'myNotifications',
+        'middleware' => 'roles',
+        'roles' => ['Head', 'Admin', 'User']
+    ]);
+
     Route::get('viewPendingReports', [
         'uses'=> 'ReportController@show_pending',
         'as' => 'viewPendingReports',
@@ -151,4 +158,17 @@ Route::group(['middleware' => 'web'], function () {
         'middleware' => 'roles',
         'roles' => ['Admin', 'Head', 'User']
     ]);
+
+    Route::get('confirmSchedule/{id}', 'CalendarController@confirmSched');
+
+
+    /* SMS */
+    Route::get('/sms/send/{to}', function(\Nexmo\Client $nexmo, $to){
+        $message = $nexmo->message()->send([
+            'to' => $to,
+            'from' => '15556666666',
+            'text' => 'Sending SMS from Laravel. Woohoo!'
+        ]);
+        Log::info('sent message: ' . $message['message-id']);
+    });
 });

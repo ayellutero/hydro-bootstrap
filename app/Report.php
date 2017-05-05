@@ -27,6 +27,7 @@ class Report extends Model
     'c_position',
     'noted_by',
     'n_position',
-    'if_approved'
+    'if_approved',
+    'date_approved'
     ];
 }

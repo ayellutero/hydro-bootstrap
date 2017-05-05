@@ -67,19 +67,9 @@ class User extends Authenticatable
     {   
         return $this->attributes['password'] = bcrypt($password);
     }
-    /*
-    public function notifications()
-    {
-        return $this->hasMany('Notification');
-    }
-
-    public function newNotification()
-    {
-        $notification = new Notification;
-        $notification->user()->associate($this);
     
-        return $notification;
+    public function routeNotificationForNexmo()
+    {
+        return $this->contact_num;
     }
-    */
-    
 }
