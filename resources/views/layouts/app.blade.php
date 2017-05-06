@@ -14,6 +14,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/bootstrap-toggle/css/bootstrap-toggle.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="{{ asset('dist/css/sb-admin.css') }}" rel="stylesheet">
@@ -173,6 +174,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap-toggle/js/bootstrap-toggle.min.js') }}"></script>
 
     <!-- DataTables JavaScript -->
     <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
@@ -212,10 +214,8 @@
                 })
             });
 
-           $("#pw_btn").click(function(){
-                $("#pw_change").toggle();
-            });
-
+        
+      
             // hide PW field button
             // $('#change_pw').hide();
             /*$('#pw_btn').on('click', function (event) {

@@ -25,13 +25,10 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Password:</strong>
-            <a class="btn btn-primary" id="pw_btn">Change</a>
+            <a class="btn btn-primary" id="pw_btn" onclick="showHide()">Change</a>
+            <input type="password" id="pw_change">
         </div>
-        <div class="form-group" id="pw_change">
-            <input type="password">
-        </div>  
-    </div>
-    <br>
+    </div><br>
 
     <div class="hide">
         <!-- USER ACTIVITY -->
@@ -39,8 +36,7 @@
         {!! Form::text('employee_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
         {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
         {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-        {!! Form::text('activity', 'Edited '.$user->firstname.' '.$user->lastname."'s (".$user->employee_id.') profile',
-                        ['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+        {!! Form::text('activity', 'Edited '.$user->firstname.' '.$user->lastname."'s (".$user->employee_id.') profile', ['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
         {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
         {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}
     </div>

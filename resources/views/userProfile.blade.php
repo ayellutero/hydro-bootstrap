@@ -132,7 +132,7 @@
                 {!! Form::text('contact_num', Auth::user()->contact_num, array('placeholder' => 'Contact #','class' => 'form-control')) !!}
             </div>
         </div>
-
+         @if ( Auth::user()->hasRole('Admin'))
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Position/Permission:</strong></br>
@@ -149,7 +149,7 @@
                 <input type="password" id="change_pw">
             </div>
         </div><br>
-
+        @endif
             </div>
             <div class="modal-footer">
                     <button class="btn btn-success" type="submit" name="action">Save Changes</button>
