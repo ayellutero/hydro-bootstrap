@@ -68,8 +68,4 @@ class User extends Authenticatable
         return $this->attributes['password'] = bcrypt($password);
     }
     
-    public function routeNotificationForNexmo()
-    {
-        return $this->contact_num;
-    }
 }

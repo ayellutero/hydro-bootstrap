@@ -14,8 +14,6 @@ class NotificationController extends Controller
     //
     public function index()
     {
-        
-
         $notifications=Notification::all();
         return view('Notifications.index',compact('notifications'));
     }
@@ -35,5 +33,12 @@ class NotificationController extends Controller
 
         return redirect('myNotifications');
          
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        Notification::where('receiver_id', $id)->delete();
+        return redirect()->back()
+                        ->with('message','Successfully cleared your notifications.');
     }
 }

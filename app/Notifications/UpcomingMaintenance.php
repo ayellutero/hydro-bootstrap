@@ -66,10 +66,4 @@ class UpcomingMaintenance extends Notification
         ];
     }
 
-    public function toNexmo($notifiable)
-    {
-        return (new NexmoMessage)
-                    ->content('Your SMS message content');
-                    // ->from('number')
-    }
 }

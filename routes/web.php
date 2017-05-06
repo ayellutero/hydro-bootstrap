@@ -161,14 +161,4 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('confirmSchedule/{id}', 'CalendarController@confirmSched');
 
-
-    /* SMS */
-    Route::get('/sms/send/{to}', function(\Nexmo\Client $nexmo, $to){
-        $message = $nexmo->message()->send([
-            'to' => $to,
-            'from' => '15556666666',
-            'text' => 'Sending SMS from Laravel. Woohoo!'
-        ]);
-        Log::info('sent message: ' . $message['message-id']);
-    });
 });

@@ -25,10 +25,13 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Password:</strong>
-            <a class="btn btn-primary" id="pw_btn" onclick="showPW()">Change</a>
-            <input type="password" id="aaa">
+            <a class="btn btn-primary" id="pw_btn">Change</a>
         </div>
-    </div><br>
+        <div class="form-group" id="pw_change">
+            <input type="password">
+        </div>  
+    </div>
+    <br>
 
     <div class="hide">
         <!-- USER ACTIVITY -->

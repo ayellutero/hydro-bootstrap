@@ -9,6 +9,7 @@ use Request;
 use Carbon\Carbon; 
 use App\Notifications\UpcomingMaintenance;
 use App\Notification;
+use Borla\Chikka\Chikka;
 
 class CalendarController extends Controller
 {
@@ -40,7 +41,7 @@ class CalendarController extends Controller
 
         Schedule::create($schedule);
         $sch = Schedule::where('created_at', \Carbon\Carbon::now())->get()->first(); // get the newly created sched
-        static::notifyUser($staff[0]->id, $schedule['start_date'], $schedule['title'], $sch->id);
+        // static::notifyUser($staff[0]->id, $schedule['start_date'], $schedule['title'], $sch->id);
 
         $schedule['receiver_id'] = $staff[0]->employee_id;
         if(strcmp($schedule['sender_id'], $schedule['receiver_id'])!=0)
@@ -64,12 +65,18 @@ class CalendarController extends Controller
     public function notifyUser($id, $date, $title, $notif_id){
         $user = User::findOrFail($id);
         $user->notify(new UpcomingMaintenance($user, $date, $title, $notif_id));
+
+        // Notify via SMS code here
+        
     }
 
     public function confirmSched($id){
         $sched = Schedule::find($id);
         $confirm['is_confirmed'] = 1;
         $sched->update($confirm);
+        
+        //create User Activity
+        // create notification for admins and unit heads
 
         return view('Calendar.success');
     }

@@ -16,6 +16,7 @@
         <div id='calendar'></div>
     </div>
 
+    @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
     <div>
         <a class="btn btn-success" data-toggle="modal" data-target="#createSched"><i class="fa fa-plus" aria-hidden="true"></i> Create New Schedule</a> 
     </div>
@@ -95,6 +96,7 @@
             </div>
         </div>
     </div>
+    @endif
     <br>
 </div>
 

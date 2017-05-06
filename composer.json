@@ -9,9 +9,9 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",
-        "nexmo/client": "^0.4.0",
-        "nexmo/laravel": "^0.4.0",
-        "pusher/pusher-php-server": "^2.6"
+        "pusher/pusher-php-server": "^2.6",
+        "ronaldborla/chikka": "@dev"
+
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

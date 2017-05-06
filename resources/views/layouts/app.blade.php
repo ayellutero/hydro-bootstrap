@@ -148,11 +148,13 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
+                    @if ( Auth::user()->hasRole('Admin'))
                     <li>
                         <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
                     </li>
 
                     <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
+                    @endif
                     @endif
                 </ul>
             </div>
@@ -210,7 +212,9 @@
                 })
             });
 
-            
+           $("#pw_btn").click(function(){
+                $("#pw_change").toggle();
+            });
 
             // hide PW field button
             // $('#change_pw').hide();
@@ -245,6 +249,10 @@
     
             //tooltip
             $('[data-toggle="tooltip"]').tooltip(); 
+
+            // resize fullcalendar
+            $('#calendar').fullCalendar('option', 'height', 500);
+
 
      });
     </script>
