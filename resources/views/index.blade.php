@@ -5,6 +5,12 @@
 	<script src="http://maps.google.com/maps/api/js"></script>
   	<script src="{{ asset('dist/js/gmaps.js') }}"></script>
 
+    @if(Session::has('status'))
+    <div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{ Session::get('status') }}
+    </div>
+    @endif 
     <div id="mymap" style="width:100%;border:1px solid red;height:565px"></div>
     
     <script type="text/javascript">
