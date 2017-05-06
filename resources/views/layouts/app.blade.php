@@ -185,9 +185,11 @@
     <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/jquery-ui.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/fullcalendar/js/fullcalendar.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/fullcalendar-script.js') }}"></script>
+    <!--<script type="text/javascript" src="{{ asset('vendor/fullcalendar/fullcalendar-script.js') }}"></script>-->
 
-    <script>
+    <script> // MAIN Script
+    var events = $.getJSON('calendarEvents.php')
+    console.log(events);
         $(document).ready(function() {
             var panels = $('.user-infos');
             var panelsButton = $('.dropdown-user');
@@ -245,15 +247,22 @@
                 order: [[ 0, "desc"]]
             });
 
-        
-    
             //tooltip
             $('[data-toggle="tooltip"]').tooltip(); 
 
-            // resize fullcalendar
-            $('#calendar').fullCalendar('option', 'height', 500);
-
-
+            // customize fullcalendar
+            $('#calendar').fullCalendar({
+                height: 500,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                eventLimit: true, 
+                editable: false,
+                eventSources: ['calendarEvents'] // gets all events from database
+            });         
+            
      });
     </script>
 </body>

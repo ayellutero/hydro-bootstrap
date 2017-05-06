@@ -7,7 +7,6 @@
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   {{ Session::get('message') }}
 </div>
-
 @endif
 
 <div id="full-calendar" class="row card-panel" style="margin:1.5%; margin-top:0%; text-align: center;">
@@ -84,10 +83,6 @@
                     {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
                     {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
                 </div>
-
-
-
-
                 <div class="modal-footer">
                     <button   id="button_id" class="btn btn-success" type="submit" name="action">Create</button>
                      {{ Form::close() }}

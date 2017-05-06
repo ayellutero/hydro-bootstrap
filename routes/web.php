@@ -161,4 +161,8 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('confirmSchedule/{id}', 'CalendarController@confirmSched');
 
+
+    Route::get('calendarEvents', function(){
+        return view('layouts.calendarEvents');
+    });
 });
