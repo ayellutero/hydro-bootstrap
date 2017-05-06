@@ -17,6 +17,10 @@ try {
         $calEvents['title'] = $cal->title;
         $calEvents['start'] = $cal->start_date;
         $calEvents['allDay'] = false;
+        $calEvents['staff'] = $cal->staff;
+        $calEvents['is_confirmed'] = $cal->is_confirmed;
+        $calEvents['email'] = $cal->email_to_notif;
+
 
         // Merge the event array into the return array
         array_push($events, $calEvents);

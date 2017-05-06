@@ -260,7 +260,25 @@
                 },
                 eventLimit: true, 
                 editable: false,
-                eventSources: ['calendarEvents'] // gets all events from database
+                eventSources: ['calendarEvents'], // gets all events from database
+                eventClick: function(calEvent, jsEvent, view) {
+
+                    // alert('Event: ' + calEvent.title);
+                    // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                    // alert('View: ' + view.name);
+
+                    // change the border color just for fun
+                    // $(this).css('border-color', 'red');
+                    var fin;
+                    if(calEvent.is_confirmed == 0) fin = "No"
+                    else fin = "Yes"
+
+                    var side = $('#eventDetails');
+                    side.html('<h4>' + calEvent.title + '</h4><strong>Date:</strong><br>' + moment(calEvent.start).format('MMM, DD, YYYY') + '<br><br /><strong>Staff:</strong><br>' + calEvent.staff + '<br><br /><strong>Email:<br></strong>' + calEvent.email + '<br><br /><strong>Performed:</strong><br>' + fin);
+	
+$("#modal-content,#modal-background").toggleClass("active");
+
+                }
             });         
             
      });
