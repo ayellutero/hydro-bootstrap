@@ -112,10 +112,7 @@
                         </li>
                     </ul>
                 </li>
-                @else
-                <li>
-                    <a href="/login" class="btn btn-primary btn-md">login <i class="fa fa-sign-in fa-fw"></i></a>
-                </li>
+                
                 @endif
             </ul>
             @endif
@@ -128,34 +125,39 @@
                         <a href="/"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
                     </li>
                     @if (Auth::check())
-                    <li>
-                        <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
-                    </li>
-                    <li>
-                        <a href="statistics"><i class="fa fa-bar-chart-o fa-fw"></i> Statistics</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
+                        <li>
+                            <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
+                        </li>
+                        <li>
+                            <a href="statistics"><i class="fa fa-bar-chart-o fa-fw"></i> Statistics</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
+                            <ul id="demo" class="collapse">
+                                <li>
+                                    <a href="addMaintenanceReport"><i class="fa fa-plus-square-o fa-fw" aria-hidden="true"></i> Add Report</a>
+                                </li>
+                                <li>
+                                    <a href="viewMyMaintenanceReports"><i class="fa fa-file-o fa-fw" aria-hidden="true"></i> View My Reports</a>
+                                </li>
+                                <li>
+                                    <a href="viewMaintenanceReports"><i class="fa fa-files-o fa-fw" aria-hidden="true"></i> View All Reports</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        @if ( Auth::user()->hasRole('Admin'))
                             <li>
-                                <a href="addMaintenanceReport"><i class="fa fa-plus-square-o fa-fw" aria-hidden="true"></i> Add Report</a>
+                                <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
                             </li>
-                            <li>
-                                <a href="viewMyMaintenanceReports"><i class="fa fa-file-o fa-fw" aria-hidden="true"></i> View My Reports</a>
-                            </li>
-                            <li>
-                                <a href="viewMaintenanceReports"><i class="fa fa-files-o fa-fw" aria-hidden="true"></i> View All Reports</a>
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
-                    @if ( Auth::user()->hasRole('Admin'))
-                    <li>
-                        <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
-                    </li>
 
-                    <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
-                    @endif
+                            <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
+                        @endif
+                        
+                    @else
+                        <li>
+                            <a href="/login" class=""><i class="fa fa-sign-in fa-fw"></i>Log in</a>
+                        </li>
                     @endif
                 </ul>
             </div>

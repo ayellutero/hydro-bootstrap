@@ -33,14 +33,7 @@ Route::get('/userProfile', function () {
     return view('userProfile');
 });
 
-Route::get('statistics', function() {
-    return view('statistics');
-});
 
-Route::get('/pusher', function(){
-    event(new App\Events\HydroNotifEvent('Hi there'));
-    return "Event created";
-});
 
 // Group of ROUTES w Permissions
 Route::group(['middleware' => 'web'], function () {
@@ -161,8 +154,15 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('confirmSchedule/{id}', 'CalendarController@confirmSched');
 
-
     Route::get('calendarEvents', function(){
         return view('layouts.calendarEvents');
     });
+
+    /* Stats */
+    Route::resource('statistics','StatController',
+    [
+        'middleware' => 'roles',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
 });
