@@ -21,7 +21,6 @@
     border: none;
     text-align: left;
     overflow: auto;
-    /*background: #eee;*/
 }
     
 #external-events .fc-event {

@@ -158,6 +158,8 @@ Route::group(['middleware' => 'web'], function () {
         return view('layouts.calendarEvents');
     });
 
+    Route::get('statData', '\App\Stat@statsData');
+
     /* Stats */
     Route::resource('statistics','StatController',
     [

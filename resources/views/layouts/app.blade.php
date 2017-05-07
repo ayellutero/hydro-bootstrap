@@ -29,6 +29,9 @@
     <!-- Calendar CSS -->    
     <link href="{{ asset('vendor/fullcalendar/css/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
 
+    <!--FLOT-->
+    <!--<link href="{{ asset('vendor/flot/excanvas.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">-->
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -163,7 +166,7 @@
             </div>
             <!-- /.sidebar-collapse -->
         </nav>
-
+        
         <div id="page-wrapper">
             @yield('content')
         </div>
@@ -189,9 +192,13 @@
     <script type="text/javascript" src="{{ asset('vendor/fullcalendar/js/fullcalendar.min.js') }}"></script>
     <!--<script type="text/javascript" src="{{ asset('vendor/fullcalendar/fullcalendar-script.js') }}"></script>-->
 
+    <!-- FLOT Script -->
+    <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.pie.js') }}"></script>
+    
     <script> // MAIN Script
-    var events = $.getJSON('calendarEvents.php')
-    console.log(events);
+   
+   
         $(document).ready(function() {
             var panels = $('.user-infos');
             var panelsButton = $('.dropdown-user');
@@ -287,9 +294,96 @@
                     side.html("<label>Performed:</label><input type=text value='" + fin + "' class='form-control' readonly></input>")
                     
                 }
-            });         
-            
-     });
+            });  // end fullcalendar
+
+            // FLOT pie charts
+
+            var repPart = $('#freq_repPart').html();  
+            var dataSet =  JSON.parse(repPart) ;
+    
+            $.plot('#freq_replaced_part', dataSet[0], {
+                series: {
+                    pie: {
+                        innerRadius: 0.4,
+                        show: true,                
+                        label: {
+                            show:true,
+                            radius: 0.8,
+                            formatter: function (label, series) {                
+                                return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
+                                label + ' : ' +
+                                Math.round(series.percent) +
+                                '%</div>';
+                            },
+                            background: {
+                                opacity: 0.8,
+                                color: '#000'
+                            }
+                        }
+                    }
+                }
+                // grid: {
+                //     hoverable: true,
+                //     clickable: true
+                // }
+            });  // end of chart: frequently replaced part  
+
+            $.plot('#most_common_defect', dataSet[1], {
+                series: {
+                    pie: {
+                        innerRadius: 0.4,
+                        show: true,                
+                        label: {
+                            show:true,
+                            radius: 0.8,
+                            formatter: function (label, series) {                
+                                return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
+                                label + ' : ' +
+                                Math.round(series.percent) +
+                                '%</div>';
+                            },
+                            background: {
+                                opacity: 0.8,
+                                color: '#000'
+                            }
+                        }
+                    }
+                }
+                // grid: {
+                //     hoverable: true,
+                //     clickable: true
+                // }
+            }); // end of chart: most common defect
+
+            // $.plot('#most_freq_def', dataSet, {
+            //     series: {
+            //         pie: {
+            //             innerRadius: 0.4,
+            //             show: true,                
+            //             label: {
+            //                 show:true,
+            //                 radius: 0.8,
+            //                 formatter: function (label, series) {                
+            //                     return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
+            //                     label + ' : ' +
+            //                     Math.round(series.percent) +
+            //                     '%</div>';
+            //                 },
+            //                 background: {
+            //                     opacity: 0.8,
+            //                     color: '#000'
+            //                 }
+            //             }
+            //         }
+            //     }
+            //     // grid: {
+            //     //     hoverable: true,
+            //     //     clickable: true
+            //     // }
+            // }); // end of chart: most common defect   
+
+           
+     });// end of main
     </script>
 </body>
 
