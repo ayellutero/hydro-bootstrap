@@ -264,22 +264,28 @@
                 editable: false,
                 eventSources: ['calendarEvents'], // gets all events from database
                 eventClick: function(calEvent, jsEvent, view) {
-
-                    // alert('Event: ' + calEvent.title);
-                    // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                    // alert('View: ' + view.name);
-
-                    // change the border color just for fun
-                    // $(this).css('border-color', 'red');
                     var fin;
                     if(calEvent.is_confirmed == 0) fin = "No"
-                    else fin = "Yes"
+                    else fin = "Yes"                    
+                    
+                    var side = $('#eventTitle');
+                    side.html("<strong>Station: </strong>" + calEvent.title + "&nbsp;&nbsp;<a data-toggle='modal' data-target='#confirmDelete'><i class='fa fa-trash' aria-hidden='true'></i></a>");
+                     
+                    side = $('#eventID');
+                    side.html("<label>eventID:</label><input name='eventIDinput' type=text value='" + calEvent.id + "' class='form-control' readonly></input>")
 
-                    var side = $('#eventDetails');
-                    side.html('<h4>' + calEvent.title + '</h4><strong>Date:</strong><br>' + moment(calEvent.start).format('MMM, DD, YYYY') + '<br><br /><strong>Staff:</strong><br>' + calEvent.staff + '<br><br /><strong>Email:<br></strong>' + calEvent.email + '<br><br /><strong>Performed:</strong><br>' + fin);
-	
-$("#modal-content,#modal-background").toggleClass("active");
+                    side = $('#eventDate');
+                    side.html("<label>Date:</label><input type=text value='" + moment(calEvent.start).format('MMM DD, YYYY') + "' class='form-control' readonly></input>")
 
+                    side = $('#eventStaff');
+                    side.html("<label>Staff-in-charge:</label><input type=text value='" + calEvent.staff + "' class='form-control' readonly></input>")
+                    
+                    side = $('#eventEmail');
+                    side.html("<label>Email:</label><input type=text value='" + calEvent.email + "' class='form-control' readonly onclick='this.select()'></input>")
+                    
+                    side = $('#eventPerformed');
+                    side.html("<label>Performed:</label><input type=text value='" + fin + "' class='form-control' readonly></input>")
+                    
                 }
             });         
             

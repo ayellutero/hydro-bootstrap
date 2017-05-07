@@ -7,17 +7,21 @@
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   {{ Session::get('message') }}
 </div>
+@elseif(Session::has('error'))
+<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  {{ Session::get('error') }}
+</div>
 @endif
 <style>	
 #external-events {
     float: left;
     width: 22%;
-    /*height: 200px;*/
     padding: 1%;
     border: none;
     text-align: left;
     overflow: auto;
-    background: #eee;
+    /*background: #eee;*/
 }
     
 #external-events .fc-event {
@@ -116,6 +120,52 @@
         @endif
         
         <div id="eventDetails">
+            <h4 id="eventTitle"><strong>Station:</strong></h4>
+            <div class="form-group" id="eventDate">
+                {!! Form::label('eventDate', 'Date:') !!}
+                {!! Form::text('eventDate', null,['class'=>'form-control', 'readonly' => 'true']) !!}
+	        </div>
+            <div class="form-group" id="eventStaff">
+                {!! Form::label('eventStaff', 'Staff-in-charge:') !!}
+                {!! Form::text('eventStaff', null,['class'=>'form-control', 'readonly' => 'true']) !!}
+	        </div>
+            <div class="form-group" id="eventEmail">
+                {!! Form::label('eventEmail', 'Email:') !!}
+                {!! Form::text('eventEmail', null,['class'=>'form-control', 'readonly' => 'true']) !!}
+	        </div>
+            <div class="form-group" id="eventPerformed">
+                {!! Form::label('eventPerformed', 'Performed:') !!}
+                {!! Form::text('eventPerformed', null,['class'=>'form-control', 'readonly' => 'true']) !!}
+	        </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="confirmDelete" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete Schedule</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this schedule?
+                    
+                </div>
+                <div class="modal-footer">
+                    <div id="modalEventID"></div>
+                    {!! Form::open(['method' => 'DELETE','route' => ['calendar.destroy', 0]]) !!}
+                    <div class="form-group hide" id="eventID">
+                        {!! Form::text('eventIDinput', null,['class'=>'form-control', 'readonly' => 'true']) !!}
+                    </div>
+                    <button class="btn btn-success" type="submit" name="action">Delete</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
+                    {{ Form::close() }}
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="col s11 m7 l6">

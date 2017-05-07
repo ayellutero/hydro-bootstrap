@@ -41,7 +41,7 @@ class CalendarController extends Controller
 
         Schedule::create($schedule);
         $sch = Schedule::where('created_at', \Carbon\Carbon::now())->get()->first(); // get the newly created sched
-        // static::notifyUser($staff[0]->id, $schedule['start_date'], $schedule['title'], $sch->id);
+        static::notifyUser($staff[0]->id, $schedule['start_date'], $schedule['title'], $sch->id);
 
         $schedule['receiver_id'] = $staff[0]->employee_id;
         if(strcmp($schedule['sender_id'], $schedule['receiver_id'])!=0)
@@ -55,7 +55,38 @@ class CalendarController extends Controller
     }
 
     public function destroy($id){
+       // Since changes are not real-time, this function double checks 
+       // discrepancies in data
 
+       if(Request::has('eventIDinput')){ // if request contains the event ID
+            $sched = Request::all();
+            $sched = Schedule::where('id', $sched['eventIDinput'])->first();
+
+            if(Schedule::find($sched['eventIDinput']) != null){ // if event is found in the database
+                if($sched->is_confirmed == 1){ // If event has already been confirmed
+                    return redirect()->back()
+                            ->with('error', 'Confirmed maintenance schedules cannot be deleted!');
+                }
+                else{ // delete schedule
+                    Schedule::find($sched->id)->delete();
+                    $message = 'Schedule deleted successfully!';
+                    return redirect()->back()
+                            ->with('message', $message);
+                }
+            }
+            else{ // if event is not found in the database
+                return redirect()->back()
+                        ->with('error', 'Schedule not found!');
+            }
+       }else{ // if request doesn't contain the event ID
+             return redirect()->back()
+                        ->with('error', 'Schedule not found!');
+        }
+        
+        
+
+        //UserActivity::create($request->all());
+        
     }
 
     public function update($id){
@@ -71,13 +102,23 @@ class CalendarController extends Controller
     }
 
     public function confirmSched($id){
-        $sched = Schedule::find($id);
-        $confirm['is_confirmed'] = 1;
-        $sched->update($confirm);
+
+        if(Schedule::find($id)){
+            $sched = Schedule::find($id);
+            $checkSched = Schedule::where('id', $id)->first();
+            if($checkSched->is_confirmed == 0){
+                $confirm['is_confirmed'] = 1;
+                $sched->update($confirm);
+                return view('Calendar.success');
+            }
+            
+        }
+        return view('Calendar.failed');
+
         
         //create User Activity
         // create notification for admins and unit heads
 
-        return view('Calendar.success');
+        
     }
 }
