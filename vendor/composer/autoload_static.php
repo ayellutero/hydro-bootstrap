@@ -300,6 +300,7 @@ class ComposerStaticInitefbd4bfe8c1433c8d28821bd4cce8382
         'App\\Http\\Controllers\\MaintenanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/MaintenanceController.php',
         'App\\Http\\Controllers\\NotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotificationController.php',
         'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportController.php',
+        'App\\Http\\Controllers\\StatController' => __DIR__ . '/../..' . '/app/Http/Controllers/StatController.php',
         'App\\Http\\Controllers\\UserActivityController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserActivityController.php',
         'App\\Http\\Controllers\\UserCRUDController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserCRUDController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

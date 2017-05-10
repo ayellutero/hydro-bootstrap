@@ -225,18 +225,19 @@
                 })
             });
 
-        
-      
             // hide PW field button
-            // $('#change_pw').hide();
-            /*$('#pw_btn').on('click', function (event) {
+            // hide PW field button
+            $('#pw_change').hide();
+
+            $('#pw_btn').on('click', function (event) {
                 $('#pw_btn').hide();
-                $('#change_pw').show();
+                $('#pw_change').show();
             });
+
             $('#cancel-button').on('click', function (event) {
                 $('#pw_btn').show();
-                $('#change_pw').hide();
-            });*/
+                $('#pw_change').hide();
+            }); 
 
             // Datatable JS
             $('#all-users').DataTable();
