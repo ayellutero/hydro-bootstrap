@@ -124,15 +124,12 @@
             <!-- Sidebar Menu Items -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li>
-                        <a href="/"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
-                    </li>
                     @if (Auth::check())
+                    <li>
+                        <a href="/"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
+                    </li>
                         <li>
                             <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
-                        </li>
-                        <li>
-                            <a href="statistics"><i class="fa fa-bar-chart-o fa-fw"></i> Statistics</a>
                         </li>
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>

@@ -99,7 +99,7 @@ class UserCRUDController extends Controller
             'position'
         ]);
 
-        $user = User::where('email', $request['email'])->first();
+        $user = User::find($id);
         
         $user->roles()->detach();
         if ($request['role_user']) {
@@ -112,7 +112,7 @@ class UserCRUDController extends Controller
             $user->roles()->attach(Role::where('name', 'Admin')->first());
         }
 
-        User::find($id)->update($request->all());
+        $user->update($request->all());
         //UserActivity::create($request->all());
         return redirect()->back()
                         ->with('success','User updated successfully');

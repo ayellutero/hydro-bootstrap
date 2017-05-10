@@ -1,45 +1,16 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-// */
-// Route::get('/', function () {
-//     return view('index');
-// });
 
-//GMaps
-Route::get('/', 'HomeController@gmaps');
+// Authentication
+Route::auth();
 
-Route::get('sample', function () {
-    return view('sample');
-});
-
-Route::get('/users/serverSide', [
-    'as'   => 'users.serverSide',
-    'uses' => function () {
-        $users = App\User::select(['id', 'name', 'employee_id', 'position', 'email', 'contact_num', 'created_at']);
-
-        return Datatables::of($users)->make();
-    }
-]);
-
-Route::get('/userProfile', function () {
-    return view('userProfile');
-});
-
-
+// Dashboard
+Route::get('/', 'HomeController@index');
 
 // Group of ROUTES w Permissions
-Route::group(['middleware' => 'web'], function () {
-    Route::auth();
-
-    // User CRUD Module
+Route::group(['middleware' => ['web']], function () {
+    /*
+     * User CRUD Module
+     */
 	Route::get('userCRUD', [
 		'uses' => 'UserCRUDController@index',
 		'as' => 'userCRUD.index',
@@ -47,30 +18,9 @@ Route::group(['middleware' => 'web'], function () {
 		'roles' => ['Admin', 'Head']
 	]);
 
-    Route::get('/userCRUD/create', [
-        'uses' => 'UserCRUDController@create',
-        'as' => 'userCRUD.create',
-        'middleware' => 'roles',
-        'roles' => ['Admin']
-    ]);
-
     Route::post('/userCRUD/store/', [
         'uses' => 'UserCRUDController@store',
         'as' => 'userCRUD.store',
-        'middleware' => 'roles',
-        'roles' => ['Admin']
-    ]);
-
-    Route::get('/userCRUD/{id}/', [
-        'uses' => 'UserCRUDController@show',
-        'as' => 'userCRUD.show',
-        'middleware' => 'roles',
-        'roles' => ['Admin', 'Head']
-    ]);
-
-    Route::get('userCRUD/{id}/edit', [
-        'uses' => 'UserCRUDController@edit',
-        'as' => 'userCRUD.edit',
         'middleware' => 'roles',
         'roles' => ['Admin']
     ]);
@@ -89,7 +39,9 @@ Route::group(['middleware' => 'web'], function () {
         'roles' => ['Admin']
     ]);
     
-    // Maintenance Report Module
+    /* 
+     * Maintenance Report Module 
+     */
     Route::get('/viewMyMaintenanceReports', [
         'uses'=> 'MaintenanceController@myRepsView',
         'as' => 'viewMyMaintenanceReports',
@@ -121,7 +73,7 @@ Route::group(['middleware' => 'web'], function () {
         return view('Reports/success');
     });
 
-    /* NOTIFS ROUTES*/
+    // NOTIFS ROUTES
     Route::resource('notifications','NotificationController');
 
     Route::get('myNotifications', [
@@ -138,14 +90,14 @@ Route::group(['middleware' => 'web'], function () {
         'roles' => ['Head', 'Admin']
     ]);
 
-    /* User Activity */
+    // User Activity 
     Route::resource('user_activity','UserActivityController',
     [
         'middleware' => 'roles',
         'roles' => ['Admin']
     ]);
 
-    /* Calendar */
+    // Calendar 
     Route::resource('calendar','CalendarController',
     [
         'middleware' => 'roles',
@@ -157,12 +109,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('calendarEvents', function(){
         return view('layouts.calendarEvents');
     });
-
-    /* Stats */
-    Route::resource('statistics','StatController',
-    [
-        'middleware' => 'roles',
-        'roles' => ['Admin', 'Head', 'User']
-    ]);
-
+    
+    // User Profile
+    Route::get('/userProfile', function () {
+        return view('userProfile');
+    });
 });
