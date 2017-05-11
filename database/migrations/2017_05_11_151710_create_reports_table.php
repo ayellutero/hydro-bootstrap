@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 class CreateReportsTable extends Migration
 {
     /**
@@ -42,9 +40,7 @@ class CreateReportsTable extends Migration
             $table->date('date_approved')->nullable();
             $table->timestamps();
         });
-
     }
-
     /**
      * Reverse the migrations.
      *

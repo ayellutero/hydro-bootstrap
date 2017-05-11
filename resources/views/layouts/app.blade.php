@@ -236,9 +236,16 @@
             }); 
 
             // Datatable JS
-            $('#all-users').DataTable({
+            $('#all-station').DataTable({
                 "scrollX": true
             });
+            $('#all-parts').DataTable({
+                "scrollX": true
+            });
+            $('#all-works').DataTable({
+                "scrollX": true
+            });
+
             var tableMyReps = $('#my-reports').DataTable({
                 order: [[ 3, "desc" ], [ 4, "desc" ]],
                 language: {

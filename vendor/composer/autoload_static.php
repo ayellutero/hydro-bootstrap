@@ -382,7 +382,7 @@ class ComposerStaticInitefbd4bfe8c1433c8d28821bd4cce8382
         'CreateNotificationsTable' => __DIR__ . '/../..' . '/database/migrations/temp/2017_04_25_082250_create_notifications_table.php',
         'CreatePartsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_10_144609_create_parts_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/temp/2014_10_12_100000_create_password_resets_table.php',
-        'CreateReportsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_25_082520_create_reports_table.php',
+        'CreateReportsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_11_151710_create_reports_table.php',
         'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/temp/2017_04_24_233037_create_roles_table.php',
         'CreateSchedulesTable' => __DIR__ . '/../..' . '/database/migrations/temp/2017_05_02_155151_create_schedules_table.php',
         'CreateStationReportsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_08_143430_create_station_reports_table.php',
