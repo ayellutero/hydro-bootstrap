@@ -104,7 +104,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -124,8 +124,9 @@
             <!-- Sidebar Menu Items -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
+                    @if (Auth::check())
                     <li>
-                        <a href="/"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
+                        <a href="/"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
                     </li>
                     @if (Auth::check())
                          <li>
@@ -136,6 +137,11 @@
                         </li>
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-pencil fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
+                        <li>
+                            <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
                             <ul id="demo" class="collapse">
                                 <li>
                                     <a href="addMaintenanceReport"><i class="fa fa-plus-square-o fa-fw" aria-hidden="true"></i> Add Report</a>
@@ -233,18 +239,19 @@
                 })
             });
 
-        
-      
             // hide PW field button
-            // $('#change_pw').hide();
-            /*$('#pw_btn').on('click', function (event) {
+            // hide PW field button
+            $('#pw_change').hide();
+
+            $('#pw_btn').on('click', function (event) {
                 $('#pw_btn').hide();
-                $('#change_pw').show();
+                $('#pw_change').show();
             });
+
             $('#cancel-button').on('click', function (event) {
                 $('#pw_btn').show();
-                $('#change_pw').hide();
-            });*/
+                $('#pw_change').hide();
+            }); 
 
             // Datatable JS
             $('#all-users').DataTable({

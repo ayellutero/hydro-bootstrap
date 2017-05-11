@@ -11,9 +11,5 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(RoleTableSeeder::class); // create create Role first b4 using in UserTable
-        // // $this->call(UserTableSeeder::class);
-        // $this->call(StationTableSeeder::class);
-        factory(App\Report::class, 10)->create();
     }
 }
