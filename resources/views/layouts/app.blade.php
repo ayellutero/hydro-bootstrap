@@ -65,59 +65,60 @@
             <!-- /.navbar-header -->
 
             @if (Route::has('login'))
-            <ul class="nav navbar-right top-nav">
-                @if (Auth::check())
-                <!-- Notifs -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="badge badge-pill badge-danger"> 
+                <ul class="nav navbar-right top-nav">
+                    @if (Auth::check())
+                    <!-- Notifs -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="badge badge-pill badge-danger"> 
+                                @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
+                                    {{ App\Report::where(['if_approved' => 0])->get()->count() + App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count()  }}
+                                @else
+                                    {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}
+                                @endif
+                            </span> Notifications <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu message-dropdown">
                             @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
-                                {{ App\Report::where(['if_approved' => 0])->get()->count() + App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count()  }}
-                            @else
-                                {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}
+                            <li class="message-preview">
+                                <a href="viewPendingReports"><span class="badge badge-pill badge-danger">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</span> Pending Reports</a>
+                            </li>
                             @endif
-                        </span> Notifications <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu message-dropdown">
-                        @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
-                        <li class="message-preview">
-                            <a href="viewPendingReports"><span class="badge badge-pill badge-danger">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</span> Pending Reports</a>
-                        </li>
-                        @endif
-                        <li class="message-preview">
-                            <?php $notifications = DB::table('notifications')->get(); ?>
-                            {!! Form::model($notifications,['method' => 'PATCH','route'=>['notifications.update', Auth::user()->employee_id]]) !!}
-                                <div class="hide">
-                                    {!! Form::text('is_read', 1,['class'=>'form-control', 'readonly'=>'true' ]) !!}
-                                </div>
-                                <button href="#" class="btn btn-flat" style="background:white"><span class="badge badge-pill badge-danger"> {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}</span> All Notifications</button>
-                            {!! Form::close() !!}
-                        </li>
-                    </ul>
-                </li>
+                            <li class="message-preview">
+                                <?php $notifications = DB::table('notifications')->get(); ?>
+                                {!! Form::model($notifications,['method' => 'PATCH','route'=>['notifications.update', Auth::user()->employee_id]]) !!}
+                                    <div class="hide">
+                                        {!! Form::text('is_read', 1,['class'=>'form-control', 'readonly'=>'true' ]) !!}
+                                    </div>
+                                    <button href="#" class="btn btn-flat" style="background:white"><span class="badge badge-pill badge-danger"> {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}</span> All Notifications</button>
+                                {!! Form::close() !!}
+                            </li>
+                        </ul>
+                    </li>
 
-                <!-- User Profile -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-                
-                @endif
-            </ul>
+                    <!-- User Profile -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li>
+                                <a href="/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+                </ul>
             @endif
             <!-- /.navbar-top-links -->
 
@@ -125,20 +126,11 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     @if (Auth::check())
-                    <li>
-                        <a href="/"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
-                    </li>
-                    @if (Auth::check())
-                         <li>
+                        <li>
+                            <a href="/"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
+                        </li>
+                        <li>
                             <a href="maintenanceHistory"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i> Stations</a>
-                        </li>
-                        <li>
-                            <a href="deviceManagement"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> Device Management</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-pencil fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
-                        <li>
-                            <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
                         </li>
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
@@ -158,23 +150,15 @@
                         <li>
                             <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
                         </li>
-                        <li>
-                            <a href="statistics"><i class="fa fa-pie-chart fa-fw"></i> Statistics</a>
-                        </li>
-                        
                         
                         @if ( Auth::user()->hasRole('Admin'))
                             <li>
                                 <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
                             </li>
-
-                            <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
+                            <li>
+                                <a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
+                            </li>
                         @endif
-                        
-                    @else
-                        <li>
-                            <a href="/login" class=""><i class="fa fa-sign-in fa-fw"></i>Log in</a>
-                        </li>
                     @endif
                 </ul>
             </div>
@@ -211,13 +195,11 @@
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.pie.js') }}"></script>
     
     <script> // MAIN Script
-   
-   
         $(document).ready(function() {
             var panels = $('.user-infos');
             var panelsButton = $('.dropdown-user');
             panels.hide();
-
+            
             //Click dropdown
             panelsButton.click(function() {
                 //get data-for attribute
@@ -236,7 +218,7 @@
                     {
                         currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
                     }
-                })
+                });
             });
 
             // hide PW field button
@@ -280,7 +262,7 @@
                     "infoEmpty": ""
                 },
                 "scrollX": true
-            })
+            });
             
             var tableUserAct = $('#user-activity').DataTable({
                 order: [[ 0, "desc" ]],
@@ -342,19 +324,19 @@
                     side.html(ttl);
                      
                     side = $('#eventID');
-                    side.html("<label>eventID:</label><input name='eventIDinput' type=text value='" + calEvent.id + "' class='form-control' readonly></input>")
+                    side.html("<label>eventID:</label><input name='eventIDinput' type=text value='" + calEvent.id + "' class='form-control' readonly></input>");
 
                     side = $('#eventDate');
-                    side.html("<label>Date:</label><input type=text value='" + moment(calEvent.start).format('MMM DD, YYYY') + "' class='form-control' readonly></input>")
+                    side.html("<label>Date:</label><input type=text value='" + moment(calEvent.start).format('MMM DD, YYYY') + "' class='form-control' readonly></input>");
 
                     side = $('#eventStaff');
-                    side.html("<label>Staff-in-charge:</label><input type=text value='" + calEvent.staff + "' class='form-control' readonly onclick='this.select()'></input>")
+                    side.html("<label>Staff-in-charge:</label><input type=text value='" + calEvent.staff + "' class='form-control' readonly onclick='this.select()'></input>");
                     
                     side = $('#eventEmail');
-                    side.html("<label>Email:</label><input type=text value='" + calEvent.email + "' class='form-control' readonly onclick='this.select()'></input>")
+                    side.html("<label>Email:</label><input type=text value='" + calEvent.email + "' class='form-control' readonly onclick='this.select()'></input>");
                     
                     side = $('#eventPerformed');
-                    side.html("<label>Performed:</label><input type=text value='" + fin + "' class='form-control' readonly></input>")
+                    side.html("<label>Performed:</label><input type=text value='" + fin + "' class='form-control' readonly></input>");
                     
                     // side = $('#evvv');
                     // side.html("{!!" + calEvent.id +"!!}");
@@ -362,7 +344,7 @@
             });  // end fullcalendar
 
             /* FLOT pie charts */
-            var statData = $('#statData').html();  
+            var statData = $('#statData').html();
             var dataSet =  JSON.parse(statData) ;
             var rp_placeholder = $('#freq_replaced_part');
             var cd_placeholder = $('#most_common_defect');
