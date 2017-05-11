@@ -10,7 +10,7 @@ class StatController extends Controller
     public function index()
     {
          $statsData = $this->genStat();
-         return view('Statistics.index')->with('statsData', (json_encode($statsData)));
+         return view('index')->with('statsData', (json_encode($statsData)));
     }
 
     public function store(){

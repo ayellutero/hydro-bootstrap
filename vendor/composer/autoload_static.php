@@ -381,12 +381,9 @@ class ComposerStaticInitefbd4bfe8c1433c8d28821bd4cce8382
         'CreateReportsTable' => __DIR__ . '/../..' . '/database/migrations/temp/2017_04_25_082520_create_reports_table.php',
         'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/temp/2017_04_24_233037_create_roles_table.php',
         'CreateSchedulesTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_02_155151_create_schedules_table.php',
-<<<<<<< HEAD
         'CreateStationReportsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_08_143430_create_station_reports_table.php',
         'CreateStationsTable' => __DIR__ . '/../..' . '/database/migrations/temp/2017_05_03_050710_create_stations_table.php',
-=======
         'CreateStationsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_10_142350_create_stations_table.php',
->>>>>>> ee0b1f053a93050d2f101f6835d5e0ab40e114b6
         'CreateUserRoleTable' => __DIR__ . '/../..' . '/database/migrations/temp/2017_04_24_233116_create_user_role_table.php',
         'CreateUseractivityTable' => __DIR__ . '/../..' . '/database/migrations/temp/2017_04_25_082628_create_useractivity_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/temp/2014_10_12_000000_create_users_table.php',
