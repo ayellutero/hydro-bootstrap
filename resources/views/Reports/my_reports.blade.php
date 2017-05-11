@@ -5,7 +5,7 @@
 @if(Session::has('message'))
 <div class="alert alert-success alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  {{ Session::get('message') }}
+  <strong>{{ Session::get('message') }}</strong>
 </div>
 
 @endif
@@ -18,12 +18,11 @@
                 <table id="my-reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Station Name</th>
+                            <th>Device ID</th>
                             <th>Location</th>
                             <th>Sensor Type</th>
                             <th>Date Visited</th>
-                            <th>Date Approved</th>
+                            <th>Date Noted</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -32,18 +31,17 @@
                         @foreach ($reports as $report)
                             @if(strcmp($report->conducted_by, Auth::user()->employee_id) == 0)
                             <tr>
-                                <td>{{ $report->id }}</td>
-                                <td>{{ $report->station_name }}</td>
-                                <td>{{ $report->location }}</td>
+                                <td>{{ $report->station_id }}</td>
+                                <td>{{ $report->station_name.', '.$report->location }}</td>
                                 <td>{{ $report->sensor_type }}</td>
                                 <td>{{ $report->date_visited }}</td>
                                 <td>{{ $report->date_approved }}</td>
                                 <td>
-                                    <a class="btn" data-toggle="modal" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+                                    <a class="btn withTooltip" data-toggle="modal" title="View" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                     @if($report->if_approved == 1)
                                     <a class="btn" data-toggle="tooltip" title="Approved"><i class="fa fa-check-square fa-2x" aria-hidden="true"></i></a>
                                     @else
-                                    <a class="btn" data-toggle="modal" data-target="#editReport-<?= $report->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+                                    <a class="btn withTooltip" title="Edit" data-toggle="modal" data-target="#editReport-<?= $report->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
                                     @endif
                                 </td>
                             </tr>

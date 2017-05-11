@@ -25,13 +25,7 @@
 
     <!-- Custom Fonts -->
     <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-
-    <!-- Calendar CSS -->    
-    <link href="{{ asset('vendor/fullcalendar/css/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
-
-    <!--FLOT-->
-    <!--<link href="{{ asset('vendor/flot/excanvas.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">-->
-    
+  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -128,14 +122,14 @@
                         <a href="/"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
                     </li>
                     @if (Auth::check())
-                         <li>
-                            <a href="maintenanceHistory"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i> Stations</a>
+                        <li>
+                            <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
                         </li>
                         <li>
-                            <a href="deviceManagement"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> Device Management</a>
+                            <a href="statistics"><i class="fa fa-pie-chart fa-fw"></i> Statistics</a>
                         </li>
                         <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-pencil fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
                             <ul id="demo" class="collapse">
                                 <li>
                                     <a href="addMaintenanceReport"><i class="fa fa-plus-square-o fa-fw" aria-hidden="true"></i> Add Report</a>
@@ -150,12 +144,8 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
+                            <a href="maintenanceHistory"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i> Stations</a>
                         </li>
-                        <li>
-                            <a href="statistics"><i class="fa fa-pie-chart fa-fw"></i> Statistics</a>
-                        </li>
-                        
                         
                         @if ( Auth::user()->hasRole('Admin'))
                             <li>
@@ -176,7 +166,44 @@
         </nav>
         
         <div id="page-wrapper">
-            @yield('content')
+            <div class="panel-heading"><a href="maintenanceHistory"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Stations</a></div>
+
+            <!-- graph of stations and how many times a report/maintenance was done on them -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Device ID: {{$dev_id}}</strong></h3>
+                            <h6>NOTE: Results are based entirely on approved reports.</h6>
+                        </div>
+                        <div class="panel-body">
+                            <div style="float:left;">
+                                <div style="float:left; text-align: center">
+                                    <h4>Most frequently replaced part</h4>
+                                    <div id="sen_frp" style="width:400px;height:300px"></div>
+                                </div>
+                                <div style="float:right;">Details</div>
+                            </div>
+                            <div style="float:left;">
+                                <div style="float:left; text-align: center">
+                                    <h4>Most common sensor defect</h4>
+                                    <div id="sen_mcd" style="width:400px;height:300px"></div>
+                                    
+                                </div>
+                                <div style="float:right;" >Details</div>
+                            </div>
+                            <div class="text-right hide">
+                                <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!---->
+            <div id="senStatData" class="hide">
+            {{$statsData}}
+            </div>
         </div>
 
     </div>
@@ -189,16 +216,6 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap-toggle/js/bootstrap-toggle.min.js') }}"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendor/datatables-plugins/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
-
-    <!-- Calendar Script -->
-    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/jquery-ui.custom.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/fullcalendar/js/fullcalendar.min.js') }}"></script>
-    <!--<script type="text/javascript" src="{{ asset('vendor/fullcalendar/fullcalendar-script.js') }}"></script>-->
 
     <!-- FLOT Script -->
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.js') }}"></script>
@@ -208,159 +225,12 @@
    
    
         $(document).ready(function() {
-            var panels = $('.user-infos');
-            var panelsButton = $('.dropdown-user');
-            panels.hide();
+                var senStatData = $('#senStatData').html();  
+            var senDataSet =  JSON.parse(senStatData);
+            var srp_placeholder = $('#sen_frp');
+            var scd_placeholder = $('#sen_mcd');
 
-            //Click dropdown
-            panelsButton.click(function() {
-                //get data-for attribute
-                var dataFor = $(this).attr('data-for');
-                var idFor = $(dataFor);
-
-                //current button
-                var currentButton = $(this);
-                idFor.slideToggle(400, function() {
-                    //Completed slidetoggle
-                    if(idFor.is(':visible'))
-                    {
-                        currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
-                    }
-                    else
-                    {
-                        currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
-                    }
-                })
-            });
-
-        
-      
-            // hide PW field button
-            // $('#change_pw').hide();
-            /*$('#pw_btn').on('click', function (event) {
-                $('#pw_btn').hide();
-                $('#change_pw').show();
-            });
-            $('#cancel-button').on('click', function (event) {
-                $('#pw_btn').show();
-                $('#change_pw').hide();
-            });*/
-
-            // Datatable JS
-            $('#all-users').DataTable({
-                "scrollX": true
-            });
-            var tableMyReps = $('#my-reports').DataTable({
-                order: [[ 3, "desc" ], [ 4, "desc" ]],
-                language: {
-                    "emptyTable": "You have not created a report yet.",
-                    "infoEmpty": ""
-                },
-                "scrollX": true
-            });
-            var tableAllReps = $('#all-reports').DataTable({
-                order: [[ 4, "desc" ]],
-                language: {
-                    "emptyTable": "There are no approved reports.",
-                    "infoEmpty": ""
-                },
-                "scrollX": true
-            });
-            var tablePenReps = $('#pending-reports').DataTable({
-                order: [[ 4, "desc" ]],
-                language: {
-                    "emptyTable": "There are no pending reports.",
-                    "infoEmpty": ""
-                },
-                "scrollX": true
-            })
-            
-            var tableUserAct = $('#user-activity').DataTable({
-                order: [[ 0, "desc" ]],
-                "scrollX": true
-            });
-            var tableAllNotifs = $('#all-notifs').dataTable({
-                order: [[ 0, "desc"],[ 1, "desc"]],
-                language: {
-                    "emptyTable": "You have no notifications.",
-                    "infoEmpty": ""
-                },
-                "scrollX": true
-            });
-            var tableAllStations = $('#all-stations').dataTable({
-                "scrollX": true
-            });
-            var tableAllStations = $('#all-devices').dataTable({
-                "scrollX": true
-            });
-            var tableSenReps = $('#station-reports').DataTable({
-                order: [[ 6, "desc" ], [ 4, "desc" ]],
-                language: {
-                    "emptyTable": "No reports yet for this station.",
-                    "infoEmpty": ""
-                },
-                "scrollX": true
-            });
-
-            //tooltip
-            $('[data-toggle="tooltip"]').tooltip(); 
-            $('.withTooltip').tooltip();
-
-            // customize fullcalendar
-            $('#calendar').fullCalendar({
-                height: 500,
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,basicWeek,basicDay'
-                },
-                eventLimit: true, 
-                editable: false,
-                eventSources: ['calendarEvents'], // gets all events from database
-                eventClick: function(calEvent, jsEvent, view) {
-                    var fin;
-                    var side = $('#eventTitle');
-
-                    var ttl = "<strong>Station: </strong>" + calEvent.title + "&nbsp;&nbsp;<a data-toggle='modal' data-target='#confirmDelete'>"
-                    
-                    if(calEvent.is_confirmed == 0){
-                         fin = "No"
-                         ttl += "<i class='fa fa-trash' aria-hidden='true'></i></a>"
-                    }
-                    else{ 
-                        fin = "Yes"
-                        ttl+= "</a>"
-                    }                   
-                
-                    side.html(ttl);
-                     
-                    side = $('#eventID');
-                    side.html("<label>eventID:</label><input name='eventIDinput' type=text value='" + calEvent.id + "' class='form-control' readonly></input>")
-
-                    side = $('#eventDate');
-                    side.html("<label>Date:</label><input type=text value='" + moment(calEvent.start).format('MMM DD, YYYY') + "' class='form-control' readonly></input>")
-
-                    side = $('#eventStaff');
-                    side.html("<label>Staff-in-charge:</label><input type=text value='" + calEvent.staff + "' class='form-control' readonly onclick='this.select()'></input>")
-                    
-                    side = $('#eventEmail');
-                    side.html("<label>Email:</label><input type=text value='" + calEvent.email + "' class='form-control' readonly onclick='this.select()'></input>")
-                    
-                    side = $('#eventPerformed');
-                    side.html("<label>Performed:</label><input type=text value='" + fin + "' class='form-control' readonly></input>")
-                    
-                    // side = $('#evvv');
-                    // side.html("{!!" + calEvent.id +"!!}");
-                }
-            });  // end fullcalendar
-
-            /* FLOT pie charts */
-            var statData = $('#statData').html();  
-            var dataSet =  JSON.parse(statData) ;
-            var rp_placeholder = $('#freq_replaced_part');
-            var cd_placeholder = $('#most_common_defect');
-            
-            $.plot('#freq_replaced_part', dataSet[0], {
+            $.plot('#sen_frp', senDataSet[0], {
                 series: {
                     pie: {
                         innerRadius: 0.4,
@@ -387,18 +257,15 @@
                 }
             });  // end of chart: frequently replaced part  
 
-            rp_placeholder.bind("plotclick", function(event, pos, obj) {
-
+            srp_placeholder.bind("plotclick", function(event, pos, obj) {
 				if (!obj) {
 					return;
-				}
-
+                }
 				percent = parseFloat(obj.series.percent).toFixed(2);
 				alert(""  + obj.series.label + ": " + percent + "%");
-			});
+			});//
 
-            
-            $.plot('#most_common_defect', dataSet[1], {
+            $.plot('#sen_mcd', senDataSet[1], {
                 series: {
                     pie: {
                         innerRadius: 0.4,
@@ -423,51 +290,18 @@
                     hoverable: true,
                     clickable: true
                 }
-            }); // end of chart: most common defect
+            });  // end of chart: frequently replaced part  
 
-            cd_placeholder.bind("plotclick", function(event, pos, obj) {
-
+            scd_placeholder.bind("plotclick", function(event, pos, obj) {
 				if (!obj) {
 					return;
-				}
-
+                }
 				percent = parseFloat(obj.series.percent).toFixed(2);
 				alert(""  + obj.series.label + ": " + percent + "%");
 			});
 
-            //////////////////////
-            // $.plot('#most_freq_def', dataSet, {
-            //     series: {
-            //         pie: {
-            //             innerRadius: 0.4,
-            //             show: true,                
-            //             label: {
-            //                 show:true,
-            //                 radius: 0.8,
-            //                 formatter: function (label, series) {                
-            //                     return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
-            //                     label + ' : ' +
-            //                     Math.round(series.percent) +
-            //                     '%</div>';
-            //                 },
-            //                 background: {
-            //                     opacity: 0.8,
-            //                     color: '#000'
-            //                 }
-            //             }
-            //         }
-            //     }
-            //     // grid: {
-            //     //     hoverable: true,
-            //     //     clickable: true
-            //     // }
-            // }); // end of chart: most common defect   
 
-            
-        
-           
-     });// end of main
+
+        })//
+
     </script>
-</body>
-
-</html>

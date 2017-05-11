@@ -5,12 +5,12 @@
 @if(Session::has('message'))
 <div class="alert alert-success alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  {{ Session::get('message') }}
+  <strong>{{ Session::get('message') }}</strong>
 </div>
 @elseif(Session::has('error'))
 <div class="alert alert-danger alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  {{ Session::get('error') }}
+  <strong>{{ Session::get('error') }}</strong>
 </div>
 @endif
 <style>	
@@ -41,7 +41,7 @@
     <div id='external-events'>
         @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
             <div style="margin: 1%; float: left">
-                <a style="width: 100px;" class="btn btn-success" data-toggle="modal" data-target="#createSched"><i class="fa fa-plus" aria-hidden="true"></i> New</a> 
+                <a style="width: 100px;" class="btn btn-success withTooltip" title="New Schedule" data-toggle="modal" data-target="#createSched"><i class="fa fa-plus" aria-hidden="true"></i> New</a> 
             </div>
 
             <!-- Create Sched Modal -->
@@ -156,8 +156,7 @@
                 <div class="modal-footer">
                     <div id="modalEventID"></div>
                     {!! Form::open(['method' => 'DELETE','route' => ['calendar.destroy', 0]]) !!}
-                    <div class="form-group hide" id="eventID">
-                        {!! Form::text('eventIDinput', null,['class'=>'form-control', 'readonly' => 'true']) !!}
+                    <div class="form-group" id="eventID">
                     </div>
                     <button class="btn btn-success" type="submit" name="action">Delete</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>

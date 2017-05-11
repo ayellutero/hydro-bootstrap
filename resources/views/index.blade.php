@@ -8,7 +8,7 @@
     @if(Session::has('status'))
     <div class="alert alert-danger alert-dismissable">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    {{ Session::get('status') }}
+    <strong>{{ Session::get('status') }}</strong>
     </div>
     @endif 
     <div id="mymap" style="width:100%;border:1px solid red;height:565px"></div>

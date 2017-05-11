@@ -5,7 +5,7 @@
 @if(Session::has('message'))
 <div class="alert alert-success alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  {{ Session::get('message') }}
+  <strong>{{ Session::get('message') }}</strong>
 </div>
 @endif
 
@@ -20,17 +20,25 @@
 			{!! Form::text('emp_id',Auth::user()->employee_id,['class'=>'form-control', 'hidden' =>'true', 'readonly'=>'true']) !!}
 		</div>
 		<div class="form-group">
-			{!! Form::label('station_name', 'Station Name:') !!}
+			{!! Form::label('station_name', 'Station:') !!}
 			<select class="form-control" name="station_name" id="title" required>
 				@foreach($stations as $station)
-					<option value ="{{$station->device_id ." ". $station->location}}">{{ $station->device_id . " " . $station->location }}</option>
+					<option value ="{{$station->location}}">
+						{{ $station->device_id . " " . $station->location }}, {{$station->province}}
+						{!! Form::label('location', 'aa',['class'=>'form-control', 'required' => 'true']) !!}
+					</option>
 				@endforeach
 			</select>
 		</div>
 
 	    <div class="form-group">
-	        {!! Form::label('location', 'Location (Town, Province):') !!}
-	        {!! Form::text('location', null,['class'=>'form-control', 'required' => 'true']) !!}
+	        <!--{!! Form::label('location', 'Location (Town, Province):') !!}-->
+			<!--<select class="form-control" name="location" required>
+				@foreach($stations as $station)
+					<option value ="{{$station->province}}">{{ $station->province }}</option>
+				@endforeach
+			</select>-->
+	        <!--{!! Form::text('location', null,['class'=>'form-control', 'required' => 'true']) !!}-->
 	    </div>
 
 		<div class="form-group">
@@ -61,8 +69,8 @@
 	    </div>
 
 		<div class="form-group">
-	        {!! Form::label('last_data', 'Last Data:') !!}
-	        {!! Form::textarea('last_data', null,['class'=>'form-control', 'required' => 'true']) !!}
+	        {!! Form::label('last_data', 'Date of last data transmission:') !!}
+	        <input type="date" name="last_data" class="datepicker" value="last_data" required>
 	    </div>
 
 		<div class="form-group">
@@ -78,7 +86,13 @@
 
 	    <div class="form-group">
 	        {!! Form::label('actual_defects', 'Actual Defect/s:') !!}
-	        {!! Form::textarea('actual_defects', null,['class'=>'form-control', 'required' => 'true']) !!}
+	        <select class="form-control" name="actual_defects" id="actual_defects" required>
+			<option value ="None">None</option>
+			  <option value ="Defect 1">Defect 1</option>
+			  <option value ="Defect 2">Defect 2</option>
+			  <option value ="Defect 3">Defect 3</option>
+			  <option value ="Defect 4">Defect 4</option>
+            </select>
 	    </div>
 
 		<div class="form-group">
@@ -88,7 +102,14 @@
 
 	    <div class="form-group">
 	        {!! Form::label('part_replaced', 'Part/s Replaced (if any):') !!}
-	        {!! Form::textarea('part_replaced', null,['class'=>'form-control']) !!}
+	        <!--{!! Form::textarea('part_replaced', null,['class'=>'form-control']) !!}-->
+			<select class="form-control" name="part_replaced" id="part_replaced" required>
+			<option value ="None">None</option>
+			  <option value ="Part 1">Part 1</option>
+			  <option value ="Part 2">Part 2</option>
+			  <option value ="Part 3">Part 3</option>
+			  <option value ="Part 4">Part 4</option>
+            </select>
 	    </div>
 
 	    <div class="form-group">
@@ -108,7 +129,8 @@
 
 	    <div class="form-group"  style="padding-top:2%">
 			{!! Form::label('conducted_by', 'Conducted by:') !!}
-			{!! Form::text('conducted_by', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true']) !!}
+			{!! Form::text('conducted_by', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true']) !!}
+			<!--{!! Form::text('conducted_by', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true']) !!}-->
 			{!! Form::label('c_position', 'Position:') !!}
 	        {!! Form::text('c_position', 'Position',['class'=>'form-control', 'readonly'=>'true']) !!}
 	    </div>
@@ -119,17 +141,17 @@
 			<!-- NOTIFICATIONS -->
 			{!! Form::text('sender_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 			{!! Form::text('receiver_id', '0',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-			{!! Form::text('message', Auth::user()->employee_id . ' added a new report',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+			{!! Form::text('message', Auth::user()->firstname.' '.Auth::user()->lastname.' (ID: '.Auth::user()->employee_id . ') added a new report',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 			{!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 			{!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 			
 			<!-- USER ACTIVITY -->
-			{!! Form::text('employee_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+			<!--{!! Form::text('employee_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 			{!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 			{!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 			{!! Form::text('activity', 'Submitted a new maintenance report',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 			{!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-			{!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+			{!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	-->
 		</div>
 
 		<div class="input-field col s12">

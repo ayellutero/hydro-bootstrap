@@ -18,13 +18,14 @@ class CreateReportsTable extends Migration
         {
             $table->increments('id');
             $table->string('emp_id');
+            $table->string('station_id');
             $table->string('station_name');
             $table->string('location');
             $table->string('sensor_type');
             $table->date('date_assessed');
             $table->text('problem');
             $table->text('work_tdone');
-            $table->text('last_data');
+            $table->date('last_data');
             $table->text('init_remarks');
             $table->date('date_visited');
             $table->text('actual_defects');

@@ -8,6 +8,8 @@ use App\Report;
 use App\Notification;
 use App\UserActivity;
 use App\User;
+use App\Station;
+use App\StationReport;
 
 class ReportController extends Controller
 {
@@ -20,6 +22,9 @@ class ReportController extends Controller
     public function store()
     {
         $report=Request::all();
+        $loc = Station::where('location', $report['station_name'])->first();
+        $report['location'] = $loc->location.', '.$loc->province;
+        echo $report['location'];
         $users = User::all();
         $count = 0;
         foreach($users as $user){
@@ -47,13 +52,34 @@ class ReportController extends Controller
         foreach($adminHead as $ah){
           // Send notifications to all admins and unit heads
           // about new report
-          $usr = User::where('id', $ah->pivot['user_id'])->get();
-          $report['receiver_id'] = $usr[0]->employee_id;
-          Notification::create($report);
+
+            $usr = User::where('id', $ah->pivot['user_id'])->get();
+            $report['receiver_id'] = $usr[0]->employee_id;
+
+          if(strcmp($report['sender_id'], $report['receiver_id'])!=0){
+            // echo $report['sender_id'].'-'.$report['receiver_id'].' ';
+            Notification::create($report);
+          }
+          
         }
         
+        if($report['part_replaced'] == null)
+            $report['part_replaced'] = "None";
+
+        $station_id = Station::select('device_id')->where('location', $report['station_name'])->get()->first();
+        $report['station_id'] = $station_id['device_id'];
+        // // echo  $report['station_id'];
+
+        
+
         Report::create($report);
-        UserActivity::create($report);
+        $stationData['device_id'] = $report['station_id'];
+
+        $rep = Report::where('created_at', \Carbon\Carbon::now())->get()->first();
+        $stationData['report_id'] = $rep->id;
+        StationReport::create($stationData);
+        
+        // UserActivity::create($report);
 
         return redirect('addMaintenanceReport')
                 ->with('message', 'SUCCESS! Your report has been submitted for confirmation.');
@@ -65,15 +91,18 @@ class ReportController extends Controller
       $report->update($reportUpdate);
       UserActivity::create($reportUpdate);
 
+      $message = 'SUCCESS! You approved a report by '.$reportUpdate['noted_by'].'.';
+
       if($report->if_approved == 1){
         if(strcmp($reportUpdate['sender_id'], $reportUpdate['receiver_id'])!=0)
         // Check if report is approved by its author,
         { // If not, create notification for the user,
           Notification::create($reportUpdate);
+          $message = 'SUCCESS! Report has been approved.';
         } // else, there's no need to notify
     
         return redirect('viewPendingReports')
-               ->with('message', 'SUCCESS! You approved a report by '.$reportUpdate['noted_by'].'.');
+               ->with('message', $message);
       }
       else{
         Notification::create($reportUpdate);

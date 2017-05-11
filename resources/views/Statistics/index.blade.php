@@ -108,15 +108,15 @@
             </div>
             <div class="panel-body">
                 <div style="float:left; text-align: center">
-                    <h4>Most frequently replaced part</h4>
+                    <h4>Most frequently replaced part (overall)</h4>
                     <div id="freq_replaced_part" style="width:400px;height:300px"></div>
                     </div>
                 <div style="float:left; text-align: center">
-                    <h4>Most common sensor defect</h4>
+                    <h4>Most common sensor defect (overall)</h4>
                     <div id="most_common_defect" style="width:400px;height:300px"></div>
                 </div>
-                <div style="float:left; text-align: center">
-                    <h4>Most frequently defective sensor</h4>
+                <div style="float:left; text-align: center" class="hide">
+                    <h4>Most frequently defective sensor (overall)</h4>
                     <div id="most_freq_def" style="width:400px;height:300px"></div>
                 </div>
                 <div class="text-right hide">
@@ -128,7 +128,7 @@
 </div>
 
 <!---->
-<div id="freq_repPart" class="hide">
+<div id="statData" class="hide">
 {{$statsData}}
 </div>
 

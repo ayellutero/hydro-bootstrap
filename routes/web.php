@@ -111,6 +111,16 @@ Route::group(['middleware' => 'web'], function () {
         'roles' => ['Head', 'User', 'Admin']
     ]);
 
+    Route::get('maintenanceHistory', [
+        'uses'=> 'MaintenanceController@stationsView',
+        'as' => 'maintenanceHistory',
+        'middleware' => 'roles',
+        'roles' => ['Head', 'User', 'Admin']
+    ]);
+
+    Route::get('station-{id}-maintenance-history', 'MaintenanceController@viewStationHistory');
+    Route::get('station-{id}-statistics', 'StatController@retSenStat');
+
     Route::resource('reports','ReportController',
     [
         'middleware' => 'roles',
@@ -160,6 +170,14 @@ Route::group(['middleware' => 'web'], function () {
 
     /* Stats */
     Route::resource('statistics','StatController',
+    [
+        'middleware' => 'roles',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    /* Device Management */
+
+    Route::resource('deviceManagement','DeviceController',
     [
         'middleware' => 'roles',
         'roles' => ['Admin', 'Head', 'User']

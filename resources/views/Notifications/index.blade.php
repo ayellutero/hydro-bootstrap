@@ -5,7 +5,7 @@
 @if(Session::has('message'))
 <div class="alert alert-success alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  {{ Session::get('message') }}
+  <strong>{{ Session::get('message') }}</strong>
 </div>
 @endif
 
@@ -21,13 +21,15 @@
                     <thead> 
                         <td></td>
                         <td></td>
+                        <td></td>
                     </thead>
                     <tbody>
                         <?php $notifs = DB::table('notifications')->get(); ?>
                         @foreach ($notifs as $notif)
                             @if($notif->receiver_id == Auth::user()->employee_id)
                             <tr>
-                                <td>{{ \Carbon\Carbon::parse($notif->sent_at_date)->format('M d, Y') . " at " . \Carbon\Carbon::parse($notif->sent_at_time)->format('h:i A') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($notif->sent_at_date)->format('M d, Y') }}</td>
+                                <td>{{\Carbon\Carbon::parse($notif->sent_at_time)->format('h:i A') }}</td>
                                 <td>
 									<a href="#" >
                                         {{ $notif->message . "."}}

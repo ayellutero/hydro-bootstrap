@@ -4,7 +4,7 @@
 @if(Session::has('message'))
 <div class="alert alert-success alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  {{ Session::get('message') }}
+  <strong>{{ Session::get('message') }}</strong>
 </div>
 @endif
 
@@ -15,7 +15,7 @@
             <div class="panel-heading">Pending Reports</div>
 
             <div class="panel-body">
-                <table id="pending-reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="pending-reports" class="table table-striped table-bordered" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID</th>
