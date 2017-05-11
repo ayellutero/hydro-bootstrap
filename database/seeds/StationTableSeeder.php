@@ -19,6 +19,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.17023';
         $station->lng = '120.92218';
         $station->type = 'Rain2';
+        $station->sim = 'Smart';
         $station->save();
 
         $station = new Station();
@@ -28,6 +29,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.31463';
         $station->lng = '121.04115';
         $station->type = 'Waterlevel';
+        $station->sim = 'Globe';
         $station->save();
 
         $station = new Station();
@@ -37,6 +39,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.35120';
         $station->lng = '120.87189';
         $station->type = 'Waterlevel';
+        $station->sim = 'Smart';
         $station->save();
 
         $station = new Station();
@@ -46,6 +49,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.373163';
         $station->lng = '120.942109';
         $station->type = 'Waterlevel';
+        $station->sim = 'Smart';
         $station->save();
 
         $station = new Station();
@@ -55,6 +59,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.31219';
         $station->lng = '120.97131';
         $station->type = 'Rain2';
+        $station->sim = 'Smart';
         $station->save();
 
         $station = new Station();
@@ -64,6 +69,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.816';
         $station->lng = '120.9113';
         $station->type = 'Waterlevel';
+        $station->sim = 'Smart';
         $station->save();
         
         $station = new Station();
@@ -73,6 +79,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.24685';
         $station->lng = '121.50039';
         $station->type = 'Rain2';
+        $station->sim = 'Smart';
         $station->save();
 
         $station = new Station();
@@ -82,6 +89,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.27135';
         $station->lng = '121.12427';
         $station->type = 'Rain2';
+        $station->sim = 'Smart';
         $station->save();
 
         $station = new Station();
@@ -91,6 +99,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.14341';
         $station->lng = '121.27277';
         $station->type = 'Rain2';
+        $station->sim = 'Smart';
         $station->save();
 
         $station = new Station();
@@ -100,6 +109,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.1564';
         $station->lng = '121.234';
         $station->type = 'Waterlevel';
+        $station->sim = 'Smart';
         $station->save();
 
         $station = new Station();
@@ -109,6 +119,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.29745';
         $station->lng = '121.09453';
         $station->type = 'Waterlevel';
+        $station->sim = 'Smart';
         $station->save();
 
         $station = new Station();
@@ -118,6 +129,7 @@ class StationTableSeeder extends Seeder
         $station->lat = '14.13332';
         $station->lng = '121.41523';
         $station->type = 'Rain2';
+        $station->sim = 'Smart';
         $station->save();
     }
 }

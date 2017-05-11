@@ -15,12 +15,15 @@ class CreateStationsTable extends Migration
     {
         Schema::create('stations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('device_id');
+            $table->integer('device_id')->unsigned()->unique();
             $table->string('province');
             $table->string('location');
             $table->float('lat');
             $table->float('lng');
             $table->string('type');
+            $table->string('sim');
+            $table->float('elevation')->nullable();
+            $table->date('date_deployed')->nullable();
             $table->timestamps();
         });
     }

@@ -13,5 +13,9 @@ class Station extends Model
         'lat',
         'lng',
         'type',
+        'sim',
+        'elevation',
+        'date_deployed'
     ];
+
 }

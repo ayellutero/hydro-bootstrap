@@ -7,35 +7,31 @@ Route::auth();
 Route::get('/', 'HomeController@index');
 
 // Group of ROUTES w Permissions
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web', 'roles']], function () {
     /*
      * User CRUD Module
      */
 	Route::get('userCRUD', [
 		'uses' => 'UserCRUDController@index',
 		'as' => 'userCRUD.index',
-		'middleware' => 'roles',
 		'roles' => ['Admin', 'Head']
 	]);
 
     Route::post('/userCRUD/store/', [
         'uses' => 'UserCRUDController@store',
         'as' => 'userCRUD.store',
-        'middleware' => 'roles',
         'roles' => ['Admin']
     ]);
 
     Route::post('/userCRUD/{id}/update/', [
         'uses' => 'UserCRUDController@update',
         'as' => 'userCRUD.update',
-        'middleware' => 'roles',
         'roles' => ['Admin']
     ]);
 
     Route::delete('/userCRUD/{id}/destroy', [
         'uses' => 'UserCRUDController@destroy',
         'as' => 'userCRUD.destroy',
-        'middleware' => 'roles',
         'roles' => ['Admin']
     ]);
     
@@ -45,27 +41,23 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/viewMyMaintenanceReports', [
         'uses'=> 'MaintenanceController@myRepsView',
         'as' => 'viewMyMaintenanceReports',
-        'middleware' => 'roles',
         'roles' => ['Head', 'User', 'Admin']
     ]);
 
     Route::get('/viewMaintenanceReports', [
         'uses'=> 'MaintenanceController@allRepsView',
         'as' => 'viewMaintenanceReports',
-        'middleware' => 'roles',
         'roles' => ['Head', 'User', 'Admin']
     ]);
 
     Route::get('/addMaintenanceReport', [
         'uses'=> 'MaintenanceController@addRepView',
         'as' => 'addMaintenanceReport',
-        'middleware' => 'roles',
         'roles' => ['Head', 'User', 'Admin']
     ]);
 
     Route::resource('reports','ReportController',
     [
-        'middleware' => 'roles',
         'roles' => ['User', 'Head']
     ]);
 
@@ -79,14 +71,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('myNotifications', [
         'uses'=> 'NotificationController@index',
         'as' => 'myNotifications',
-        'middleware' => 'roles',
         'roles' => ['Head', 'Admin', 'User']
     ]);
 
     Route::get('viewPendingReports', [
         'uses'=> 'ReportController@show_pending',
         'as' => 'viewPendingReports',
-        'middleware' => 'roles',
         'roles' => ['Head', 'Admin']
     ]);
 
@@ -100,7 +90,6 @@ Route::group(['middleware' => ['web']], function () {
     // Calendar 
     Route::resource('calendar','CalendarController',
     [
-        'middleware' => 'roles',
         'roles' => ['Admin', 'Head', 'User']
     ]);
 
@@ -114,4 +103,59 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/userProfile', function () {
         return view('userProfile');
     });
+
+    // Station Management
+    Route::resource('setting', 'StationController',
+    [
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    Route::get('setting', [
+		'uses' => 'StationController@index',
+		'as' => 'stationManagement.index',
+        'roles' => ['Admin', 'Head', 'User']
+	]);
+
+    Route::post('/station/store/', [
+        'uses' => 'StationController@store',
+        'as' => 'stationManagement.store',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    Route::post('/station/{id}/update/', [
+        'uses' => 'StationController@update',
+        'as' => 'stationManagement.update',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    Route::delete('/station/{id}/destroy', [
+        'uses' => 'StationController@destroy',
+        'as' => 'stationManagement.destroy',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    // Parts Management
+    Route::get('parts', [
+		'uses' => 'PartController@index',
+		'as' => 'partManagement.index',
+        'roles' => ['Admin', 'Head', 'User']
+	]);
+
+    Route::post('/part/store/', [
+        'uses' => 'PartController@store',
+        'as' => 'partManagement.store',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    Route::post('/part/{id}/update/', [
+        'uses' => 'PartController@update',
+        'as' => 'partManagement.update',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    Route::delete('/part/{id}/destroy', [
+        'uses' => 'PartController@destroy',
+        'as' => 'partManagement.destroy',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
 });
