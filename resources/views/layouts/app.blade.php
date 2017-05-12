@@ -357,7 +357,6 @@
 
             /* FLOT pie charts */
             var statData = $('#all-stat-data').html();  
-            var statData = $('#statData').html();
             var dataSet =  JSON.parse(statData) ;
             var rp_placeholder = $('#freq_replaced_part');
             var cd_placeholder = $('#most_common_defect');
@@ -374,7 +373,7 @@
                                 return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
                                 label + ' : ' +
                                 Math.round(series.percent) +
-                                '%</div>';
+                                '% ('+series.data[0][1]+')</div>';
                             },
                             background: {
                                 opacity: 0.8,
@@ -412,7 +411,7 @@
                                 return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
                                 label + ' : ' +
                                 Math.round(series.percent) +
-                                '%</div>';
+                                '% ('+series.data[0][1]+')</div>';
                             },
                             background: {
                                 opacity: 0.8,
