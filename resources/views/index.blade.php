@@ -145,7 +145,7 @@
 </div>
 
 <!---->
-<div id="freq_repPart" class="hide">
+<div id="all-stat-data" class="hide">
     {{$statsData}}
 </div>
 

@@ -59,74 +59,72 @@
             <!-- /.navbar-header -->
 
             @if (Route::has('login'))
-            <ul class="nav navbar-right top-nav">
-                @if (Auth::check())
-                <!-- Notifs -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="badge badge-pill badge-danger"> 
+                <ul class="nav navbar-right top-nav">
+                    @if (Auth::check())
+                    <!-- Notifs -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="badge badge-pill badge-danger"> 
+                                @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
+                                    {{ App\Report::where(['if_approved' => 0])->get()->count() + App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count()  }}
+                                @else
+                                    {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}
+                                @endif
+                            </span> Notifications <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu message-dropdown">
                             @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
-                                {{ App\Report::where(['if_approved' => 0])->get()->count() + App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count()  }}
-                            @else
-                                {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}
+                            <li class="message-preview">
+                                <a href="viewPendingReports"><span class="badge badge-pill badge-danger">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</span> Pending Reports</a>
+                            </li>
                             @endif
-                        </span> Notifications <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu message-dropdown">
-                        @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
-                        <li class="message-preview">
-                            <a href="viewPendingReports"><span class="badge badge-pill badge-danger">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</span> Pending Reports</a>
-                        </li>
-                        @endif
-                        <li class="message-preview">
-                            <?php $notifications = DB::table('notifications')->get(); ?>
-                            {!! Form::model($notifications,['method' => 'PATCH','route'=>['notifications.update', Auth::user()->employee_id]]) !!}
-                                <div class="hide">
-                                    {!! Form::text('is_read', 1,['class'=>'form-control', 'readonly'=>'true' ]) !!}
-                                </div>
-                                <button href="#" class="btn btn-flat" style="background:white"><span class="badge badge-pill badge-danger"> {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}</span> All Notifications</button>
-                            {!! Form::close() !!}
-                        </li>
-                    </ul>
-                </li>
+                            <li class="message-preview">
+                                <?php $notifications = DB::table('notifications')->get(); ?>
+                                {!! Form::model($notifications,['method' => 'PATCH','route'=>['notifications.update', Auth::user()->employee_id]]) !!}
+                                    <div class="hide">
+                                        {!! Form::text('is_read', 1,['class'=>'form-control', 'readonly'=>'true' ]) !!}
+                                    </div>
+                                    <button href="#" class="btn btn-flat" style="background:white"><span class="badge badge-pill badge-danger"> {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}</span> All Notifications</button>
+                                {!! Form::close() !!}
+                            </li>
+                        </ul>
+                    </li>
 
-                <!-- User Profile -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-                
-                @endif
-            </ul>
+                    <!-- User Profile -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                     @endif
+                </ul>
             @endif
             <!-- /.navbar-top-links -->
 
             <!-- Sidebar Menu Items -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li>
-                        <a href="/"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
-                    </li>
                     @if (Auth::check())
                         <li>
-                            <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
+                            <a href="/"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
                         </li>
+                         <li>
                         <li>
-                            <a href="statistics"><i class="fa fa-pie-chart fa-fw"></i> Statistics</a>
+                            <a href="maintenanceHistory"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i> Stations</a>
                         </li>
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
@@ -144,21 +142,31 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="maintenanceHistory"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i> Stations</a>
+                            <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
+                        </li>                       
+                        
+                            @if ( Auth::user()->hasRole('Admin'))
+                                <li>
+                                    <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
+                                </li>
+
+                                <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
+                            @endif
+                            
+                    @else
+                    <li>
+                        <a href="/login" class=""><i class="fa fa-sign-in fa-fw"></i>Log in</a>
+                    </li>
                         </li>
                         
                         @if ( Auth::user()->hasRole('Admin'))
                             <li>
                                 <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
                             </li>
-
-                            <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
+                            <li>
+                                <a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
+                            </li>
                         @endif
-                        
-                    @else
-                        <li>
-                            <a href="/login" class=""><i class="fa fa-sign-in fa-fw"></i>Log in</a>
-                        </li>
                     @endif
                 </ul>
             </div>
@@ -242,7 +250,7 @@
                                 return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
                                 label + ' : ' +
                                 Math.round(series.percent) +
-                                '%</div>';
+                                '% ('+series.data[0][1]+')</div>';
                             },
                             background: {
                                 opacity: 0.8,
@@ -277,7 +285,7 @@
                                 return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
                                 label + ' : ' +
                                 Math.round(series.percent) +
-                                '%</div>';
+                                '% ('+series.data[0][1]+')</div>';
                             },
                             background: {
                                 opacity: 0.8,

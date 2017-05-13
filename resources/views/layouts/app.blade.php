@@ -102,11 +102,9 @@
                             <i class="fa fa-user fa-fw"></i> {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            <li><a href="/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
-                            <li>
-                                <a href="/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
                             </li>
                             <li class="divider"></li>
                             <li>
@@ -117,7 +115,8 @@
                             </li>
                         </ul>
                     </li>
-                    @endif
+                    
+                     @endif
                 </ul>
             @endif
             <!-- /.navbar-top-links -->
@@ -129,6 +128,7 @@
                         <li>
                             <a href="/"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
                         </li>
+                         <li>
                         <li>
                             <a href="maintenanceHistory"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i> Stations</a>
                         </li>
@@ -149,6 +149,20 @@
                         </li>
                         <li>
                             <a href="calendar"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Calendar</a>
+                        </li>                       
+                        
+                            @if ( Auth::user()->hasRole('Admin'))
+                                <li>
+                                    <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
+                                </li>
+
+                                <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
+                            @endif
+                            
+                    @else
+                    <li>
+                        <a href="/login" class=""><i class="fa fa-sign-in fa-fw"></i>Log in</a>
+                    </li>
                         </li>
                         
                         @if ( Auth::user()->hasRole('Admin'))
@@ -218,7 +232,7 @@
                     {
                         currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
                     }
-                });
+                })
             });
 
             // hide PW field button
@@ -269,7 +283,7 @@
                     "infoEmpty": ""
                 },
                 "scrollX": true
-            });
+            })
             
             var tableUserAct = $('#user-activity').DataTable({
                 order: [[ 0, "desc" ]],
@@ -331,27 +345,25 @@
                     side.html(ttl);
                      
                     side = $('#eventID');
-                    side.html("<label>eventID:</label><input name='eventIDinput' type=text value='" + calEvent.id + "' class='form-control' readonly></input>");
+                    side.html("<label>eventID:</label><input name='eventIDinput' type=text value='" + calEvent.id + "' class='form-control' readonly></input>")
 
                     side = $('#eventDate');
-                    side.html("<label>Date:</label><input type=text value='" + moment(calEvent.start).format('MMM DD, YYYY') + "' class='form-control' readonly></input>");
+                    side.html("<label>Date:</label><input type=text value='" + moment(calEvent.start).format('MMM DD, YYYY') + "' class='form-control' readonly></input>")
 
                     side = $('#eventStaff');
-                    side.html("<label>Staff-in-charge:</label><input type=text value='" + calEvent.staff + "' class='form-control' readonly onclick='this.select()'></input>");
+                    side.html("<label>Staff-in-charge:</label><input type=text value='" + calEvent.staff + "' class='form-control' readonly onclick='this.select()'></input>")
                     
                     side = $('#eventEmail');
-                    side.html("<label>Email:</label><input type=text value='" + calEvent.email + "' class='form-control' readonly onclick='this.select()'></input>");
+                    side.html("<label>Email:</label><input type=text value='" + calEvent.email + "' class='form-control' readonly onclick='this.select()'></input>")
                     
                     side = $('#eventPerformed');
-                    side.html("<label>Performed:</label><input type=text value='" + fin + "' class='form-control' readonly></input>");
+                    side.html("<label>Performed:</label><input type=text value='" + fin + "' class='form-control' readonly></input>")
                     
-                    // side = $('#evvv');
-                    // side.html("{!!" + calEvent.id +"!!}");
                 }
             });  // end fullcalendar
 
             /* FLOT pie charts */
-            var statData = $('#statData').html();
+            var statData = $('#all-stat-data').html();  
             var dataSet =  JSON.parse(statData) ;
             var rp_placeholder = $('#freq_replaced_part');
             var cd_placeholder = $('#most_common_defect');
@@ -368,7 +380,7 @@
                                 return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
                                 label + ' : ' +
                                 Math.round(series.percent) +
-                                '%</div>';
+                                '% ('+series.data[0][1]+')</div>';
                             },
                             background: {
                                 opacity: 0.8,
@@ -406,7 +418,7 @@
                                 return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
                                 label + ' : ' +
                                 Math.round(series.percent) +
-                                '%</div>';
+                                '% ('+series.data[0][1]+')</div>';
                             },
                             background: {
                                 opacity: 0.8,
@@ -429,41 +441,8 @@
 
 				percent = parseFloat(obj.series.percent).toFixed(2);
 				alert(""  + obj.series.label + ": " + percent + "%");
-			});
-
-            //////////////////////
-            // $.plot('#most_freq_def', dataSet, {
-            //     series: {
-            //         pie: {
-            //             innerRadius: 0.4,
-            //             show: true,                
-            //             label: {
-            //                 show:true,
-            //                 radius: 0.8,
-            //                 formatter: function (label, series) {                
-            //                     return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
-            //                     label + ' : ' +
-            //                     Math.round(series.percent) +
-            //                     '%</div>';
-            //                 },
-            //                 background: {
-            //                     opacity: 0.8,
-            //                     color: '#000'
-            //                 }
-            //             }
-            //         }
-            //     }
-            //     // grid: {
-            //     //     hoverable: true,
-            //     //     clickable: true
-            //     // }
-            // }); // end of chart: most common defect   
-
-            
-        
-           
+			});         
      });// end of main
     </script>
 </body>
-
 </html>
