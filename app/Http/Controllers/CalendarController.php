@@ -47,7 +47,7 @@ class CalendarController extends Controller
         if(strcmp($schedule['sender_id'], $schedule['receiver_id'])!=0)
         // Check if scheduled maintenance is for the scheduler
         { // If not, create notification for the user,
-          Notification::create($schedule);
+        //   Notification::create($schedule);
         } // else, there's no need to notify
     
 

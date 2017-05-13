@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Report;
-use DB;
+use App\Station;
 
 class HomeController extends Controller
 {
@@ -26,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         // this is the STATISTICS controller
+        $locations = Station::all();
         $commDefect = Report::select('actual_defects')->where('if_approved', 1)->get();
         $cdData = array();
         foreach($commDefect as $def){
@@ -66,8 +67,8 @@ class HomeController extends Controller
             array_push($prArray, $stats);
         }
         $statsData = [ $prArray, $cdArray ];
-
-        return view('index')->with('statsData', (json_encode($statsData)));
+        return view('index',compact('locations'))->with('statsData', (json_encode($statsData)));
+        // return view('index')->with('locations')->with('statsData', (json_encode($statsData)));
     }
 
     public function store(){

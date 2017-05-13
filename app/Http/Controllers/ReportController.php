@@ -58,7 +58,7 @@ class ReportController extends Controller
 
           if(strcmp($report['sender_id'], $report['receiver_id'])!=0){
             // echo $report['sender_id'].'-'.$report['receiver_id'].' ';
-            Notification::create($report);
+            // Notification::create($report);
           }
           
         }
@@ -77,7 +77,7 @@ class ReportController extends Controller
 
         $rep = Report::where('created_at', \Carbon\Carbon::now())->get()->first();
         $stationData['report_id'] = $rep->id;
-        StationReport::create($stationData);
+        // StationReport::create($stationData);
         
         // UserActivity::create($report);
 
@@ -89,7 +89,7 @@ class ReportController extends Controller
       $reportUpdate = Request::all();
       $report = Report::find($id);
       $report->update($reportUpdate);
-      UserActivity::create($reportUpdate);
+      // UserActivity::create($reportUpdate);
 
       $message = 'SUCCESS! You approved a report by '.$reportUpdate['noted_by'].'.';
 
@@ -97,7 +97,7 @@ class ReportController extends Controller
         if(strcmp($reportUpdate['sender_id'], $reportUpdate['receiver_id'])!=0)
         // Check if report is approved by its author,
         { // If not, create notification for the user,
-          Notification::create($reportUpdate);
+          // Notification::create($reportUpdate);
           $message = 'SUCCESS! Report has been approved.';
         } // else, there's no need to notify
     
@@ -105,7 +105,7 @@ class ReportController extends Controller
                ->with('message', $message);
       }
       else{
-        Notification::create($reportUpdate);
+        // Notification::create($reportUpdate);
         return redirect('viewMyMaintenanceReports')
                ->with('message', 'SUCCESS! Your report has been edited.');
       }

@@ -4,7 +4,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="http://maps.google.com/maps/api/js"></script>
-<script src="{{ asset('dist/js/gmaps.js') }}"></script>
 
 @if(Session::has('status'))
     <div class="alert alert-danger alert-dismissable">
@@ -146,24 +145,42 @@
 
 <!---->
 <div id="all-stat-data" class="hide">
-    {{$statsData}}
+    {{ $statsData }}
 </div>
 
-<script>
-    function initMap() {
-        var uluru = {lat: 14.1648, lng: 121.2413};
+<script type="text/javascript" src="{{ asset('dist/js/gmaps.js') }}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var locations = <?php print_r(json_encode($locations)) ?>;
+        var infoWindow = new google.maps.InfoWindow({
+            content: 'Content goes here..'
+        });
+        var mymap = new GMaps({
+            el: '#mymap',
+            lat: 14.16,
+            lng: 121.23,
+            zoom:8
+            });
+
+            $.each( locations, function( index, value ){
+                mymap.addMarker({
+                    lat: value.lat,
+                    lng: value.lng,
+                    title: value.location + ' ' + value.province,
+                    infoWindow: {
+                        content:'<b>Device ID: </b>' + value.device_id + '</br><b>Location: </b>' 
+                                + value.location + ' ' + value.province 
+                                + '<br><b>Latitude: </b>' + value.lat + '<b> Longitude: </b>' + value.lng + '<br><b>Elevation: </b>' + value.elevation
+                                + '<br><b>Type: </b>' + value.type + '<br>'
+                    },
+                    click: function(e) {
+                        infoWindow.open();
+                    }
+                });
+        });
+    });
         
-        var map = new google.maps.Map(document.getElementById('mymap'), {
-            zoom: 9,
-            center: uluru
-        });
+</script>
 
-        var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-        });
-    }
-    </script>
-
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSSnzsVF6gWcv3yokDbRYQiqN--Vs0NMw&callback=initMap"></script>
 @endsection

@@ -20,7 +20,7 @@ class UserTableSeeder extends Seeder
         $user = new User();
         $user->firstname = 'User';
         $user->lastname = 'User';
-        $user->employee_id = 'user123';
+        $user->employee_id = '123456';
         $user->position = 'User';
         $user->email = 'user@example.com';
         $user->password = 'useruser';
@@ -30,7 +30,7 @@ class UserTableSeeder extends Seeder
         $head = new User();
         $head->firstname = 'Head';
         $head->lastname = 'Head';
-        $head->employee_id = '123head';
+        $head->employee_id = '654321';
         $head->position = 'Head';
         $head->email = 'head@example.com';
         $head->password = 'headhead';
@@ -40,7 +40,7 @@ class UserTableSeeder extends Seeder
         $admin = new User();
         $admin->firstname = 'Admin';
         $admin->lastname = 'Admin';
-        $admin->employee_id = 'admin777';
+        $admin->employee_id = '201235784';
         $admin->position = 'Admin';
         $admin->email = 'admin@example.com';
         $admin->password = 'adminadmin';
