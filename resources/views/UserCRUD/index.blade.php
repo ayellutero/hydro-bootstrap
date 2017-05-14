@@ -1,5 +1,7 @@
 @extends('layouts.app')
- 
+
+@section('pageTitle', 'All Users')
+
 @section('content')
 
 <!-- /.row -->
@@ -8,7 +10,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a class="btn" data-toggle="modal" data-target="#createUser"><i class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
-                User CRUD
+                Add User
             </div>
 
             <div class="panel-body">
@@ -98,7 +100,7 @@
                                     @include('UserCRUD.create')
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-success" type="submit" name="action">Create User</button>
+                                    <button class="btn btn-success" type="submit" name="action">Add</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
                                     {{ Form::close() }}
                                 </div>
