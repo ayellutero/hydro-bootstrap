@@ -98,8 +98,6 @@
                         <ul class="dropdown-menu">
                             <li><a href="/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
-                            <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                            </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
@@ -122,9 +120,17 @@
                         <li>
                             <a href="/"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
                         </li>
-                         <li>
                         <li>
-                            <a href="maintenanceHistory"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i> Stations</a>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#stationmgt"><i class="fa fa-th-list fa-fw"></i> Station Management <i class="fa fa-caret-down"></i></a>
+                            <ul id="stationmgt" class="collapse">
+                                <li>
+                                    <a href="stationManagement"><i class="fa fa-flag fa-fw" aria-hidden="true"></i> Stations and Devices</a>
+                                </li>
+                                <li>
+                                    <a href="maintenanceHistory"><i class="fa fa-file-o fa-fw" aria-hidden="true"></i> Reports and Stats</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
@@ -185,20 +191,17 @@
                             <h6>NOTE: Results are based entirely on approved reports.</h6>
                         </div>
                         <div class="panel-body">
-                            <div style="float:left;">
-                                <div style="float:left; text-align: center">
-                                    <h4>Most frequently replaced part</h4>
-                                    <div id="sen_frp" style="width:400px;height:300px"></div>
-                                </div>
-                                <div style="float:right;">Details</div>
+                            <div class="col-sm-6" style="text-align: center;">
+                                <h4>Most frequently replaced part</h4>
+                                <div id="sen_frp" style="margin-left: 15%;width:350px;height:350px"></div>
+                                <br>
+                                <div id="flot-memo1">&nbsp;</div>
                             </div>
-                            <div style="float:left;">
-                                <div style="float:left; text-align: center">
-                                    <h4>Most common sensor defect</h4>
-                                    <div id="sen_mcd" style="width:400px;height:300px"></div>
-                                    
-                                </div>
-                                <div style="float:right;" >Details</div>
+                            <div class="col-sm-6" style="text-align: center;">
+                                <h4>Most common sensor defect</h4>
+                                <div id="sen_mcd" style="margin-left: 15%;width:350px;height:350px"></div>   
+                                <br>
+                                <div id="flot-memo2">&nbsp;</div>
                             </div>
                             <div class="text-right hide">
                                 <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
@@ -227,89 +230,66 @@
 
     <!-- FLOT Script -->
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.pie.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.categories.js') }}"></script>
     
     <script> // MAIN Script
    
    
         $(document).ready(function() {
-                var senStatData = $('#senStatData').html();  
+            var senStatData = $('#senStatData').html();  
             var senDataSet =  JSON.parse(senStatData);
-            var srp_placeholder = $('#sen_frp');
-            var scd_placeholder = $('#sen_mcd');
 
-            $.plot('#sen_frp', senDataSet[0], {
+            $.plot('#sen_frp', [senDataSet[0]], {
                 series: {
-                    pie: {
-                        innerRadius: 0.4,
-                        show: true,                
-                        label: {
-                            show:true,
-                            radius: 0.8,
-                            formatter: function (label, series) {                
-                                return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
-                                label + ' : ' +
-                                Math.round(series.percent) +
-                                '% ('+series.data[0][1]+')</div>';
-                            },
-                            background: {
-                                opacity: 0.8,
-                                color: '#000'
-                            }
-                        }
+                    bars: {
+                        show: true,
+                        barWidth: 0.7,
+                        align: "center"
                     }
                 },
-                grid: {
-                    hoverable: true,
-                    clickable: true
+                xaxis: {
+                    mode: "categories",
+                    tickLength: 0
+                },
+                yaxis: {
+                    tickDecimals: 0
+                }
+            });  // end of chart: frequently replaced part  
+    
+
+            $.plot('#sen_mcd', [senDataSet[1]], {
+               series: {
+                    bars: {
+                        show: true,
+                        barWidth: 0.7,
+                        align: "center"
+                    }
+                },
+                xaxis: {
+                    mode: "categories",
+                    tickLength: 0
+                },
+                yaxis: {
+                    tickDecimals: 0
                 }
             });  // end of chart: frequently replaced part  
 
-            srp_placeholder.bind("plotclick", function(event, pos, obj) {
-				if (!obj) {
-					return;
-                }
-				percent = parseFloat(obj.series.percent).toFixed(2);
-				alert(""  + obj.series.label + ": " + percent + "%");
-			});//
 
-            $.plot('#sen_mcd', senDataSet[1], {
-                series: {
-                    pie: {
-                        innerRadius: 0.4,
-                        show: true,                
-                        label: {
-                            show:true,
-                            radius: 0.8,
-                            formatter: function (label, series) {                
-                                return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
-                                label + ' : ' +
-                                Math.round(series.percent) +
-                                '% ('+series.data[0][1]+')</div>';
-                            },
-                            background: {
-                                opacity: 0.8,
-                                color: '#000'
-                            }
-                        }
-                    }
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true
-                }
-            });  // end of chart: frequently replaced part  
+        })//main
 
-            scd_placeholder.bind("plotclick", function(event, pos, obj) {
-				if (!obj) {
-					return;
-                }
-				percent = parseFloat(obj.series.percent).toFixed(2);
-				alert(""  + obj.series.label + ": " + percent + "%");
-			});
-
-
-
-        })//
+        function pieHover1(event, pos, obj) {
+            if (!obj)
+                return;
+        
+            percent = parseFloat(obj.series.percent).toFixed(2);
+            $("#flot-memo1").html('<span style="font-weight: bold;">'+obj.series.label+': '+ obj.series.data[0][1] +' ('+percent+'%)</span>');
+        }
+        function pieHover2(event, pos, obj) {
+            if (!obj)
+                return;
+        
+            percent = parseFloat(obj.series.percent).toFixed(2);
+            $("#flot-memo2").html('<span style="font-weight: bold;">'+obj.series.label+': '+ obj.series.data[0][1] +' ('+percent+'%)</span>');
+        }
 
     </script>

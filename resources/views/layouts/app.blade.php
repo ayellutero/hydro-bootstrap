@@ -104,8 +104,6 @@
                         <ul class="dropdown-menu">
                             <li><a href="/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
-                            <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                            </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
@@ -128,9 +126,17 @@
                         <li>
                             <a href="/"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
                         </li>
-                         <li>
                         <li>
-                            <a href="maintenanceHistory"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i> Stations</a>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#stationmgt"><i class="fa fa-th-list fa-fw"></i> Station Management <i class="fa fa-caret-down"></i></a>
+                            <ul id="stationmgt" class="collapse">
+                                <li>
+                                    <a href="stationManagement"><i class="fa fa-flag fa-fw" aria-hidden="true"></i> Stations and Devices</a>
+                                </li>
+                                <li>
+                                    <a href="maintenanceHistory"><i class="fa fa-file-o fa-fw" aria-hidden="true"></i> Reports and Stats</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
@@ -155,7 +161,6 @@
                                 <li>
                                     <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
                                 </li>
-
                                 <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
                             @endif
                             
@@ -207,6 +212,7 @@
     <!-- FLOT Script -->
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.pie.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.categories.js') }}"></script>
     
     <script> // MAIN Script
         $(document).ready(function() {
@@ -368,84 +374,97 @@
             /* FLOT pie charts */
             var statData = $('#all-stat-data').html();  
             var dataSet =  JSON.parse(statData) ;
-            var rp_placeholder = $('#freq_replaced_part');
-            var cd_placeholder = $('#most_common_defect');
             
-            $.plot('#freq_replaced_part', dataSet[0], {
+            // $.plot('#freq_replaced_part', dataSet[0], {
+            //     series: {
+            //         pie: {    
+            //             radius: 1,
+            //             show: true,                
+            //         }
+            //     },
+            //     grid: {
+            //         hoverable: true
+            //     },
+            //     legend: {
+            //         labelBoxBorderColor: "none"
+            //     }
+            // });  // end of chart: frequently replaced part  
+            // $('#freq_replaced_part').bind("plothover", pieHoverFRP);
+            
+            // $.plot('#most_common_defect', dataSet[1], {
+            //     series: {
+            //         pie: {    
+            //             radius: 1,
+            //             show: true,                
+            //         }
+            //     },
+            //     grid: {
+            //         hoverable: true
+            //     },
+            //     legend: {
+            //         labelBoxBorderColor: "none",
+            //         sorted: "ascending"
+            //     }
+            // }); // end of chart: most common defect
+            // $('#most_common_defect').bind("plothover", pieHoverMCD);
+
+
+/////////////////////////////////////
+            $.plot('#freq_replaced_part', [ dataSet[0] ], {
                 series: {
-                    pie: {
-                        innerRadius: 0.4,
-                        show: true,                
-                        label: {
-                            show:true,
-                            radius: 0.8,
-                            formatter: function (label, series) {                
-                                return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
-                                label + ' : ' +
-                                Math.round(series.percent) +
-                                '% ('+series.data[0][1]+')</div>';
-                            },
-                            background: {
-                                opacity: 0.8,
-                                color: '#000'
-                            }
-                        }
+                    bars: {
+                        show: true,
+                        barWidth: 0.7,
+                        align: "center"
                     }
                 },
-                grid: {
-                    hoverable: true,
-                    clickable: true
+                xaxis: {
+                    mode: "categories",
+                    tickLength: 0
+                },
+                yaxis: {
+                    tickDecimals: 0
                 }
-            });  // end of chart: frequently replaced part  
+            });
 
-            rp_placeholder.bind("plotclick", function(event, pos, obj) {
-
-				if (!obj) {
-					return;
-				}
-
-				percent = parseFloat(obj.series.percent).toFixed(2);
-				alert(""  + obj.series.label + ": " + percent + "%");
-			});
-
-            
-            $.plot('#most_common_defect', dataSet[1], {
+             $.plot('#most_common_defect', [ dataSet[1] ], {
                 series: {
-                    pie: {
-                        innerRadius: 0.4,
-                        show: true,                
-                        label: {
-                            show:true,
-                            radius: 0.8,
-                            formatter: function (label, series) {                
-                                return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
-                                label + ' : ' +
-                                Math.round(series.percent) +
-                                '% ('+series.data[0][1]+')</div>';
-                            },
-                            background: {
-                                opacity: 0.8,
-                                color: '#000'
-                            }
-                        }
+                    bars: {
+                        show: true,
+                        barWidth: 0.7,
+                        align: "center"
                     }
                 },
-                grid: {
-                    hoverable: true,
-                    clickable: true
+                xaxis: {
+                    mode: "categories",
+                    tickLength: 0
+                },
+                yaxis: {
+                    tickDecimals: 0
                 }
-            }); // end of chart: most common defect
+            });
 
-            cd_placeholder.bind("plotclick", function(event, pos, obj) {
 
-				if (!obj) {
-					return;
-				}
 
-				percent = parseFloat(obj.series.percent).toFixed(2);
-				alert(""  + obj.series.label + ": " + percent + "%");
-			});         
+////////////////////////////////////
+
+               
      });// end of main
+
+     function pieHoverFRP(event, pos, obj) {
+            if (!obj)
+                return;
+        
+            percent = parseFloat(obj.series.percent).toFixed(2);
+            $("#flot-memo_frp").html('<span style="font-weight: bold;">'+obj.series.label+': '+ obj.series.data[0][1] +' ('+percent+'%)</span>');
+        }
+        function pieHoverMCD(event, pos, obj) {
+            if (!obj)
+                return;
+        
+            percent = parseFloat(obj.series.percent).toFixed(2);
+            $("#flot-memo_mcd").html('<span style="font-weight: bold;">'+obj.series.label+': '+ obj.series.data[0][1] +' ('+percent+'%)</span>');
+        }
     </script>
 </body>
 </html>

@@ -7,17 +7,11 @@ use App\Report;
 
 class StatController extends Controller
 {
-    public function index()
-    {
-         $statsData = $this->genStat();
-         return view('index')->with('statsData', (json_encode($statsData)));
-    }
-
-    public function store(){
-        echo Report::select('employee_id','conducted_by');
-
-        // return view('Statistics.index')->with('');
-    }
+    // public function index()
+    // {
+    //      $statsData = $this->genStat();
+    //      return view('index')->with('statsData', (json_encode($statsData)));
+    // }
 
     public function retSenStat($id){                
         $statsData = $this->senStat($id);
@@ -26,50 +20,50 @@ class StatController extends Controller
             ->with('dev_id', $id);
     }
 
-    public static function genStat(){
-        $commDefect = Report::select('actual_defects')->where('if_approved', 1)->get();
-        $cdData = array();
-        foreach($commDefect as $def){
-            $cdData[$def->actual_defects] = 0;
-        }
+    // public static function genStat(){
+    //     $commDefect = Report::select('actual_defects')->where('if_approved', 1)->get();
+    //     $cdData = array();
+    //     foreach($commDefect as $def){
+    //         $cdData[$def->actual_defects] = 0;
+    //     }
 
-        foreach($commDefect as $def){
-            $cdData[$def->actual_defects] += 1;        
-        }
+    //     foreach($commDefect as $def){
+    //         $cdData[$def->actual_defects] += 1;        
+    //     }
 
-        // $keyCount = count($partReps);
-        $cdArray = array();
-        $stats = array();
-        foreach($cdData as $key => $value){
-            $stats['label'] = $key;
-            $stats['data'] = $value;
+    //     // $keyCount = count($partReps);
+    //     $cdArray = array();
+    //     $stats = array();
+    //     foreach($cdData as $key => $value){
+    //         $stats['label'] = $key;
+    //         $stats['data'] = $value;
 
-            array_push($cdArray, $stats);
-        }
-        // ......... //
-        $partReps = Report::select('part_replaced')->where('if_approved', 1)->get();
-        $prData = array();
-        foreach($partReps as $part){
-            $prData[$part->part_replaced] = 0;
-        }
+    //         array_push($cdArray, $stats);
+    //     }
+    //     // ......... //
+    //     $partReps = Report::select('part_replaced')->where('if_approved', 1)->get();
+    //     $prData = array();
+    //     foreach($partReps as $part){
+    //         $prData[$part->part_replaced] = 0;
+    //     }
 
-        foreach($partReps as $part){
-            $prData[$part->part_replaced] += 1;        
-        }
+    //     foreach($partReps as $part){
+    //         $prData[$part->part_replaced] += 1;        
+    //     }
 
    
-        $prArray= array();
-        $stats = array();
-        foreach($prData as $key => $value){
-            $stats['label'] = $key;
-            $stats['data'] = $value;
+    //     $prArray= array();
+    //     $stats = array();
+    //     foreach($prData as $key => $value){
+    //         $stats['label'] = $key;
+    //         $stats['data'] = $value;
 
-            array_push($prArray, $stats);
-        }
-        $statsData = [ $prArray, $cdArray ];
+    //         array_push($prArray, $stats);
+    //     }
+    //     $statsData = [ $prArray, $cdArray ];
 
-        return $statsData;
-    }
+    //     return $statsData;
+    // }
 
     public function senStat($id){
         $commDefect = Report::select('actual_defects')
@@ -110,15 +104,21 @@ class StatController extends Controller
         }
 
    
-        $prArray= array();
-        $stats = array();
+        $parts_arr = array();
+        $defects_arr = array();
+        $cnt = 0;
         foreach($prData as $key => $value){
-            $stats['label'] = $key;
-            $stats['data'] = $value;
-
-            array_push($prArray, $stats);
+           $parts_arr[$cnt] = [$key, $value];
+           $cnt++;
         }
-        $statsData = [ $prArray, $cdArray ];
+
+        $cnt = 0;
+        foreach($cdData as $key => $value){
+           $defects_arr[$cnt] = [$key, $value];
+           $cnt++;
+        }
+
+        $statsData = [ $parts_arr, $defects_arr ];
 
         return $statsData;
     }

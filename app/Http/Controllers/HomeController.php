@@ -30,45 +30,41 @@ class HomeController extends Controller
         $commDefect = Report::select('actual_defects')->where('if_approved', 1)->get();
         $cdData = array();
         foreach($commDefect as $def){
-            $cdData[strtolower($def->actual_defects)] = 0;
+            $cdData[$def->actual_defects] = 0;
         }
 
         foreach($commDefect as $def){
-            $cdData[strtolower($def->actual_defects)] += 1;        
+            $cdData[$def->actual_defects] += 1;        
         }
 
-        // $keyCount = count($partReps);
-        $cdArray = array();
-        $stats = array();
-        foreach($cdData as $key => $value){
-            $stats['label'] = $key;
-            $stats['data'] = $value;
-
-            array_push($cdArray, $stats);
-        }
         // ......... //
         $partReps = Report::select('part_replaced')->where('if_approved', 1)->get();
         $prData = array();
         foreach($partReps as $part){
-            $prData[strtolower($part->part_replaced)] = 0;
+            $prData[$part->part_replaced] = 0;
         }
 
         foreach($partReps as $part){
-            $prData[strtolower($part->part_replaced)] += 1;        
+            $prData[$part->part_replaced] += 1;        
         }
-
-        // $keyCount = count($partReps);
-        $prArray= array();
-        $stats = array();
+        
+        $parts_arr = array();
+        $defects_arr = array();
+        $cnt = 0;
         foreach($prData as $key => $value){
-            $stats['label'] = $key;
-            $stats['data'] = $value;
-
-            array_push($prArray, $stats);
+           $parts_arr[$cnt] = [$key, $value];
+           $cnt++;
         }
-        $statsData = [ $prArray, $cdArray ];
+
+        $cnt = 0;
+        foreach($cdData as $key => $value){
+           $defects_arr[$cnt] = [$key, $value];
+           $cnt++;
+        }
+
+        $statsData = [ $parts_arr, $defects_arr ];
         return view('index',compact('locations'))->with('statsData', (json_encode($statsData)));
-        // return view('index')->with('locations')->with('statsData', (json_encode($statsData)));
+        
     }
 
     public function store(){

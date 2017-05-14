@@ -117,34 +117,33 @@
 
 <!-- graph of stations and how many times a report/maintenance was done on them -->
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-xs-12 col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-wrench"></i> Stations and Reports</h3>
                 <h6>NOTE: Results are based entirely on approved reports.</h6>
             </div>
             <div class="panel-body">
-                <div style="float:left; text-align: center">
+                <div class="col-sm-6" style="text-align: center;">
                     <h4>Most frequently replaced part</h4>
-                    <div id="freq_replaced_part" style="width:400px;height:300px"></div>
-                    </div>
-                <div style="float:left; text-align: center">
+                    <!--<div id="freq_replaced_part" style="margin-left: 15%;width:350px;height:350px"></div>-->
+                     <div id='freq_replaced_part' style="width:500px;height:350px"></div>
+                    <br>
+                </div>
+                <div class="col-sm-6" style="text-align: center;">
                     <h4>Most common sensor defect</h4>
-                    <div id="most_common_defect" style="width:400px;height:300px"></div>
-                </div>
-                <div style="float:left; text-align: center">
-                    <h4>Most frequently defective sensor</h4>
-                    <div id="most_freq_def" style="width:400px;height:300px"></div>
-                </div>
-                <div class="text-right hide">
-                    <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                    <!--<div id="most_common_defect" style="margin-left: 15%;width:350px;height:350px"></div>-->
+                    <div id='most_common_defect' style="width:500px;height:350px"></div>
+                    <br>
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
 
 <!---->
+
 <div id="all-stat-data" class="hide">
     {{ $statsData }}
 </div>

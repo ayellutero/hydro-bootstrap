@@ -115,7 +115,7 @@ Route::group(['middleware' => ['web', 'roles']], function () {
     });
 
     // Station Management
-    Route::resource('setting', 'StationController',
+    Route::resource('stationManagement', 'StationController',
     [
         'roles' => ['Admin', 'Head', 'User']
     ]);
