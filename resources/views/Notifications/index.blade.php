@@ -1,5 +1,7 @@
 @extends('layouts.app')
  
+@section('pageTitle', 'Notifications')
+
 @section('content')
 
 @if(Session::has('message'))

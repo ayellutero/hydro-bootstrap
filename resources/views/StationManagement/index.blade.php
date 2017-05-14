@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Setting')
+
 @section('content')
 <style>
     .panel.with-nav-tabs .panel-heading{

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'New Report')
+
 @section('content')
 
 @if(Session::has('message'))

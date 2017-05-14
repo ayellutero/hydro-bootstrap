@@ -1,11 +1,12 @@
 @extends('layouts.app')
  
-@section('content')
+@section('pageTitle', 'Reports')
 
+@section('content')
 <div class="card-panel">
-	 <h4 class="header2">Maintenance Form</h4>
+	<h4 class="header2">Maintenance Form</h4>
 	<!-- FIX FORM -->
-	{!! Form::open(['url' => 'reports']) !!}
+		{!! Form::open(['url' => 'reports']) !!}
 		 <div class="form-group">
 	        {!! Form::label('station_name', 'Station Name:') !!}
 	        {!! Form::text('station_name',null,['class'=>'form-control', 'required' => 'true']) !!}
@@ -107,8 +108,6 @@
 <script>
 	$(document).ready(function() {
 		$('select').material_select();
-
 	});
 </script>
-
 @endsection

@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Stations')
+
 @section('content')
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading"> Stations </div>
-
-            <div class="panel-body">
+        <div class="panel-body">
                 <table id="all-stations" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
@@ -58,7 +57,6 @@
                     @endforeach
                     </tbody>
                 </table>
-            </div>
         </div>
     </div>
 </div>

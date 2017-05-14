@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>@yield('pageTitle') | {{ config('app.name') }}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -259,7 +259,10 @@
             $('#all-works').DataTable({
                 "scrollX": true
             });
-
+            $('#all-users').DataTable({
+                "scrollX": true
+            });
+            
             var tableMyReps = $('#my-reports').DataTable({
                 order: [[ 3, "desc" ], [ 4, "desc" ]],
                 language: {
