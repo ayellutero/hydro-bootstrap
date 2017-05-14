@@ -133,7 +133,7 @@
                                     <a href="stationManagement"><i class="fa fa-flag fa-fw" aria-hidden="true"></i> Stations and Devices</a>
                                 </li>
                                 <li>
-                                    <a href="maintenanceHistory"><i class="fa fa-file-o fa-fw" aria-hidden="true"></i> Reports and Stats</a>
+                                    <a href="maintenanceHistory"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Reports and Stats</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
