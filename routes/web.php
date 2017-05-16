@@ -114,33 +114,20 @@ Route::group(['middleware' => ['web', 'roles']], function () {
         return view('userProfile');
     });
 
-    // Station Management
-    Route::resource('stationManagement', 'StationController',
-    [
-        'roles' => ['Admin', 'Head', 'User']
-    ]);
-
     /* Device Management */
-
-    Route::resource('deviceManagement','DeviceController',
-    [
-        'middleware' => 'roles',
-        'roles' => ['Admin', 'Head', 'User']
-    ]);
-
-    Route::get('setting', [
+    Route::get('stationManagement', [
 		'uses' => 'StationController@index',
 		'as' => 'stationManagement.index',
         'roles' => ['Admin', 'Head', 'User']
 	]);
 
-    Route::post('/station/store/', [
+    Route::post('/station/store', [
         'uses' => 'StationController@store',
         'as' => 'stationManagement.store',
         'roles' => ['Admin', 'Head', 'User']
     ]);
-
-    Route::post('/station/{id}/update/', [
+    
+    Route::post('/station/{id}/update', [
         'uses' => 'StationController@update',
         'as' => 'stationManagement.update',
         'roles' => ['Admin', 'Head', 'User']
@@ -175,6 +162,25 @@ Route::group(['middleware' => ['web', 'roles']], function () {
         'uses' => 'PartController@destroy',
         'as' => 'partManagement.destroy',
         'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    // Works Management
+    Route::post('/work/store/', [
+        'uses' => 'WorkController@store',
+        'as' => 'workManagement.store',
+        'roles' => ['Admin']
+    ]);
+
+    Route::post('/work/{id}/update/', [
+        'uses' => 'WorkController@update',
+        'as' => 'workManagement.update',
+        'roles' => ['Admin']
+    ]);
+
+    Route::delete('/work/{id}/destroy', [
+        'uses' => 'WorkController@destroy',
+        'as' => 'workManagement.destroy',
+        'roles' => ['Admin']
     ]);
 
 });

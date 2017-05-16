@@ -56,7 +56,7 @@ class StationController extends Controller
             'date_deployed',
         ]);
 
-        $station->update($request->all());
+        Station::find($id)->update($request->all());
         return redirect()->back()
                         ->with('success','Station updated successfully');
     }

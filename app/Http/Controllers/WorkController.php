@@ -4,30 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Part;
+use App\Work;
 
-class PartController extends Controller
+class WorkController extends Controller
 {
     public function store(Request $request)
     {
         $this->validate($request, [
-            'part' => 'required'
+            'work' => 'required'
         ]);
 
-        Part::create($request->all());
+        Work::create($request->all());
         return redirect()->back()
-                         ->with('success','Part created successfully');
+                         ->with('success','Work created successfully');
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'part' => 'required'
+            'work',
         ]);
-
-        $part = Part::find($id);
-        $part->update($request->all());
+ 
+        $work = Work::find($id);
+        $work->update($request->all());
+        
         return redirect()->back()
-                        ->with('success','Part updated successfully');
+                        ->with('success','Work updated successfully');
     }
 }
