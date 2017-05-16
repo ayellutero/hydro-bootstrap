@@ -15,8 +15,8 @@
     }
 </style>
 
-<div class="row">
-    <div class="col-lg-10">
+<div class="row" style="margin:0%; margin-top:0%;">
+    <div class="col-lg-12">
         <div class="panel with-nav-tabs panel-default">
             <div class="panel-heading">
                 <ul class="nav nav-tabs">

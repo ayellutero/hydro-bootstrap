@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="row">
+<div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-lg-12">
         <div class="panel-body">
                 <table id="all-stations" class="table table-striped table-bordered" cellspacing="0" width="100%">
