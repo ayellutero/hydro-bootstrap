@@ -98,6 +98,7 @@ class UserCRUDController extends Controller
             'contact_num',
             'employee_id',
             'position',
+            'password' => 'min:6',
             'pass_confirm' => 'min:6|same:password',
         ]);
 
