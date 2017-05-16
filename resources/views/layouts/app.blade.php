@@ -45,7 +45,12 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-
+    <style>
+        .modal-body {
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+    </style>
 </head>
 
 <body>
@@ -220,6 +225,8 @@
             var panelsButton = $('.dropdown-user');
             panels.hide();
             
+        
+
             //Click dropdown
             panelsButton.click(function() {
                 //get data-for attribute
