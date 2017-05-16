@@ -98,8 +98,7 @@
     <div class="col-xs-12 col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-wrench"></i> Stations and Reports</h3>
-                <h6>NOTE: Results are based entirely on approved reports.</h6>
+                <h3 class="panel-title"><i class="fa fa-wrench"></i> Stations and Reports *</h3>
             </div>
             <div class="panel-body">
                 <div class="col-sm-6" style="text-align: center;">
@@ -116,6 +115,7 @@
                 </div>
             </div>
         </div>
+        <h6 class="pull-right">*Results are based entirely on approved reports.</h6>
     </div>
     
 </div>
