@@ -1,5 +1,7 @@
 @extends('layouts.app')
- 
+
+@section('pageTitle', 'Pending Reports')
+
 @section('content')
 @if(Session::has('message'))
 <div class="alert alert-success alert-dismissable">
@@ -9,7 +11,7 @@
 @endif
 
 <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
-<div class="row">
+<div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">Pending Reports</div>
