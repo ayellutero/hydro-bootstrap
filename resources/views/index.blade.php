@@ -19,7 +19,7 @@
 <div id="mymap" style="width:100%;border:1px solid red;height:400px;margin-bottom: 10px"></div>
 
 <!-- Count Widgets -->
-<div class="row">
+<div class="row" style="margin:0%; margin-top:0%;">
 
     @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
         <div class="col-lg-4 col-md-6">
@@ -94,7 +94,7 @@
 </div>
 
 <!-- graph of stations and how many times a report/maintenance was done on them -->
-<div class="row">
+<div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-xs-12 col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">

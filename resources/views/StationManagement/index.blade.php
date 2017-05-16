@@ -135,7 +135,7 @@
                     <div class="tab-pane fade" id="parts">
                         {!! Form::open(array('route' => 'partManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
                             {!! Form::text('part', null, ['required' => 'true']) !!}
-                            <button class="btn btn-success" type="submit" name="action">Add Part</button>
+                            <button class="btn btn-success" type="submit" name="action"><i class="fa fa-plus" aria-hidden="true"></i> Part</button>
                         {!! Form::close() !!}
 
                          <table id="all-parts" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -144,7 +144,8 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Created at</th>
-                                        <th>Actions</th>
+                                        <th>Updated at</th>
+                                        <th>Edit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -153,25 +154,30 @@
                                             <td>{{ $part->id }}</td>
                                             <td>{{ $part->part }}</td>
                                             <td>{{ $part->created_at }}</td>
+                                            <td>{{ $part->updated_at }}</td>
                                             <td>
-                                                <a class="btn" data-toggle="modal" data-target="#viewPart-<?= $part->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                                 <a class="btn" data-toggle="modal" data-target="#editPart-<?= $part->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
 
-                                        <!-- Edit User Modal -->
-                                        <div id="editUser-<?= $user->id?>" class="modal fade" role="dialog">
+                                        <!-- Edit Part Modal -->
+                                        <div id="editPart-<?= $part->id?>" class="modal fade" role="dialog">
                                             <div class="modal-dialog">
 
                                                 <!-- Modal content-->
                                                 <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Edit User {{ $user->firstname }} {{ $user->lastname }}</h4>
+                                                    <h4 class="modal-title">Edit Part</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    {!! Form::model($user, ['method' => 'POST','route' => ['userCRUD.update', $user->id]]) !!}
-                                                    @include('UserCRUD.edit')
+                                                    {!! Form::model($part, ['method' => 'POST','route' => ['partManagement.update', $part->id]]) !!}
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <strong>Name:</strong>
+                                                            {!! Form::text('part', $part->part, array('placeholder' => 'Part','class' => 'form-control')) !!}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-success" type="submit" name="action">Save Changes</button>
@@ -190,7 +196,7 @@
                      <div class="tab-pane fade" id="works">
                             {!! Form::open(array('route' => 'workManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
                                 {!! Form::text('work', null,['required' => 'true']) !!}
-                                <button class="btn btn-success" type="submit" name="action">Add Work</button>
+                                <button class="btn btn-success" type="submit" name="action"><i class="fa fa-plus" aria-hidden="true"></i> Work</button>
                             {!! Form::close() !!}
 
                             <table id="all-works" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -199,6 +205,7 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Created at</th>
+                                        <th>Updated at</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -208,12 +215,42 @@
                                             <td>{{ $work->id }}</td>
                                             <td>{{ $work->work }}</td>
                                             <td>{{ $work->created_at }}</td>
+                                            <td>{{ $work->updated_at }}</td>
                                             <td>
                                                 <a class="btn" data-toggle="modal" data-target="#viewWork-<?= $work->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                                 <a class="btn" data-toggle="modal" data-target="#editWork-<?= $work->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
                                                 
                                             </td>
                                         </tr>
+
+                                        <!-- Edit Work Modal -->
+                                        <div id="editWork-<?= $work->id?>" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Edit Part</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {!! Form::model($work, ['method' => 'POST','route' => ['workManagement.update', $work->id]]) !!}
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <strong>Name:</strong>
+                                                            {!! Form::text('work', $work->work, array('placeholder' => 'Work','class' => 'form-control')) !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-success" type="submit" name="action">Save Changes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
+                                                    {{ Form::close() }}
+                                                </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>

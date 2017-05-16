@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- /.row -->
-<div class="row">
+<div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">

@@ -144,7 +144,7 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		'uses' => 'PartController@index',
 		'as' => 'partManagement.index',
         'roles' => ['Admin', 'Head', 'User']
-	]);
+	]); 
 
     Route::post('/part/store/', [
         'uses' => 'PartController@store',

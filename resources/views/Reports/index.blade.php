@@ -3,7 +3,7 @@
 @section('pageTitle', 'Reports')
 
 @section('content')
-<div class="card-panel">
+<div class="card-panel"  style="margin:0%; margin-top:0%;">
 	<h4 class="header2">Maintenance Form</h4>
 	<!-- FIX FORM -->
 		{!! Form::open(['url' => 'reports']) !!}
