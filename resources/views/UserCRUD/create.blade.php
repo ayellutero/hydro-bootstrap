@@ -86,4 +86,17 @@
         </div>
     </div><br>
 
+    <div class="form-group{{ $errors->has('pass_confirm') ? ' has-error' : '' }}">
+        <label for="pass_confirm" class="col-md-4 control-label">Confirm Password</label>
+        
+        <div class="col-md-6">
+            <input id="password" type="password" class="form-control" name="pass_confirm" required>
+                @if ($errors->has('pass_confirm'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('pass_confirm') }}</strong>
+                </span>
+                @endif
+        </div>
+    </div><br>
+
 </div>
