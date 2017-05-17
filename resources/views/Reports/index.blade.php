@@ -3,6 +3,17 @@
 @section('pageTitle', 'New Report')
 
 @section('content')
+<div class="card-panel"  style="margin:0%; margin-top:0%;">
+	<h4 class="header2">Maintenance Form</h4>
+	<!-- FIX FORM -->
+		{!! Form::open(['url' => 'reports']) !!}
+		 <div class="form-group">
+	        {!! Form::label('station_name', 'Station Name:') !!}
+	        {!! Form::text('station_name',null,['class'=>'form-control', 'required' => 'true']) !!}
+	    </div>
+	    <div class="form-group">
+	        {!! Form::label('location', 'Location (Town, Province):') !!}
+	        {!! Form::text('location', null,['class'=>'form-control', 'required' => 'true']) !!}
 
 @if(Session::has('message'))
 <div class="alert alert-success alert-dismissable">

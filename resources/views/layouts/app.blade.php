@@ -45,7 +45,30 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    <style>
+        .modal-body {
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+        .modal {
+            text-align: center;
+            padding: 0!important;
+        }
 
+        .modal:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -4px; /* Adjusts for spacing */
+        }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
@@ -114,7 +137,7 @@
                                 </li>
                                 @endif
                                 <li>
-                                    <a href="maintenanceHistory"><i class="fa fa-file-o fa-fw" aria-hidden="true"></i> Reports and Stats</a>
+                                    <a href="maintenanceHistory"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Reports and Stats</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -186,6 +209,8 @@
             var panelsButton = $('.dropdown-user');
             panels.hide();
             
+        
+
             //Click dropdown
             panelsButton.click(function() {
                 //get data-for attribute

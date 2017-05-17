@@ -45,6 +45,7 @@ class UserCRUDController extends Controller
             'lastname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6',
+            'pass_confirm' => 'min:6|same:password',
             'contact_num',
             'employee_id',
             'position' => 'required',
@@ -96,7 +97,9 @@ class UserCRUDController extends Controller
             'email' => 'required',
             'contact_num',
             'employee_id',
-            'position'
+            'position',
+            'password' => 'min:6',
+            'pass_confirm' => 'min:6|same:password',
         ]);
 
         $user = User::find($id);

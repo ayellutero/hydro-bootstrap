@@ -148,12 +148,11 @@
             <div class="panel-heading"><a href="maintenanceHistory"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Stations</a></div>
 
             <!-- graph of stations and how many times a report/maintenance was done on them -->
-            <div class="row">
+            <div class="row" style="margin:0%; margin-top:0%;">
                 <div class="col-lg-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><strong>Device ID: {{$dev_id}}</strong></h3>
-                            <h6>NOTE: Results are based entirely on approved reports.</h6>
+                            <h3 class="panel-title"><strong>Device ID: {{$dev_id}} *</strong></h3>
                         </div>
                         <div class="panel-body">
                             <div class="col-sm-6" style="text-align: center;">
@@ -173,7 +172,9 @@
                             </div>
                         </div>
                     </div>
+                    <h6 class="pull-right">*Results are based entirely on approved reports.</h6>
                 </div>
+                
             </div>
 
             <!---->

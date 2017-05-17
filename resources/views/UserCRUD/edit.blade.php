@@ -31,11 +31,17 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Password:</strong>
-            <a class="btn btn-primary" id="pw_btn">Change</a>
-            <input type="password" id="pw_change">
+            <strong>New Password:</strong>
+            {!! Form::password('password', null, array('placeholder' => 'Password','class' => 'form-control')) !!}
         </div>
-    </div><br>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Confirm Password:</strong>
+            {!! Form::password('pass_confirm', null, array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
+        </div>
+    </div>
 
     <div class="hide">
         <!-- USER ACTIVITY -->

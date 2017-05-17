@@ -18,7 +18,7 @@ class PartController extends Controller
         Part::create($request->all());
         UserActivity::create($request->all());
         return redirect()->back()
-                         ->with('success','Device added successfully.');
+                         ->with('success','Part added successfully.');
     }
 
     public function update(Request $request, $id)
@@ -27,6 +27,7 @@ class PartController extends Controller
             'part' => 'required'
         ]);
 
+        $part = Part::find($id);
         $part->update($request->all());
         return redirect()->back()
                         ->with('success','Part updated successfully');
