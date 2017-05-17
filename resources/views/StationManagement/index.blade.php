@@ -59,11 +59,6 @@
                                          <td>
                                              <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="View" data-toggle="modal" data-target="#viewStation-<?= $station->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                              <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Edit" data-toggle="modal" data-target="#editStation-<?= $station->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
-                                             {!! Form::open(['method' => 'DELETE','route' => ['stationManagement.destroy', $station->id],'style'=>'display:inline']) !!}
-                                                 <button class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Delete" type="submit">
-                                                     <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
-                                                 </button>
-                                             {!! Form::close() !!}
                                          </td>
                                     </tr>
 
@@ -124,7 +119,7 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-success" type="submit" name="action">Save Changes</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
-                                                    {!! Form::close() !!}
+                                                    {{ Form::close() }}
                                                 </div>
                                             </div>
                                         </div>

@@ -131,12 +131,6 @@ Route::group(['middleware' => ['web', 'roles']], function () {
         'roles' => ['Admin', 'Head', 'User']
     ]);
 
-    Route::delete('/station/{id}/destroy', [
-        'uses' => 'StationController@destroy',
-        'as' => 'stationManagement.destroy',
-        'roles' => ['Admin', 'Head', 'User']
-    ]);
-
     // Parts Management
     Route::get('parts', [
 		'uses' => 'PartController@index',
