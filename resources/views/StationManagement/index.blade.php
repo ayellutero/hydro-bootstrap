@@ -30,7 +30,7 @@
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="stations">
                         <div>
-                            <a class="btn" data-toggle="modal" data-target="#createStation"><i class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
+                            <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="New" data-toggle="modal" data-target="#createStation"><i class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
                             New Station
                         </div>
                         <table id="all-station" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -55,10 +55,10 @@
                                          <td>{{ $station->lng }}</td>
                                          <td>{{ $station->type }}</td>
                                          <td>
-                                             <a class="btn" data-toggle="modal" data-target="#viewStation-<?= $station->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
-                                             <a class="btn" data-toggle="modal" data-target="#editStation-<?= $station->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+                                             <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="View" data-toggle="modal" data-target="#viewStation-<?= $station->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+                                             <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Edit" data-toggle="modal" data-target="#editStation-<?= $station->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
                                              {!! Form::open(['method' => 'DELETE','route' => ['stationManagement.destroy', $station->id],'style'=>'display:inline']) !!}
-                                                 <button class="btn" type="submit">
+                                                 <button class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Delete" type="submit">
                                                      <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
                                                  </button>
                                              {!! Form::close() !!}
@@ -156,7 +156,7 @@
                                             <td>{{ $part->created_at }}</td>
                                             <td>{{ $part->updated_at }}</td>
                                             <td>
-                                                <a class="btn" data-toggle="modal" data-target="#editPart-<?= $part->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+                                                <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Edit" data-toggle="modal" data-target="#editPart-<?= $part->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
 
@@ -218,7 +218,7 @@
                                             <td>{{ $work->created_at }}</td>
                                             <td>{{ $work->updated_at }}</td>
                                             <td>
-                                                <a class="btn" data-toggle="modal" data-target="#editWork-<?= $work->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+                                                <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Edit" data-toggle="modal" data-target="#editWork-<?= $work->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
 

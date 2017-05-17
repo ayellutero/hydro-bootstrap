@@ -30,8 +30,8 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <a data-toggle="tooltip" title="Reports" href="station-{{$station->device_id}}-maintenance-history"><i style="margin: .2em .25em .15em" class="fa fa-file-text-o fa-2x " aria-hidden="true"></i></a>&nbsp;
-                                <a  class="withTooltip" title="Statistics" href="station-{{$station->device_id}}-statistics"><i style="margin: .2em .25em .15em" class="fa fa-bar-chart-o fa-2x " aria-hidden="true"></i></a>
+                                <a data-toggle="tooltip" data-container="body" style="z-index:1000; position:relative" title="Reports" href="station-{{$station->device_id}}-maintenance-history"><i style="margin: .2em .25em .15em" class="fa fa-file-text-o fa-2x " aria-hidden="true"></i></a>&nbsp;
+                                <a  class="withTooltip" data-container="body" style="z-index:1000; position:relative" title="Statistics" href="station-{{$station->device_id}}-statistics"><i style="margin: .2em .25em .15em" class="fa fa-bar-chart-o fa-2x " aria-hidden="true"></i></a>
                             </td>
                         </tr>
                      <?php $count++ ?>

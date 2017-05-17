@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a class="btn" data-toggle="modal" data-target="#createUser"><i class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
+                <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="New" data-toggle="modal" data-target="#createUser"><i class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
                 Users
             </div>
 
@@ -30,10 +30,10 @@
                             <td>{{ $user->firstname }} {{ $user->lastname }}</td>
                             <td>{{ $user->position }}</td>
                             <td>
-                                <a class="btn" data-toggle="modal" data-target="#viewUser-<?= $user->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
-                                <a class="btn" data-toggle="modal" data-target="#editUser-<?= $user->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+                                <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="View" data-toggle="modal" data-target="#viewUser-<?= $user->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+                                <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Edit" data-toggle="modal" data-target="#editUser-<?= $user->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['userCRUD.destroy', $user->id],'style'=>'display:inline']) !!}
-                                    <button class="btn" type="submit">
+                                    <button class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Delete" type="submit">
                                         <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
                                     </button>
                                 {!! Form::close() !!}
