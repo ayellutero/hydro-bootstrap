@@ -24,6 +24,10 @@ php artisan key:generate
 ```
 php artisan serve
 ```
+### Creating a User
+#### Only the Admin could create a user
+1. Get: First && Last Name (permanent), Employee ID (permanent), E-mail, Position/designation
+2. Register: First && Last Name (permanent), Employee ID (permanent), E-mail, Position/designation
 
 ## Authors
 * **Levie Abigail Lutero** - (https://github.com/ayellutero)
