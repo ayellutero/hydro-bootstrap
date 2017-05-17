@@ -46,6 +46,7 @@
         
         <div class="col-md-6">
             <select class="form-control" name="type" id="type">
+                <option value="none" selected="selected" disabled="disabled">Please select</option>
                 @foreach($types as $type)
                 <option value="{{ $type->type}}">{{ $type->type}}</option>
                 @endforeach
@@ -92,9 +93,11 @@
         
         <div class="col-md-6">
             <select class="form-control" name="status" id="status">
-                @foreach($statuses as $status)
-                <option value="{{ $status->status}}">{{ $status->status}}</option>
-                @endforeach
+                <option value="none" selected="selected" disabled="disabled">Please select</option>
+				<option value ="Operational">Operational</option>
+				<option value ="For Repair">For Repair</option>
+				<option value ="Non-Operational">Non-Operational</option>
+				<option value ="For Relocation">For Relocation</option>
             </select>
 
             @if ($errors->has('status'))
@@ -109,7 +112,8 @@
         <label for="sim" class="col-md-4 control-label">Sim Network</label>
         
         <div class="col-md-6">
-            <select class="form-control" name="sim" id="sim">
+            <select class="form-control" name="sim" id="sim" required>
+                <option value="none" selected="selected" disabled="disabled">Please select</option>
                 <option value="Smart">Smart</option>
                 <option value="Globe">Globe</option>
             </select>

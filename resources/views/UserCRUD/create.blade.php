@@ -41,19 +41,15 @@
         </div>
     </div><br>
 
-    <div class="form-group{{ $errors->has('position') ? ' has-error' : '' }}">
-        <label for="position" class="col-md-4 control-label">Position</label>
+    <div class="form-group{{ $errors->has('designation') ? ' has-error' : '' }}">
+        <label for="designation" class="col-md-4 control-label">Designation</label>
         
         <div class="col-md-6">
-            <select class="form-control" name="position" id="position">
-                <option value="User">User</option>
-                <option value="Head">Unit Head</option>
-                <option value="Admin">Admin</option>
-            </select>
+            <input id="designation" type="text" class="form-control" name="designation" placeholder="Director, Assistant Director, etc" required>
 
-            @if ($errors->has('position'))
+            @if ($errors->has('designation'))
             <span class="help-block">
-                <strong>{{ $errors->first('position') }}</strong>
+                <strong>{{ $errors->first('designation') }}</strong>
             </span>
             @endif
         </div>
@@ -98,5 +94,4 @@
                 @endif
         </div>
     </div><br>
-
 </div>
