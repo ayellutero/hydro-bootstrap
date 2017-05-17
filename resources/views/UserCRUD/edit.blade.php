@@ -8,6 +8,13 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
+            <strong>Designation:</strong>
+            {!! Form::text('designation', $user->designation, array('placeholder' => 'Designation','class' => 'form-control')) !!}
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
             <strong>E-mail:</strong>
             {!! Form::email('email', $user->email, array('placeholder' => 'E-mail','class' => 'form-control')) !!}
         </div>
@@ -22,9 +29,8 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Position/Permission:</strong></br>
+            <strong>Permission:</strong></br>
             <input type="checkbox" class="filled-in" {{ $user->hasRole('User') ? 'checked' : '' }} name="role_user" id="role_user"><label for="role_user">User</label></br>
-            <input type="checkbox" class="filled-in" {{ $user->hasRole('Head') ? 'checked' : '' }} name="role_head" id="role_head"><label for="role_head">Head</label></br>
             <input type="checkbox" class="filled-in" {{ $user->hasRole('Admin') ? 'checked' : '' }} name="role_admin" id="role_admin"><label for="role_admin">Admin</label></br>
         </div><br>
     </div>

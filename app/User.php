@@ -50,7 +50,7 @@ class User extends Authenticatable
         'lastname', 
         'email', 
         'contact_num',
-        'position',
+        'designation',
         'password',
     ];
 

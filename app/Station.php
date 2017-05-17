@@ -16,7 +16,8 @@ class Station extends Model
         'type',
         'sim',
         'elevation',
-        'date_deployed'
+        'date_deployed',
+        'status',
     ];
 
 }

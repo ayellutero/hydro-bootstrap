@@ -48,14 +48,12 @@ class UserCRUDController extends Controller
             'pass_confirm' => 'min:6|same:password',
             'contact_num',
             'employee_id',
-            'position' => 'required',
+            'designation' => 'required',
         ]);
 
         User::create($request->all());
-        
-        $user = User::where('email', $request['email'])->first();
-        $user->roles()->attach(Role::where('name', $user->position)->first());
         UserActivity::create($request->all());
+
         return redirect()->back()
                          ->with('success','User created successfully');
     }
@@ -96,8 +94,7 @@ class UserCRUDController extends Controller
         $this->validate($request, [
             'email' => 'required',
             'contact_num',
-            'employee_id',
-            'position',
+            'designation' => 'required',
             'password' => 'min:6',
             'pass_confirm' => 'min:6|same:password',
         ]);
@@ -108,15 +105,13 @@ class UserCRUDController extends Controller
         if ($request['role_user']) {
             $user->roles()->attach(Role::where('name', 'User')->first());
         }
-        if ($request['role_head']) {
-            $user->roles()->attach(Role::where('name', 'Head')->first());
-        }
         if ($request['role_admin']) {
             $user->roles()->attach(Role::where('name', 'Admin')->first());
         }
 
         $user->update($request->all());
         UserActivity::create($request->all());
+
         return redirect()->back()
                         ->with('success','User updated successfully');
     }
