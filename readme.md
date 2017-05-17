@@ -28,6 +28,7 @@ php artisan serve
 #### Only the Admin could create a user
 1. Get: First && Last Name (permanent), Employee ID (permanent), E-mail, Position/designation
 2. Register: First && Last Name (permanent), Employee ID (permanent), E-mail, Position/designation
+3. Go to User List and set the user's permission/rule (admin || user)
 
 ## Authors
 * **Levie Abigail Lutero** - (https://github.com/ayellutero)
