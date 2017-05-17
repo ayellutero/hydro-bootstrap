@@ -16,7 +16,7 @@ class PartController extends Controller
         ]);
 
         Part::create($request->all());
-        UserActivity::create($request->all());
+        // UserActivity::create($request->all());
         return redirect()->back()
                          ->with('success','Part added successfully.');
     }

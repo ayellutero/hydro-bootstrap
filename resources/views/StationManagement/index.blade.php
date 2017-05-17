@@ -188,6 +188,7 @@
 
                                             </div>
                                         </div>
+                                        
                                     @endforeach
                                 </tbody>
                         </table>
@@ -206,7 +207,7 @@
                                         <th>Name</th>
                                         <th>Created at</th>
                                         <th>Updated at</th>
-                                        <th>Actions</th>
+                                        <th>Edit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -217,9 +218,7 @@
                                             <td>{{ $work->created_at }}</td>
                                             <td>{{ $work->updated_at }}</td>
                                             <td>
-                                                <a class="btn" data-toggle="modal" data-target="#viewWork-<?= $work->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                                 <a class="btn" data-toggle="modal" data-target="#editWork-<?= $work->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
-                                                
                                             </td>
                                         </tr>
 

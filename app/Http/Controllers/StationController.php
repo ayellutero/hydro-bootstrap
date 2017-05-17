@@ -38,7 +38,7 @@ class StationController extends Controller
             'date_deployed',
         ]);
 
-        UserActivity::create($request->all());
+        // UserActivity::create($request->all());
         Station::create($request->all());
         return redirect()->back()
                          ->with('success','Station created successfully.');

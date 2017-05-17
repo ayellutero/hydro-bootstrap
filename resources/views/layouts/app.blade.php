@@ -45,6 +45,8 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    <!-- Styles -->
     <style>
         .modal-body {
             overflow-y: auto;
@@ -208,8 +210,6 @@
             var panels = $('.user-infos');
             var panelsButton = $('.dropdown-user');
             panels.hide();
-            
-        
 
             //Click dropdown
             panelsButton.click(function() {
@@ -232,7 +232,6 @@
                 })
             });
 
-            // hide PW field button
             // hide PW field button
             $('#pw_change').hide();
 
@@ -259,14 +258,14 @@
                     "emptyTable": "You have not added a device yet.",
                     "infoEmpty": ""
                 },
-                "scrollX": true
+                "fixedHeader": true
             });
             var tableAllWorks = $('#all-works').DataTable({
                language: {
                     "emptyTable": "No data to display.",
                     "infoEmpty": ""
                 },
-                "scrollX": true
+                "fixedHeader": true
             });
             var tableAllUsers = $('#all-users').DataTable({
                 language: {
@@ -416,12 +415,6 @@
                     tickDecimals: 0
                 }
             });
-
-
-
-////////////////////////////////////
-
-               
      });// end of main
 
      function pieHoverFRP(event, pos, obj) {
