@@ -22,7 +22,7 @@ class CreateStationsTable extends Migration
             $table->float('lng');
             $table->string('type');
             $table->string('sim');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->float('elevation')->nullable();
             $table->date('date_deployed')->nullable();
             $table->timestamps();
