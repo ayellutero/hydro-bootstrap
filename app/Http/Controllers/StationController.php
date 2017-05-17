@@ -41,6 +41,7 @@ class StationController extends Controller
             'sim',
             'elevation',
             'date_deployed',
+            'status',
         ]);
 
         // UserActivity::create($request->all());
@@ -61,6 +62,7 @@ class StationController extends Controller
             'sim',
             'elevation',
             'date_deployed',
+            'status',
         ]);
 
         Station::find($id)->update($request->all());

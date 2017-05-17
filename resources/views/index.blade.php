@@ -10,31 +10,30 @@
 <div id="mymap" style="width:100%;border:1px solid red;height:400px;margin-bottom: 10px"></div>
 
 <!-- Count Widgets -->
-<div class="row">
+<div class="row" style="margin:0%; margin-top:0%;">
     @if ( Auth::user()->hasRole('Admin') )
-        
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-red">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-exclamation-triangle fa-5x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</div>
-                                <div>Pending Reports</div>
-                            </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-exclamation-triangle fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</div>
+                            <div>Pending Reports</div>
                         </div>
                     </div>
-                    <a href="viewPendingReports">
-                        <div class="panel-footer">
-                            <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
                 </div>
+                <a href="viewPendingReports">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
             </div>
+        </div>
     @endif
 
     @if ( Auth::user()->hasRole('Admin') )
@@ -92,7 +91,7 @@
     </div>
 </div>
 
-<!-- graph of stations and how many times a report/maintenance was done on them -->
+<!-- Graph of stations and number of times a report/maintenance was performed on them -->
 <div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-xs-12 col-md-12">
         <div class="panel panel-primary">
@@ -102,13 +101,11 @@
             <div class="panel-body">
                 <div class="col-sm-6" style="text-align: center;">
                     <h4>Frequency of Parts Replaced</h4>
-                    <!--<div id="freq_replaced_part" style="margin-left: 15%;width:350px;height:350px"></div>-->
                      <div id='freq_replaced_part' style="width:500px;height:350px"></div>
                     <br>
                 </div>
                 <div class="col-sm-6" style="text-align: center;">
                     <h4>Frequency of Work Done</h4>
-                    <!--<div id="most_common_defect" style="margin-left: 15%;width:350px;height:350px"></div>-->
                     <div id='most_common_defect' style="width:500px;height:350px"></div>
                     <br>
                 </div>
@@ -116,11 +113,9 @@
         </div>
         <h6 class="pull-right">*Results are based entirely on approved reports.</h6>
     </div>
-    
 </div>
 
 <!---->
-
 <div id="all-stat-data" class="hide">
     {{ $statsData }}
 </div>
@@ -130,34 +125,34 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var locations = <?php print_r(json_encode($locations)) ?>;
+        
         var infoWindow = new google.maps.InfoWindow({
             content: 'Content goes here..'
         });
+
         var mymap = new GMaps({
             el: '#mymap',
             lat: 14.16,
             lng: 121.23,
             zoom:8
-            });
+        });
 
-            $.each( locations, function( index, value ){
-                mymap.addMarker({
-                    lat: value.lat,
-                    lng: value.lng,
-                    title: value.location + ' ' + value.province,
-                    infoWindow: {
-                        content:'<b>Device ID: </b>' + value.device_id + '</br><b>Location: </b>' 
-                                + value.location + ' ' + value.province 
-                                + '<br><b>Latitude: </b>' + value.lat + '<b> Longitude: </b>' + value.lng + '<br><b>Elevation: </b>' + value.elevation
-                                + '<br><b>Type: </b>' + value.type + '<br>'
-                    },
-                    click: function(e) {
-                        infoWindow.open();
-                    }
-                });
+        $.each( locations, function( index, value ){
+            mymap.addMarker({
+                lat: value.lat,
+                lng: value.lng,
+                title: value.location + ' ' + value.province,
+                infoWindow: {
+                    content:'<b>Device ID: </b>' + value.device_id + '</br><b>Location: </b>' 
+                            + value.location + ' ' + value.province 
+                            + '<br><b>Latitude: </b>' + value.lat + '<b> Longitude: </b>' + value.lng + '<br><b>Status: </b>' + value.status + '<br><b>Elevation: </b>' + value.elevation
+                            + '<br><b>Type: </b>' + value.type + '<br>'
+                },
+                click: function(e) {
+                    infoWindow.open();
+                }
+            });
         });
     });
-        
 </script>
-
 @endsection
