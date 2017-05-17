@@ -110,13 +110,4 @@ class CalendarController extends Controller
         
     }
 
-    public function smp(){
-        $r = Request::all();
-        $r = $r['smpl'];
-
-        foreach($r as $rr){
-            echo $rr." ";
-        }
-        // print_r($r['smpl']);
-    }
 }

@@ -32,16 +32,6 @@
 				@endforeach
 			</select>
 		</div>
-
-	    <div class="form-group">
-	        <!--{!! Form::label('location', 'Location (Town, Province):') !!}-->
-			<!--<select class="form-control" name="location" required>
-				@foreach($stations as $station)
-					<option value ="{{$station->province}}">{{ $station->province }}</option>
-				@endforeach
-			</select>-->
-	        <!--{!! Form::text('location', null,['class'=>'form-control', 'required' => 'true']) !!}-->
-	    </div>
 		
 		<h4 class="header2" style="padding-top:2%">PRE-REPAIR</h4>
 		<div class="form-group">
