@@ -28,12 +28,12 @@
                 <tbody>
                     <?php $reports = DB::table('reports')->get(); ?>
                     @foreach ($reports as $report)
-                        @if(strcmp($report->conducted_by, Auth::user()->employee_id) == 0)
+                        @if(strcmp($report->submitted_by, Auth::user()->employee_id) == 0)
                         <tr>
                             <td>{{ $report->station_id }}</td>
                             <td>{{ $report->station_name.', '.$report->location }}</td>
                             <td>{{ $report->sensor_type }}</td>
-                            <td>{{ $report->date_visited }}</td>
+                            <td>{{ $report->onsite_date }}</td>
                             <td>{{ $report->date_approved }}</td>
                             <td>
                                 <a class="btn withTooltip" data-toggle="modal" title="View" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>

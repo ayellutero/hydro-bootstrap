@@ -1,94 +1,93 @@
 <h4 class="header2">Maintenance Form</h4>
     <!-- FIX FORM -->
 
-    <div class="form-group">
-        {!! Form::label('station_name', 'Station Name:') !!}
-        {!! Form::text('station_name', $report->station_name,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('location', 'Location (Town, Province):') !!}
-        {!! Form::text('location', $report->location,['class'=>'form-control']) !!}
+        <div class="hide">
+			{!! Form::text('emp_id',Auth::user()->employee_id,['class'=>'form-control', 'hidden' =>'true', 'readonly'=>'true']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('station_name', 'Station:') !!}
+            {!! Form::text('s_name', $report->station_id.' '.$report->location,['class'=>'form-control', 'readonly'=>'true']) !!}
+		</div>
+		
+		<h4 class="header2" style="padding-top:2%">PRE-REPAIR</h4>
+		<div class="form-group">
+	        {!! Form::label('monitoring_date', 'Date of Monitoring:') !!}
+	        <input type="date" name="monitoring_date" class="datepicker form-control" value="{{ date('Y-m-d', strtotime($report->monitoring_date))}}" required>
+	    </div>
 
-    </div>
-    <div class="form-group">
-        {!! Form::label('sensor_type', 'Sensor Type:') !!}   
-        <select class="browser-default" name="sensor_type">
-            <option id="st_opt1" value ="ARG">ARG</option>
-            <option id="st_opt2" value ="WLMS">WLMS</option>
-            <option id="st_opt3" value ="TDM">TDM</option>
-            <option id="st_opt4" value ="AWS">AWS</option>
-        </select>
-    </div>
+		<div class="form-group">
+	        {!! Form::label('init_findings', 'Initial Findings:') !!}
+	        {!! Form::textarea('init_findings', null,['class'=>'form-control', 'required' => 'true']) !!}
+	    </div>
 
+		<div class="form-group">
+	        {!! Form::label('rec_work', 'Recommended Work/s to be done:') !!}
+	        {!! Form::textarea('rec_work', null,['class'=>'form-control', 'required' => 'true']) !!}
+	    </div>
 
-    <h4 class="header2" style="padding-top:2%">INITIAL ASSESSMENT</h4>
-    <div class="form-group">
-        {!! Form::label('date_assessed', 'Date Assessed:') !!}
-        <input type="date" name="date_assessed" class="datepicker" value="<?= $report->date_assessed?>">
+		<div class="form-group">
+	        {!! Form::label('last_data', 'Last Date of Data:') !!}
+	        <input type="date" name="last_data" class="datepicker form-control" value="{{ date('Y-m-d', strtotime($report->last_data))}}" required>
+	    </div>
 
-    </div>
-    <div class="form-group">
-        {!! Form::label('problem', 'Problem/s:') !!}
-        {!! Form::textarea('problem', $report->problem,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('work_tdone', 'Work/s to be done:') !!}
-        {!! Form::textarea('work_tdone', $report->work_tdone,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('last_data', 'Last Data:') !!}
-        {!! Form::textarea('last_data', $report->last_data,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('init_remarks', 'Remarks:') !!}
-        {!! Form::textarea('init_remarks', $report->init_remarks,['class'=>'form-control']) !!}
-    </div>
+		<div class="form-group"  style="padding-top:2%">
+			{!! Form::label('assessed_by', 'Assessed by:') !!}
+			<select class="selectpicker form-control" name="assessed_by[]" id="assessedBy" data-live-search="true" required multiple>
+				@foreach($users as $user)
+					<option value ="{{$user->firstname." ".$user->lastname}}">{{$user->firstname." ".$user->lastname}}</option>
+				@endforeach
+			</select>
+		</div>
 
-    <h4 class="header2" style="padding-top:2%">ONSITE VISIT</h4>
-    <div class="form-group">
-        {!! Form::label('date_visited', 'Date Visited:') !!}
-        <input type="date" name="date_visited" class="datepicker" value="<?= $report->date_visited ?>">
-    </div>
-    <div class="form-group">
-        {!! Form::label('actual_defects', 'Actual Defect/s:') !!}
-        {!! Form::textarea('actual_defects', $report->actual_defects,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('work_done', 'Work/s done:') !!}
-        {!! Form::textarea('work_done', $report->work_done,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('part_replaced', 'Part/s Replaced (if any):') !!}
-        {!! Form::textarea('part_replaced', $report->part_replaced,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('tp_results', 'Test Points Results (if performed):') !!}
-        {!! Form::textarea('tp_results', $report->tp_results,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('rc_performed', 'Remote Commands Performed:') !!}
-        {!! Form::textarea('rc_performed', $report->rc_performed,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('onsite_remarks', 'Remarks:') !!}
-        {!! Form::textarea('onsite_remarks', $report->onsite_remarks,['class'=>'form-control']) !!}
-    </div><br>
+		<h4 class="header2" style="padding-top:2%">POST REPAIR</h4>
+		<div class="form-group">
+	        {!! Form::label('onsite_date', 'Date of Onsite:') !!}
+	        <input type="date" name="onsite_date" class="datepicker form-control" value="{{ date('Y-m-d', strtotime($report->onsite_date))}}" required>
+	    </div>
 
-    <div class="form-group"  style="padding-top:2%">
-        {!! Form::label('conducted_by', 'Conducted by:') !!}
-        {!! Form::text('conducted_by', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true']) !!}
-        {!! Form::label('c_position', 'Position:') !!}
-        {!! Form::text('c_position', 'Position',['class'=>'form-control', 'readonly'=>'true']) !!}
-    </div>
+	    <div class="form-group">
+	        {!! Form::label('actual_findings', 'Actual Findings:') !!}
+	        {!! Form::textarea('actual_findings', null,['class'=>'form-control', 'required' => 'true']) !!}
+	    </div>
 
-    <div class="form-group">
-        {!! Form::label('noted_by', 'Noted by:', ['hidden'=>'true']) !!}
-        <input type="text" name="noted_by" placeholder="Unit Head" value="Unit Head Name" hidden/><br>
-        {!! Form::label('n_position', 'Position:', ['hidden'=>'true']) !!}
-        {!! Form::text('n_position', 'Unit Head',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-        {!! Form::text('if_approved', '0',['class'=>'form-control', 'hidden'=>'true']) !!}
-    </div>
-    <br><br>
+		<div class="form-group">
+			{!! Form::label('work_done', 'Work/s Done:') !!}
+	        <select class="selectpicker form-control" name="work_done[]" id="workDone" data-live-search="true" required multiple>
+				@foreach($works as $work)
+					<option value ="{{$work->work}}">{{$work->work}}</option>
+				@endforeach
+			</select>
+		</div>
+
+	    <div class="form-group">
+	        {!! Form::label('part_installed', 'Parts Replaced/Installed:') !!}
+			<select class="selectpicker form-control" name="part_installed[]" id="partInstalled" data-live-search="true" multiple>
+				@foreach($parts as $part)
+					<option value ="{{$part->part}}">{{$part->part}}</option>
+				@endforeach
+			</select>
+	    </div>
+
+	    <div class="form-group">
+	        {!! Form::label('status', 'Status: ') !!}
+	        <select class="form-control" name="status" id="part_replaced" required>
+				<option value ="Operational">Operational</option>
+				<option value ="For Repair">For Repair</option>
+				<option value ="Non-Operational">Non-Operational</option>
+				<option value ="For Relocation">For Relocation</option>
+            </select>
+		</div>
+
+	    <div class="form-group"  style="padding-top:2%">
+			{!! Form::label('conducted_by', 'Conducted by:') !!}
+			{!! Form::text('c_by', $report->conducted_by,['class'=>'form-control', 'readonly' => 'true']) !!}
+		</div>
+
+		<div class="form-group"  style="padding-top:2%">
+			{!! Form::label('supervisor', 'Supervisor:') !!}
+			{!! Form::text('supervisor_name', $report->supervisor,['class'=>'form-control', 'readonly' => 'true']) !!}
+		</div>
+        <br><br>
 
     <div class="hide">
         <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>

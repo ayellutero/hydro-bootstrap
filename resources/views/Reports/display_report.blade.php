@@ -3,81 +3,76 @@
 
 	<!-- FIX FORM -->
 		 <div class="form-group">
-	        {!! Form::label('station_name', 'Station Name:') !!}
-	        {{ $report->station_name }}
-	    </div>
+			{!! Form::label('station_name', 'ID:') !!}
+			{{ $report->station_id }}
+		</div>
+
 	    <div class="form-group">
 	        {!! Form::label('location', 'Location (Town, Province):') !!}
-	        {{ $report->location }}
+			{{ $report->location }}
+	    </div>
+		
+		<h4 class="header2" style="padding-top:2%">PRE-REPAIR</h4>
+		<div class="form-group">
+	        {!! Form::label('monitoring_date', 'Date of Monitoring:') !!}
+	        {{ $report->monitoring_date }}
+	    </div>
 
+		<div class="form-group">
+	        {!! Form::label('init_findings', 'Initial Findings:') !!}
+	        {{ $report->init_findings }}
 	    </div>
-		<div class="form-group">
-	        {!! Form::label('sensor_type', 'Sensor Type:') !!}   
-			{{ $report->sensor_type }}
-		</div>
-	
-		<h4 class="header2" style="padding-top:2%">INITIAL ASSESSMENT</h4>
-		<div class="form-group">
-	        {!! Form::label('date_assessed', 'Date Assessed:') !!}
-	        {{ $report->date_assessed }}
 
-	    </div>
 		<div class="form-group">
-	        {!! Form::label('problem', 'Problem/s:') !!}
-	        {{ $report->problem }}
+	        {!! Form::label('rec_work', 'Recommended Work/s to be done:') !!}
+	        {{ $report->rec_work }}
 	    </div>
+
 		<div class="form-group">
-	        {!! Form::label('work_tdone', 'Work/s to be done:') !!}
-	        {{ $report->work_tdone }}
-	    </div>
-		<div class="form-group">
-	        {!! Form::label('last_data', 'Last Data:') !!}
+	        {!! Form::label('last_data', 'Last Date of Data:') !!}
 	        {{ $report->last_data }}
 	    </div>
+
 		<div class="form-group">
-	        {!! Form::label('init_remarks', 'Remarks:') !!}
-	        {{ $report->init_remarks }}
+	        {!! Form::label('assessed_by', 'Assessed by:') !!}
+	        {{ $report->assessed_by }}
+		</div>
+
+		<h4 class="header2" style="padding-top:2%">POST REPAIR</h4>
+		<div class="form-group">
+	        {!! Form::label('onsite_date', 'Date of Onsite:') !!}
+	        {{ $report->onsite_date }}
 	    </div>
 
-		<h4 class="header2" style="padding-top:2%">ONSITE VISIT</h4>
-		<div class="form-group">
-	        {!! Form::label('date_visited', 'Date Visited:') !!}
-	        {{ $report->date_visited }}
-	    </div>
 	    <div class="form-group">
-	        {!! Form::label('actual_defects', 'Actual Defect/s:') !!}
-	   		{{ $report->actual_defects }}
+	        {!! Form::label('actual_findings', 'Actual Findings:') !!}
+	        {{ $report->actual_findings }}
 	    </div>
+
 		<div class="form-group">
 	        {!! Form::label('work_done', 'Work/s done:') !!}
-	        {{ $report->work_done }}
-	    </div>
+			{{ $report->work_done }}	    
+		</div>
+
 	    <div class="form-group">
-	        {!! Form::label('part_replaced', 'Part/s Replaced (if any):') !!}
-	        {{ $report->part_replaced }}
+	        {!! Form::label('part_installed', 'Parts Replaced/Installed:') !!}
+	        {{ $report->part_installed }}
 	    </div>
+
 	    <div class="form-group">
-	        {!! Form::label('tp_results', 'Test Points Results (if performed):') !!}
-	        {{ $report->tp_results }}
-	    </div>
-	    <div class="form-group">
-	        {!! Form::label('rc_performed', 'Remote Commands Performed:') !!}
-	        {{ $report->rc_performed }}
-	    </div>
-		<div class="form-group">
-	        {!! Form::label('onsite_remarks', 'Remarks:') !!}
-	        {{ $report->onsite_remarks }}
-	    </div><br>
+	        {!! Form::label('status', 'Status: ') !!}
+	        {{ $report->status }}
+		</div>
 
 	    <div class="form-group"  style="padding-top:2%">
-	        {!! Form::label('conducted_by', 'Conducted by:') !!}
-	        {{ $report->conducted_by }}, {{ $report->c_position }}
-	    </div>
+			{!! Form::label('conducted_by', 'Conducted by:') !!}
+			{{ $report->conducted_by }}
+		</div>
 
-	    <div class="form-group">
-	        {!! Form::label('noted_by', 'Noted by:') !!}
-	       {{ $report->noted_by }}, {{ $report->n_position }}
-	    </div>
+		<div class="form-group"  style="padding-top:2%">
+			{!! Form::label('supervisor', 'Supervisor:') !!}
+			{{ $report->supervisor }}
+		</div>
         <br><br>
 
 </div>
