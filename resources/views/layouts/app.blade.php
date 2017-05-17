@@ -260,6 +260,20 @@
                 },
                 "fixedHeader": true
             });
+            var tableAllParts = $('#all-status').DataTable({
+                language: {
+                    "emptyTable": "You have not added a status yet.",
+                    "infoEmpty": ""
+                },
+                "fixedHeader": true
+            });
+            var tableAllParts = $('#all-type').DataTable({
+                language: {
+                    "emptyTable": "You have not added a type yet.",
+                    "infoEmpty": ""
+                },
+                "fixedHeader": true
+            });
             var tableAllWorks = $('#all-works').DataTable({
                language: {
                     "emptyTable": "No data to display.",

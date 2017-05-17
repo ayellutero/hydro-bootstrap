@@ -156,9 +156,41 @@ Route::group(['middleware' => ['web', 'roles']], function () {
         'roles' => ['Admin', 'Head', 'User']
     ]);
 
-    Route::delete('/part/{id}/destroy', [
-        'uses' => 'PartController@destroy',
-        'as' => 'partManagement.destroy',
+    // Status Management
+    Route::get('status', [
+		'uses' => 'StatusController@index',
+		'as' => 'statusManagement.index',
+        'roles' => ['Admin', 'Head', 'User']
+	]); 
+
+    Route::post('/status/store/', [
+        'uses' => 'StatusController@store',
+        'as' => 'statusManagement.store',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    Route::post('/status/{id}/update/', [
+        'uses' => 'StatusController@update',
+        'as' => 'statusManagement.update',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    // Types Management
+    Route::get('type', [
+		'uses' => 'TypeController@index',
+		'as' => 'typeManagement.index',
+        'roles' => ['Admin', 'Head', 'User']
+	]); 
+
+    Route::post('/type/store/', [
+        'uses' => 'TypeController@store',
+        'as' => 'typeManagement.store',
+        'roles' => ['Admin', 'Head', 'User']
+    ]);
+
+    Route::post('/type/{id}/update/', [
+        'uses' => 'TypeController@update',
+        'as' => 'typeManagement.update',
         'roles' => ['Admin', 'Head', 'User']
     ]);
 

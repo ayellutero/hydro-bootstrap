@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Station;
 use App\Part;
+use App\Status;
+use App\Type;
 use App\Work;
 use App\UserActivity;
 
@@ -16,7 +18,10 @@ class StationController extends Controller
         $parts = Part::all();
         $stations = Station::all();
         $works = Work::all();
-        return view('StationManagement.index',compact('stations', 'parts', 'works'));
+        $types = Type::all();
+        $statuses = Status::all();
+
+        return view('StationManagement.index',compact('stations', 'parts', 'works', 'types', 'statuses'));
     }
 
     public function create()
