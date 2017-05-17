@@ -1,5 +1,11 @@
 <?php
 
+Route::get('sample', function(){
+    return view('sample');
+});
+
+
+Route::post('smp', 'CalendarController@smp');
 // Authentication
 Route::auth();
 
@@ -76,14 +82,6 @@ Route::group(['middleware' => ['web', 'roles']], function () {
     });
 
     // NOTIFS ROUTES
-    Route::resource('notifications','NotificationController');
-
-    Route::get('myNotifications', [
-        'uses'=> 'NotificationController@index',
-        'as' => 'myNotifications',
-        'roles' => ['Head', 'Admin', 'User']
-    ]);
-
     Route::get('viewPendingReports', [
         'uses'=> 'ReportController@show_pending',
         'as' => 'viewPendingReports',

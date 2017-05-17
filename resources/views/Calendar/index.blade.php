@@ -82,7 +82,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div id="notify_sms">
+                                    <div id="notify_sms" class="hide">
                                         {{ Form::checkbox('notify_sms', 1) }}
                                         {!! Form::label('notify-via', 'Notify via SMS') !!}
                                     </div>
@@ -94,15 +94,8 @@
                         <div class="hide">
                             <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
 
-                            <!-- NOTIFICATIONS -->
-                            {!! Form::text('sender_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                            {!! Form::text('receiver_id', '0',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                            {!! Form::text('message', Auth::user()->employee_id . ' scheduled you for a maintenance. See e-mail for the details.',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                            {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                            {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                            
                             <!-- USER ACTIVITY -->
-                            {!! Form::text('employee_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                            {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                             {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                             {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                             {!! Form::text('activity', 'Scheduled a station maintenance',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
@@ -158,7 +151,7 @@
                 <div class="modal-footer">
                     <div id="modalEventID"></div>
                     {!! Form::open(['method' => 'DELETE','route' => ['calendar.destroy', 0]]) !!}
-                    <div class="form-group" id="eventID">
+                    <div class="form-group hide" id="eventID">
                     </div>
                     <button class="btn btn-success" type="submit" name="action">Delete</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>

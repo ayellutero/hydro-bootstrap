@@ -54,7 +54,7 @@ class UserCRUDController extends Controller
         
         $user = User::where('email', $request['email'])->first();
         $user->roles()->attach(Role::where('name', $user->position)->first());
-        //UserActivity::create($request->all());
+        UserActivity::create($request->all());
         return redirect()->back()
                          ->with('success','User created successfully');
     }
@@ -113,7 +113,7 @@ class UserCRUDController extends Controller
         }
 
         $user->update($request->all());
-        //UserActivity::create($request->all());
+        UserActivity::create($request->all());
         return redirect()->back()
                         ->with('success','User updated successfully');
     }
@@ -127,7 +127,7 @@ class UserCRUDController extends Controller
     public function destroy(Request $request, $id)
     {
         User::find($id)->delete();
-        //UserActivity::create($request->all());
+        UserActivity::create($request->all());
         return redirect()->back()
                         ->with('success','User deleted successfully');
     }

@@ -62,33 +62,11 @@
                 <ul class="nav navbar-right top-nav">
                     @if (Auth::check())
                     <!-- Notifs -->
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="badge badge-pill badge-danger"> 
-                                @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
-                                    {{ App\Report::where(['if_approved' => 0])->get()->count() + App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count()  }}
-                                @else
-                                    {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}
-                                @endif
-                            </span> Notifications <i class="fa fa-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu message-dropdown">
-                            @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
-                            <li class="message-preview">
-                                <a href="viewPendingReports"><span class="badge badge-pill badge-danger">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</span> Pending Reports</a>
-                            </li>
-                            @endif
-                            <li class="message-preview">
-                                <?php $notifications = DB::table('notifications')->get(); ?>
-                                {!! Form::model($notifications,['method' => 'PATCH','route'=>['notifications.update', Auth::user()->employee_id]]) !!}
-                                    <div class="hide">
-                                        {!! Form::text('is_read', 1,['class'=>'form-control', 'readonly'=>'true' ]) !!}
-                                    </div>
-                                    <button href="#" class="btn btn-flat" style="background:white"><span class="badge badge-pill badge-danger"> {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}</span> All Notifications</button>
-                                {!! Form::close() !!}
-                            </li>
-                        </ul>
+                    @if ( Auth::user()->hasRole('Admin') )
+                    <li >
+                        <a href="viewPendingReports"><span class="badge badge-pill badge-danger">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</span> Pending Reports</a>
                     </li>
+                    @endif
 
                     <!-- User Profile -->
                     <li class="dropdown">
@@ -123,9 +101,11 @@
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#stationmgt"><i class="fa fa-th-list fa-fw"></i> Station Management <i class="fa fa-caret-down"></i></a>
                             <ul id="stationmgt" class="collapse">
+                                @if ( Auth::user()->hasRole('Admin') )
                                 <li>
                                     <a href="stationManagement"><i class="fa fa-flag fa-fw" aria-hidden="true"></i> Stations and Devices</a>
                                 </li>
+                                @endif
                                 <li>
                                     <a href="maintenanceHistory"><i class="fa fa-file-o fa-fw" aria-hidden="true"></i> Reports and Stats</a>
                                 </li>
@@ -158,21 +138,6 @@
 
                                 <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
                             @endif
-                            
-                    @else
-                    <li>
-                        <a href="/login" class=""><i class="fa fa-sign-in fa-fw"></i>Log in</a>
-                    </li>
-                        </li>
-                        
-                        @if ( Auth::user()->hasRole('Admin'))
-                            <li>
-                                <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
-                            </li>
-                        @endif
                     @endif
                 </ul>
             </div>
@@ -192,13 +157,13 @@
                         </div>
                         <div class="panel-body">
                             <div class="col-sm-6" style="text-align: center;">
-                                <h4>Most frequently replaced part</h4>
+                                <h4>Frequency of Parts Replaced</h4>
                                 <div id="sen_frp" style="margin-left: 15%;width:350px;height:350px"></div>
                                 <br>
                                 <div id="flot-memo1">&nbsp;</div>
                             </div>
                             <div class="col-sm-6" style="text-align: center;">
-                                <h4>Most common sensor defect</h4>
+                                <h4>Frequency of Work Done</h4>
                                 <div id="sen_mcd" style="margin-left: 15%;width:350px;height:350px"></div>   
                                 <br>
                                 <div id="flot-memo2">&nbsp;</div>
@@ -237,9 +202,12 @@
    
         $(document).ready(function() {
             var senStatData = $('#senStatData').html();  
-            var senDataSet =  JSON.parse(senStatData);
+            var data =  JSON.parse(senStatData);
 
-            $.plot('#sen_frp', [senDataSet[0]], {
+            var dataSet = [
+                { data: data[0], color: "#5482FF" }
+            ];
+            $.plot('#sen_frp', dataSet, {
                 series: {
                     bars: {
                         show: true,
@@ -256,8 +224,10 @@
                 }
             });  // end of chart: frequently replaced part  
     
-
-            $.plot('#sen_mcd', [senDataSet[1]], {
+            dataSet = [
+                { data: data[1], color: "#5482FF" }
+            ];
+            $.plot('#sen_mcd', dataSet, {
                series: {
                     bars: {
                         show: true,

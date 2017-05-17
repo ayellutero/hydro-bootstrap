@@ -21,7 +21,7 @@
                     @foreach ($user_activity as $key => $activity)
                         <tr class="sorting_desc">
                             <td>{{ \Carbon\Carbon::parse($activity->sent_at_date)->format('M d, Y') }} {{ \Carbon\Carbon::parse($activity->sent_at_time)->format('h:i A')  }}</td>
-                            <td>{{ $activity->employee_id }}</td>
+                            <td>{{ $activity->empID }}</td>
                             <td>{{ $activity->employee_name }}</td>
                             <td>{{ $activity->position }}</td>
                             <td>{{ $activity->activity }}</td>

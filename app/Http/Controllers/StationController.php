@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Station;
 use App\Part;
 use App\Work;
+use App\UserActivity;
 
 class StationController extends Controller
 {
@@ -37,9 +38,10 @@ class StationController extends Controller
             'date_deployed',
         ]);
 
+        UserActivity::create($request->all());
         Station::create($request->all());
         return redirect()->back()
-                         ->with('success','User created successfully');
+                         ->with('success','Station created successfully.');
     }
 
     public function update(Request $request, $id)
@@ -58,13 +60,13 @@ class StationController extends Controller
 
         $station->update($request->all());
         return redirect()->back()
-                        ->with('success','Station updated successfully');
+                        ->with('success','Station updated successfully,');
     }
 
-    public function destroy(Request $request, $id)
-    {
-        Station::find($id)->delete();
-        return redirect()->back()
-                        ->with('success','Station deleted successfully');
-    }
+    // public function destroy(Request $request, $id)
+    // {
+    //     Station::find($id)->delete();
+    //     return redirect()->back()
+    //                     ->with('success','Station deleted successfully');
+    // }
 }

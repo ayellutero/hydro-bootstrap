@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'Setting')
+@section('pageTitle', 'Station Management')
 
 @section('content')
 <style>
@@ -14,6 +14,13 @@
         margin-bottom: -1px;
     }
 </style>
+
+@if(Session::has('success'))
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{ Session::get('success') }}</strong>
+    </div>
+@endif 
 
 <div class="container">
     <div class="row">
@@ -58,11 +65,6 @@
                                             <td>
                                                 <a class="btn" data-toggle="modal" data-target="#viewStation-<?= $station->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                                 <a class="btn" data-toggle="modal" data-target="#editStation-<?= $station->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
-                                                {!! Form::open(['method' => 'DELETE','route' => ['stationManagement.destroy', $station->id],'style'=>'display:inline']) !!}
-                                                    <button class="btn" type="submit">
-                                                        <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
-                                                    </button>
-                                                {!! Form::close() !!}
                                             </td>
                                         </tr>
 
@@ -79,6 +81,18 @@
                                                     {!! Form::open(array('route' => 'stationManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
                                                     @include('StationManagement.create')
                                                 </div>
+
+                                                <div class="hide">
+                                                <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
+                                                <!-- USER ACTIVITY -->
+                                                {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                                {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                                {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                                {!! Form::text('activity', 'Created a new station',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+                                                {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+                                                {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                                </div>
+
                                                 <div class="modal-footer">
                                                     <button class="btn btn-success" type="submit" name="action">Create Station</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
@@ -100,6 +114,7 @@
                                                 <div class="modal-body">
                                                     @include('StationManagement.show')
                                                 </div>
+                                                
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                 </div>
@@ -120,6 +135,16 @@
                                                     {!! Form::model($station, ['method' => 'POST','route' => ['stationManagement.update', $station->id]]) !!}
                                                     @include('stationManagement.edit')                                                    
                                                 </div>
+                                                <div class="hide">
+                                                <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
+                                                <!-- USER ACTIVITY -->
+                                                {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                                {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                                {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                                {!! Form::text('activity', 'Edited a station',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+                                                {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+                                                {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                                </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-success" type="submit" name="action">Save Changes</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
@@ -135,14 +160,27 @@
                         
                         <div class="tab-pane fade" id="parts">
                             {!! Form::open(array('route' => 'partManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
+                                
+
+                                <div class="hide">
+                                    <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
+                                    <!-- USER ACTIVITY -->
+                                    {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                    {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                    {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                    {!! Form::text('activity', 'Added a new device',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+                                    {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+                                    {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                </div>
                                 {!! Form::text('part', null,['required' => 'true']) !!}
+
                                 <button class="btn btn-success" type="submit" name="action">Add Part</button>
                             {!! Form::close() !!}
                             <table id="all-parts" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Created at</th>
+                                        <th>Created At</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

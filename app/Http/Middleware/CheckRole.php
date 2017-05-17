@@ -17,7 +17,9 @@ class CheckRole
     {
         if ($request->user() === null) {
             // return redirect('/')->with('status', 'You are not logged in!');
-            return response("Insufficient permissions", 401);
+            // return response("Insufficient permissions", 401);
+
+            return redirect('login');
         }
         $actions = $request->route()->getAction();
         $roles = isset($actions['roles']) ? $actions['roles'] : null;
@@ -25,7 +27,8 @@ class CheckRole
         if ($request->user()->hasAnyRole($roles) || !$roles) {
             return $next($request);
         }
-        return response("Insufficient permissions", 401);
+        return redirect('login');
+        // return response("Insufficient permissions", 401);
         // return redirect('status', 'Your session has expired. Please log in again.');
     }
 }

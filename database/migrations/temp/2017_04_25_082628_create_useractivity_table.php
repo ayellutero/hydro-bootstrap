@@ -16,7 +16,7 @@ class CreateUseractivityTable extends Migration
         Schema::create('user_activities', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('employee_id')->unsigned();
+            $table->integer('empID')->unsigned();
             $table->string('employee_name');
             $table->string('position');             
             $table->text('activity');

@@ -8,7 +8,6 @@ use App\Station;
 use Request;
 use Carbon\Carbon; 
 use App\Notifications\UpcomingMaintenance;
-use App\Notification;
 use Borla\Chikka\Chikka;
 
 class CalendarController extends Controller
@@ -41,15 +40,7 @@ class CalendarController extends Controller
 
         Schedule::create($schedule);
         $sch = Schedule::where('created_at', \Carbon\Carbon::now())->get()->first(); // get the newly created sched
-        // static::notifyUser($staff[0]->id, $schedule['start_date'], $schedule['title'], $sch->id);
-
-        $schedule['receiver_id'] = $staff[0]->employee_id;
-        if(strcmp($schedule['sender_id'], $schedule['receiver_id'])!=0)
-        // Check if scheduled maintenance is for the scheduler
-        { // If not, create notification for the user,
-        //   Notification::create($schedule);
-        } // else, there's no need to notify
-    
+        // static::notifyUser($staff[0]->id, $schedule['start_date'], $schedule['title'], $sch->id);   
 
         return redirect('calendar')->with('message', 'Successfully scheduled a maintenance!');
     }
@@ -83,7 +74,7 @@ class CalendarController extends Controller
                         ->with('error', 'Schedule not found!');
         }
 
-        //UserActivity::create($request->all());
+        UserActivity::create($request->all());
         
     }
 
@@ -115,8 +106,13 @@ class CalendarController extends Controller
 
         
         //create User Activity
-        // create notification for admins and unit heads
 
         
+    }
+
+    public function smp(){
+        $r = Request::all();
+
+        print_r($r['smpl']);
     }
 }

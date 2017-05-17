@@ -67,15 +67,8 @@
                                             {!! Form::text('n_position', 'Unit Head',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                                             {!! Form::text('noted_by', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 
-                                            <!-- NOTIFICATIONS -->
-                                            {!! Form::text('sender_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                            {!! Form::text('receiver_id', $report->conducted_by,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                            {!! Form::text('message', Auth::user()->employee_id . ' approved your report',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                            {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                            {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-
-                                            <!-- USER ACTIVITY -->
-                                            {!! Form::text('employee_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                           <!-- USER ACTIVITY -->
+                                            {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                                             {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                                             {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                                             {!! Form::text('activity', 'Approved a maintenance report submitted by '.$report->conducted_by,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	

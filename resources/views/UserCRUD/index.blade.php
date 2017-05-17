@@ -8,7 +8,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a class="btn" data-toggle="modal" data-target="#createUser"><i class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
-                User CRUD
+                Users
             </div>
 
             <div class="panel-body">

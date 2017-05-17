@@ -12,32 +12,35 @@ class CreateReportsTable extends Migration
     public function up()
     {
         //
-        Schema::create('reports', function(Blueprint $table)
+        Schema::create('main_reports', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('emp_id');
+            // $table->string('emp_id');
             $table->string('station_id');
             $table->string('station_name');
             $table->string('location');
             $table->string('sensor_type');
-            $table->date('date_assessed');
-            $table->text('problem');
-            $table->text('work_tdone');
+
+            // Pre-repair
+            $table->date('monitoring_date');
+            $table->text('init_findings');
             $table->date('last_data');
-            $table->text('init_remarks');
-            $table->date('date_visited');
-            $table->text('actual_defects');
+            $table->text('assessed_by');
+           
+            // Post repair
+            $table->date('onsite_date');
+            $table->text('actual_findings');
             $table->text('work_done');
-            $table->text('part_replaced')->nullable();
-            $table->text('tp_results')->nullable();
-            $table->text('rc_performed')->nullable();
-            $table->text('onsite_remarks');
+            $table->text('part_installed');
+            $table->string('status');
             $table->string('conducted_by');
-            $table->string('c_position');
-            $table->string('noted_by')->nullable();
-            $table->string('n_position')->nullable();
-            $table->tinyInteger('if_approved')->default(0);
-            $table->date('date_approved')->nullable();
+
+            // Verified by
+            $table->string('supervisor');
+            $table->string('designation');
+
+            $table->tinyInteger('if_verified')->default(0);
+            $table->date('verified_date')->nullable();
             $table->timestamps();
         });
     }

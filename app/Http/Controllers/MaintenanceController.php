@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Station;
 use App\Report;
+use App\User;
+use App\Part;
 
 use App\StationReport;
 class MaintenanceController extends Controller
@@ -12,8 +14,12 @@ class MaintenanceController extends Controller
     //
     public function addRepView(){
         $stations = Station::orderBy('location')->get();
-
-        return view('/Reports/add_report')->with('stations', $stations);
+        $parts=Part::all();
+        $users=User::all();
+        return view('/Reports.index')
+                    ->with('users', $users)
+                    ->with('parts', $parts)
+                    ->with('stations', $stations);
     }
 
     public function allRepsView(){

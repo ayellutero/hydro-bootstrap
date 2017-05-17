@@ -8,7 +8,7 @@ class UserActivity extends Model
 {
     protected $fillable=[
     'id',
-    'employee_id',
+    'empID',
     'employee_name',
     'position',
     'activity',

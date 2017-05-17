@@ -68,33 +68,12 @@
                 <ul class="nav navbar-right top-nav">
                     @if (Auth::check())
                     <!-- Notifs -->
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="badge badge-pill badge-danger"> 
-                                @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
-                                    {{ App\Report::where(['if_approved' => 0])->get()->count() + App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count()  }}
-                                @else
-                                    {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}
-                                @endif
-                            </span> Notifications <i class="fa fa-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu message-dropdown">
-                            @if ( Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Head') ? 'checked' : '' )
-                            <li class="message-preview">
-                                <a href="viewPendingReports"><span class="badge badge-pill badge-danger">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</span> Pending Reports</a>
-                            </li>
-                            @endif
-                            <li class="message-preview">
-                                <?php $notifications = DB::table('notifications')->get(); ?>
-                                {!! Form::model($notifications,['method' => 'PATCH','route'=>['notifications.update', Auth::user()->employee_id]]) !!}
-                                    <div class="hide">
-                                        {!! Form::text('is_read', 1,['class'=>'form-control', 'readonly'=>'true' ]) !!}
-                                    </div>
-                                    <button href="#" class="btn btn-flat" style="background:white"><span class="badge badge-pill badge-danger"> {{ App\Notification::where(['is_read' => 0, 'receiver_id' => Auth::user()->employee_id ])->get()->count() }}</span> All Notifications</button>
-                                {!! Form::close() !!}
-                            </li>
-                        </ul>
+                    @if ( Auth::user()->hasRole('Admin') )
+                    <li >
+                        <a href="viewPendingReports"><span class="badge badge-pill badge-danger">{{ App\Report::where(['if_approved' => 0])->get()->count() }}</span> Pending Reports</a>
                     </li>
+                    @endif
+                    
 
                     <!-- User Profile -->
                     <li class="dropdown">
@@ -129,9 +108,11 @@
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#stationmgt"><i class="fa fa-th-list fa-fw"></i> Station Management <i class="fa fa-caret-down"></i></a>
                             <ul id="stationmgt" class="collapse">
+                                @if ( Auth::user()->hasRole('Admin') )
                                 <li>
                                     <a href="stationManagement"><i class="fa fa-flag fa-fw" aria-hidden="true"></i> Stations and Devices</a>
                                 </li>
+                                @endif
                                 <li>
                                     <a href="maintenanceHistory"><i class="fa fa-file-o fa-fw" aria-hidden="true"></i> Reports and Stats</a>
                                 </li>
@@ -163,21 +144,6 @@
                                 </li>
                                 <li><a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
                             @endif
-                            
-                    @else
-                    <li>
-                        <a href="/login" class=""><i class="fa fa-sign-in fa-fw"></i>Log in</a>
-                    </li>
-                        </li>
-                        
-                        @if ( Auth::user()->hasRole('Admin'))
-                            <li>
-                                <a href="userCRUD"><i class="fa fa-users fa-fw"></i> Users</a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-cyan" href="user_activity"><i class="#"></i> User Activity</a>
-                            </li>
-                        @endif
                     @endif
                 </ul>
             </div>
@@ -256,16 +222,32 @@
             }); 
 
             // Datatable JS
-            $('#all-station').DataTable({
+            var stationsTable = $('#all-station').DataTable({
+                language: {
+                    "emptyTable": "No stations to display.",
+                    "infoEmpty": ""
+                },
                 "scrollX": true
             });
-            $('#all-parts').DataTable({
+            var tableAllParts = $('#all-parts').DataTable({
+                language: {
+                    "emptyTable": "You have not added a device yet.",
+                    "infoEmpty": ""
+                },
                 "scrollX": true
             });
-            $('#all-works').DataTable({
+            var tableAllWorks = $('#all-works').DataTable({
+               language: {
+                    "emptyTable": "No data to display.",
+                    "infoEmpty": ""
+                },
                 "scrollX": true
             });
-            $('#all-users').DataTable({
+            var tableAllUsers = $('#all-users').DataTable({
+                language: {
+                    "emptyTable": "You have not created a user yet.",
+                    "infoEmpty": ""
+                },
                 "scrollX": true
             });
             
@@ -298,20 +280,15 @@
                 order: [[ 0, "desc" ]],
                 "scrollX": true
             });
-            var tableAllNotifs = $('#all-notifs').dataTable({
-                order: [[ 0, "desc"],[ 1, "desc"]],
+            
+            var tableAllStations = $('#all-stations').dataTable({
                 language: {
-                    "emptyTable": "You have no notifications.",
+                    "emptyTable": "No stations to display.",
                     "infoEmpty": ""
                 },
                 "scrollX": true
             });
-            var tableAllStations = $('#all-stations').dataTable({
-                "scrollX": true
-            });
-            var tableAllStations = $('#all-devices').dataTable({
-                "scrollX": true
-            });
+            
             var tableSenReps = $('#station-reports').DataTable({
                 order: [[ 6, "desc" ], [ 4, "desc" ]],
                 language: {
@@ -373,44 +350,12 @@
 
             /* FLOT pie charts */
             var statData = $('#all-stat-data').html();  
-            var dataSet =  JSON.parse(statData) ;
+            var data =  JSON.parse(statData) ;
             
-            // $.plot('#freq_replaced_part', dataSet[0], {
-            //     series: {
-            //         pie: {    
-            //             radius: 1,
-            //             show: true,                
-            //         }
-            //     },
-            //     grid: {
-            //         hoverable: true
-            //     },
-            //     legend: {
-            //         labelBoxBorderColor: "none"
-            //     }
-            // });  // end of chart: frequently replaced part  
-            // $('#freq_replaced_part').bind("plothover", pieHoverFRP);
-            
-            // $.plot('#most_common_defect', dataSet[1], {
-            //     series: {
-            //         pie: {    
-            //             radius: 1,
-            //             show: true,                
-            //         }
-            //     },
-            //     grid: {
-            //         hoverable: true
-            //     },
-            //     legend: {
-            //         labelBoxBorderColor: "none",
-            //         sorted: "ascending"
-            //     }
-            // }); // end of chart: most common defect
-            // $('#most_common_defect').bind("plothover", pieHoverMCD);
-
-
-/////////////////////////////////////
-            $.plot('#freq_replaced_part', [ dataSet[0] ], {
+            var dataSet = [
+                { data: data[0], color: "#5482FF" }
+            ];
+            $.plot('#freq_replaced_part',  dataSet , {
                 series: {
                     bars: {
                         show: true,
@@ -427,7 +372,10 @@
                 }
             });
 
-             $.plot('#most_common_defect', [ dataSet[1] ], {
+            dataSet = [
+                { data: data[1], color: "#5482FF" }
+            ];
+             $.plot('#most_common_defect', dataSet, {
                 series: {
                     bars: {
                         show: true,

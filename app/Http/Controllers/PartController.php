@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Part;
+use App\UserActivity;
 
 class PartController extends Controller
 {
@@ -15,8 +16,9 @@ class PartController extends Controller
         ]);
 
         Part::create($request->all());
+        UserActivity::create($request->all());
         return redirect()->back()
-                         ->with('success','User created successfully');
+                         ->with('success','Device added successfully.');
     }
 
     public function update(Request $request, $id)
