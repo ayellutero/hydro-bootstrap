@@ -15,24 +15,6 @@
     }
 </style>
 
-@if(Session::has('success'))
-    <div class="alert alert-success alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>{{ Session::get('success') }}</strong>
-    </div>
-@endif 
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-10">
-            <div class="panel with-nav-tabs panel-default">
-                <div class="panel-heading">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#stations" data-toggle="tab"><i class="fa fa-flag"></i> Stations</a></li>
-                        <li><a href="#parts" data-toggle="tab"><i class="fa fa-gear"></i> Device Parts</a></li>
-                        <li><a href="#works" data-toggle="tab"><i class="fa fa-wrench"></i> Works to be Done</a></li>
-                    </ul>
-                </div>
 <div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-lg-12">
         <div class="panel with-nav-tabs panel-default">
@@ -82,53 +64,6 @@
                                              {!! Form::close() !!}
                                          </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($stations as $key => $station)
-                                        <tr>
-                                            <td>{{ $station->device_id }}</td>
-                                            <td>{{ $station->location }}</td>
-                                            <td>{{ $station->province }}</td>
-                                            <td>{{ $station->lat }}</td>
-                                            <td>{{ $station->lng }}</td>
-                                            <td>{{ $station->type }}</td>
-                                            <td>
-                                                <a class="btn" data-toggle="modal" data-target="#viewStation-<?= $station->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
-                                                <a class="btn" data-toggle="modal" data-target="#editStation-<?= $station->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
-                                            </td>
-                                        </tr>
-
-                                        <!-- Create Station Modal -->
-                                        <div id="createStation" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">New Station</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    {!! Form::open(array('route' => 'stationManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
-                                                    @include('StationManagement.create')
-                                                </div>
-
-                                                <div class="hide">
-                                                <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
-                                                <!-- USER ACTIVITY -->
-                                                {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                                {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                                {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                                {!! Form::text('activity', 'Created a new station',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                                {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                                {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button class="btn btn-success" type="submit" name="action">Create Station</button>
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
-                                                    {{ Form::close() }}
-                                                </div>
-                                                </div>
 
                                     <!-- Create Station Modal -->
                                     <div id="createStation" class="modal fade" role="dialog">
@@ -152,23 +87,6 @@
                                         </div>
                                     </div>
 
-                                        <!-- View Station Modal -->
-                                        <div id="viewStation-<?= $station->id?>" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Station {{ $station->device_id }}</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    @include('StationManagement.show')
-                                                </div>
-                                                
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
                                     <!-- View Station Modal -->
                                     <div id="viewStation-<?= $station->id?>" class="modal fade" role="dialog">
                                         <div class="modal-dialog">
@@ -201,16 +119,6 @@
                                                     {!! Form::model($station, ['method' => 'POST', 'route' => ['stationManagement.update', $station->id]]) !!}
                                                     @include('StationManagement.edit')
                                                 </div>
-                                                <div class="hide">
-                                                <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
-                                                <!-- USER ACTIVITY -->
-                                                {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                                {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                                {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                                {!! Form::text('activity', 'Edited a station',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                                {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                                {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                                </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-success" type="submit" name="action">Save Changes</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
@@ -218,30 +126,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="tab-pane fade" id="parts">
-                            {!! Form::open(array('route' => 'partManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
-                                
-
-                                <div class="hide">
-                                    <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
-                                    <!-- USER ACTIVITY -->
-                                    {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                    {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                    {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                    {!! Form::text('activity', 'Added a new device',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                    {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                    {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                </div>
-                                {!! Form::text('part', null,['required' => 'true']) !!}
-
-                                <button class="btn btn-success" type="submit" name="action">Add Part</button>
-                            {!! Form::close() !!}
-                            <table id="all-parts" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     </div>
                                 @endforeach
                             </tbody>
@@ -259,8 +143,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
                                         <th>Created at</th>
                                         <th>Updated at</th>
                                         <th>Edit</th>
