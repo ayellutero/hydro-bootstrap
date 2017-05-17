@@ -22,28 +22,30 @@ class Report extends Model
 
 
     protected $fillable=[
-    'emp_id',
-    'station_id',
-    'station_name',
-    'location',
-    'sensor_type',
-    'date_assessed',
-    'problem',
-    'work_tdone',
-    'last_data',
-    'init_remarks',
-    'date_visited',
-    'actual_defects',
-    'work_done',
-    'part_replaced',
-    'tp_results',
-    'rc_performed',
-    'onsite_remarks',
-    'conducted_by',
-    'c_position',
-    'noted_by',
-    'n_position',
-    'if_approved',
-    'date_approved'
+        'emp_id',
+        'station_id',
+        'station_name',
+        'location',
+        'sensor_type',
+
+        'monitoring_date',
+        'init_findings',
+        'rec_work',
+        'last_data',
+        'assessed_by',
+
+        'onsite_date',
+        'actual_findings',
+        'work_done',
+        'part_installed',
+        'status',
+        'conducted_by',
+         
+         'supervisor',
+         'designation',
+
+         'if_approved',
+         'date_approved',
+         'submitted_by'
     ];
 }

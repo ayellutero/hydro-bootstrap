@@ -25,31 +25,51 @@ class ReportController extends Controller
         $loc = Station::where('location', $report['station_name'])->first();
         $report['location'] = $loc->location.', '.$loc->province;
         
-        if($report['part_replaced'] == null)
-            $report['part_replaced'] = "None";
+        if($report['part_installed'] == null)
+            $report['part_installed'] = "None";
 
-        $station_id = Station::select('device_id')->where('location', $report['station_name'])->get()->first();
+        $station_id = Station::select('device_id', 'type')->where('location', $report['station_name'])->get()->first();
         $report['station_id'] = $station_id['device_id'];
-        // // echo  $report['station_id'];
+        $report['sensor_type'] = $station_id['type'];
 
-        
+        $report['conducted_by'] = static::parseInputArray($report['conducted_by']);
+        $report['assessed_by'] = static::parseInputArray($report['assessed_by']);
+        $report['part_installed'] = static::parseInputArray($report['part_installed']);
+        $report['work_done'] = static::parseInputArray($report['work_done']);
 
+        $supervisor = User::select('position', 'firstname', 'lastname')
+                      ->where('employee_id', $report['supervisor'])->get()->first();
+
+        $report['designation'] = $supervisor['position'];
+        $report['supervisor'] = $supervisor['firstname'].' '.$supervisor['lastname'];
         Report::create($report);
-        $stationData['device_id'] = $report['station_id'];
-
-        $rep = Report::where('created_at', \Carbon\Carbon::now())->get()->first();
-        $stationData['report_id'] = $rep->id;
-        // StationReport::create($stationData);
-        
+     
         UserActivity::create($report);
 
         return redirect('addMaintenanceReport')
                 ->with('message', 'SUCCESS! Your report has been submitted for confirmation.');
     }
 
+
+    static function parseInputArray($array){
+      $str = '';
+        foreach($array as $arr){
+            $str = $arr.', '.$str;
+        }
+
+        $newStr = rtrim($str,', '); // remove trailing comma and space
+
+      return $newStr;
+    }
     public function update($id){
       $reportUpdate = Request::all();
       $report = Report::find($id);
+
+      // $reportUpdate['conducted_by'] = static::parseInputArray($reportUpdate['conducted_by']);
+      // $reportUpdate['assessed_by'] = static::parseInputArray($reportUpdate['assessed_by']);
+      // $reportUpdate['part_installed'] = static::parseInputArray($reportUpdate['part_installed']);
+      // $reportUpdate['work_done'] = static::parseInputArray($reportUpdate['work_done']);
+
       $report->update($reportUpdate);
       UserActivity::create($reportUpdate);
 

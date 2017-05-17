@@ -26,7 +26,7 @@
                         <td>{{ $report->station_id }}</td>
                         <td>{{ $report->station_name.', '.$report->location }}</td>
                         <td>{{ $report->sensor_type }}</td>
-                        <td>{{ $report->date_visited }}</td>
+                        <td>{{ $report->onsite_date }}</td>
                         <td>{{ $report->conducted_by }}</td>
                         <td>{{ $report->date_approved }}</td>
                         <td>

@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+@section('pageTitle', 'Station Reports')
 
+@section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -11,13 +12,12 @@
                 <table id="station-reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Station Name</th>
+                            <th>Device ID</th>
                             <th>Location</th>
                             <th>Sensor Type</th>
                             <th>Date Visited</th>
-                            <th>Conducted By</th>
-                            <th>Date Approved</th>
+                            <th>Author</th>
+                            <th>Date Noted</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -25,15 +25,14 @@
                     @foreach ($reports as $report)
                         @if ($report->if_approved == '1')
                         <tr>
-                            <td>{{ $report->id }}</td>
-                            <td>{{ $report->station_name }}</td>
-                            <td>{{ $report->location }}</td>
+                            <td>{{ $report->station_id }}</td>
+                            <td>{{ $report->station_name.', '.$report->location }}</td>
                             <td>{{ $report->sensor_type }}</td>
-                            <td>{{ $report->date_visited }}</td>
+                            <td>{{ $report->onsite_date }}</td>
                             <td>{{ $report->conducted_by }}</td>
                             <td>{{ $report->date_approved }}</td>
                             <td>
-                                <a class="btn" data-toggle="modal" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+                                <a class="btn withTooltip" data-toggle="modal" title="View" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                         @endif

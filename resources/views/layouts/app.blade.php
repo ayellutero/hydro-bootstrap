@@ -29,6 +29,9 @@
     <!-- Calendar CSS -->    
     <link href="{{ asset('vendor/fullcalendar/css/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
 
+    <!-- Bootstrap select CSS -->    
+    <link href="{{ asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+
     <!--FLOT-->
     <!--<link href="{{ asset('vendor/flot/excanvas.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">-->
     
@@ -205,12 +208,16 @@
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.pie.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.categories.js') }}"></script>
     
+    <!-- Bootstrap select Script -->
+    <script type="text/javascript" src="{{ asset('vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+    
+
     <script> // MAIN Script
         $(document).ready(function() {
             var panels = $('.user-infos');
             var panelsButton = $('.dropdown-user');
             panels.hide();
-
+            
             //Click dropdown
             panelsButton.click(function() {
                 //get data-for attribute
@@ -298,7 +305,7 @@
                 "scrollX": true
             });
             var tableAllReps = $('#all-reports').DataTable({
-                order: [[ 4, "desc" ]],
+                order: [[ 5, "desc" ]],
                 language: {
                     "emptyTable": "There are no approved reports.",
                     "infoEmpty": ""
@@ -328,7 +335,7 @@
             });
             
             var tableSenReps = $('#station-reports').DataTable({
-                order: [[ 6, "desc" ], [ 4, "desc" ]],
+                order: [[ 5, "desc" ], [ 3, "desc" ]],
                 language: {
                     "emptyTable": "No reports yet for this station.",
                     "infoEmpty": ""

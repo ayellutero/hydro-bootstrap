@@ -12,10 +12,10 @@ class CreateReportsTable extends Migration
     public function up()
     {
         //
-        Schema::create('main_reports', function(Blueprint $table)
+        Schema::create('reports', function(Blueprint $table)
         {
             $table->increments('id');
-            // $table->string('emp_id');
+            $table->string('emp_id');
             $table->string('station_id');
             $table->string('station_name');
             $table->string('location');
@@ -24,6 +24,7 @@ class CreateReportsTable extends Migration
             // Pre-repair
             $table->date('monitoring_date');
             $table->text('init_findings');
+            $table->text('rec_work');            
             $table->date('last_data');
             $table->text('assessed_by');
            
@@ -39,8 +40,9 @@ class CreateReportsTable extends Migration
             $table->string('supervisor');
             $table->string('designation');
 
-            $table->tinyInteger('if_verified')->default(0);
-            $table->date('verified_date')->nullable();
+            $table->tinyInteger('if_approved')->default(0);
+            $table->date('date_approved')->nullable();
+            $table->string('submitted_by');
             $table->timestamps();
         });
     }

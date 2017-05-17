@@ -7,6 +7,7 @@ use App\Station;
 use App\Report;
 use App\User;
 use App\Part;
+use App\Work;
 
 use App\StationReport;
 class MaintenanceController extends Controller
@@ -16,8 +17,10 @@ class MaintenanceController extends Controller
         $stations = Station::orderBy('location')->get();
         $parts=Part::all();
         $users=User::all();
+        $works=Work::all();
         return view('/Reports.index')
                     ->with('users', $users)
+                    ->with('works', $works)
                     ->with('parts', $parts)
                     ->with('stations', $stations);
     }
@@ -27,7 +30,13 @@ class MaintenanceController extends Controller
     }
 
     public function myRepsView(){
-        return view('/Reports/my_reports');
+        $parts=Part::all();
+        $users=User::all();
+        $works=Work::all();
+        return view('/Reports/my_reports')
+                    ->with('users', $users)
+                    ->with('works', $works)
+                    ->with('parts', $parts);
     }
 
     public function stationsView(){

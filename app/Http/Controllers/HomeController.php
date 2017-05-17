@@ -27,25 +27,25 @@ class HomeController extends Controller
     {
         // this is the STATISTICS controller
         $locations = Station::all();
-        $commDefect = Report::select('actual_defects')->where('if_approved', 1)->get();
+        $commDefect = Report::select('work_done')->where('if_approved', 1)->get();
         $cdData = array();
         foreach($commDefect as $def){
-            $cdData[$def->actual_defects] = 0;
+            $cdData[$def->work_done] = 0;
         }
 
         foreach($commDefect as $def){
-            $cdData[$def->actual_defects] += 1;        
+            $cdData[$def->work_done] += 1;        
         }
 
         // ......... //
-        $partReps = Report::select('part_replaced')->where('if_approved', 1)->get();
+        $partReps = Report::select('part_installed')->where('if_approved', 1)->get();
         $prData = array();
         foreach($partReps as $part){
-            $prData[$part->part_replaced] = 0;
+            $prData[$part->part_installed] = 0;
         }
 
         foreach($partReps as $part){
-            $prData[$part->part_replaced] += 1;        
+            $prData[$part->part_installed] += 1;        
         }
         
         $parts_arr = array();

@@ -35,7 +35,7 @@
                         <td>{{ $report->station_name }}</td>
                         <td>{{ $report->location }}</td>
                         <td>{{ $report->sensor_type }}</td>
-                        <td>{{ $report->date_visited }}</td>
+                        <td>{{ $report->onsite_date }}</td>
                         <td>{{ $report->conducted_by }}</td>
                         <td>
                             <a class="btn" data-toggle="modal" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
@@ -52,23 +52,18 @@
                                     <h4 class="modal-title">Report #{{ $report->id }}</h4>
                                 </div>
                                 <div class="modal-body">
-                                    @include('Reports/display_report')
+                                    {!! Form::model($report,['method' => 'PATCH','route'=>['reports.update',$report->id]]) !!}
+                                    @include('Notifications.edit_pending')
                                 </div>
                                 <div class="modal-footer">
                                     <div class="hide">
-                                        {!! Form::model($report,['method' => 'PATCH','route'=>['reports.update',$report->id]]) !!}
+                                    
                                         {!! Form::text('if_approved', '1',['class'=>'form-control', 'hidden'=>'true']) !!}
                                         {!! Form::text('date_approved', $time->toDateString(),['class'=>'form-control', 'hidden'=>'true']) !!}
                                         {!! Form::text('n_position', 'Unit Head',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                                         {!! Form::text('noted_by', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                        <!-- NOTIFICATIONS -->
-                                        {!! Form::text('sender_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                        {!! Form::text('receiver_id', $report->conducted_by,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-                                        {!! Form::text('message', Auth::user()->employee_id . ' approved your report',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                        {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
-                                        {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
                                         <!-- USER ACTIVITY -->
-                                        {!! Form::text('employee_id', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+                                        {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                                         {!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                                         {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
                                         {!! Form::text('activity', 'Approved a maintenance report submitted by '.$report->conducted_by,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	

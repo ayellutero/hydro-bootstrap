@@ -4,16 +4,6 @@
 
 @section('content')
 <div class="card-panel"  style="margin:0%; margin-top:0%;">
-	<h4 class="header2">Maintenance Form</h4>
-	<!-- FIX FORM -->
-		{!! Form::open(['url' => 'reports']) !!}
-		 <div class="form-group">
-	        {!! Form::label('station_name', 'Station Name:') !!}
-	        {!! Form::text('station_name',null,['class'=>'form-control', 'required' => 'true']) !!}
-	    </div>
-	    <div class="form-group">
-	        {!! Form::label('location', 'Location (Town, Province):') !!}
-	        {!! Form::text('location', null,['class'=>'form-control', 'required' => 'true']) !!}
 
 @if(Session::has('message'))
 <div class="alert alert-success alert-dismissable">
@@ -74,10 +64,14 @@
 	        <input type="date" name="last_data" class="datepicker" required>
 	    </div>
 
-		<div class="form-group">
-	        {!! Form::label('assessed_by', 'Assessed by:') !!}
-	        
-	    </div>
+		<div class="form-group"  style="padding-top:2%">
+			{!! Form::label('assessed_by', 'Assessed by:') !!}
+			<select class="selectpicker form-control" name="assessed_by[]" id="assessedBy" data-live-search="true" required multiple>
+				@foreach($users as $user)
+					<option value ="{{$user->firstname." ".$user->lastname}}">{{$user->firstname." ".$user->lastname}}</option>
+				@endforeach
+			</select>
+		</div>
 
 		<h4 class="header2" style="padding-top:2%">POST REPAIR</h4>
 		<div class="form-group">
@@ -91,23 +85,26 @@
 	    </div>
 
 		<div class="form-group">
-	        {!! Form::label('work_done', 'Work/s done:') !!}
-	        
+			{!! Form::label('work_done', 'Work/s Done:') !!}
+	        <select class="selectpicker form-control" name="work_done[]" id="workDone" data-live-search="true" required multiple>
+				@foreach($works as $work)
+					<option value ="{{$work->work}}">{{$work->work}}</option>
+				@endforeach
+			</select>
 		</div>
 
 	    <div class="form-group">
-	        {!! Form::label('part_replaced', 'Parts Replaced/Installed:') !!}
-	        <select class="form-control" name="part_replaced" id="part_replaced" required>
-				<option value ="None">None</option>
+	        {!! Form::label('part_installed', 'Parts Replaced/Installed:') !!}
+			<select class="selectpicker form-control" name="part_installed[]" id="partInstalled" data-live-search="true" multiple>
 				@foreach($parts as $part)
 					<option value ="{{$part->part}}">{{$part->part}}</option>
 				@endforeach
-            </select>
+			</select>
 	    </div>
 
 	    <div class="form-group">
 	        {!! Form::label('status', 'Status: ') !!}
-	        <select class="form-control" name="part_replaced" id="part_replaced" required>
+	        <select class="form-control" name="status" id="part_replaced" required>
 				<option value ="Operational">Operational</option>
 				<option value ="For Repair">For Repair</option>
 				<option value ="Non-Operational">Non-Operational</option>
@@ -117,39 +114,30 @@
 
 	    <div class="form-group"  style="padding-top:2%">
 			{!! Form::label('conducted_by', 'Conducted by:') !!}
-			<select class="form-control" name="conducted_by[]" id="a" required>
-				@foreach($users as $user)
-					<option value ="{{$user->firstname." ".$user->lastname}}">{{$user->firstname." ".$user->lastname}}</option>
-				@endforeach
-			</select>
-			<div id="newConductedBy">
-				<a id="ncbBtn" onclick="showNewCB()"><i class="fa fa-plus" aria-hidden="true"></i> More</a>
-			</div>
-		</div>
-		<div id="addNewCB" class="hide">
-			<select class="form-control" name="conducted_by[]" id="ncb">
+			<select class="selectpicker form-control" name="conducted_by[]" id="conductedBy" data-live-search="true" required multiple>
 				@foreach($users as $user)
 					<option value ="{{$user->firstname." ".$user->lastname}}">{{$user->firstname." ".$user->lastname}}</option>
 				@endforeach
 			</select>
 		</div>
-		<script>
-			function showNewCB(){
-				$txt = $('#addNewCB').html();
-				$('#newConductedBy').before($txt);
-				
-			
-				$ncb = '<a id="ncbBtn" onclick="showNewCB()"><i class="fa fa-plus" aria-hidden="true"></i> More</a>&nbsp;&nbsp;<a id="ncbRBtn" onclick="removeNewCB()"><i class="fa fa-minus" aria-hidden="true"></i> Remove</a>'
-				$('#newConductedBy').html($ncb);
-			}
-			function removeNewCB(){
-				$('#ncb').remove();
-			}
-		</script>
+		
+
+		<div class="form-group"  style="padding-top:2%">
+			{!! Form::label('supervisor', 'Supervisor:') !!}
+			<select class="form-control" name="supervisor" required>
+				@foreach($users as $user)
+					<option value ="{{$user->employee_id}}">{{$user->firstname." ".$user->lastname}}</option>
+				@endforeach
+			</select>
+		</div>
 
 		<div class="hide">
-			<?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
+			{!! Form::text('submitted_by', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true']) !!}
+		</div>
 
+		<div class="hide">
+
+			<?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
 			<!-- USER ACTIVITY -->
 			{!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 			{!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
