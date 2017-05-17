@@ -36,18 +36,35 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
+            <strong>Status:</strong>
+            <select class="form-control" name="status" id="status">
+                @foreach($statuses as $status)
+                <option value="{{ $status->status}}">{{ $status->status}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
             <strong>Type:</strong>
-            {!! Form::text('type', $station->type, array('placeholder' => 'Location','class' => 'form-control')) !!}
+            <select class="form-control" name="type" id="type">
+                @foreach($types as $type)
+                <option value="{{ $type->type}}">{{ $type->type}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     
     <div class="col-xs-12 col-sm-12 col-md-12">
-        {!! Form::label('sim', 'Sim Network:') !!}
-        <select class="form-control" name="sim">
-            <option value ="Globe">Globe</option>
-            <option value ="Smart">Smart</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <strong>Sim Network:</strong>
+            <select class="form-control" name="sim">
+                <option value ="Globe">Globe</option>
+                <option value ="Smart">Smart</option>
+            </select>
+        </div>
+    </div><br>
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">

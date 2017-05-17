@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Station;
 use App\Part;
+use App\Status;
+use App\Type;
 use App\Work;
 use App\UserActivity;
 
@@ -16,7 +18,10 @@ class StationController extends Controller
         $parts = Part::all();
         $stations = Station::all();
         $works = Work::all();
-        return view('StationManagement.index',compact('stations', 'parts', 'works'));
+        $types = Type::all();
+        $statuses = Status::all();
+
+        return view('StationManagement.index',compact('stations', 'parts', 'works', 'types', 'statuses'));
     }
 
     public function create()
@@ -38,7 +43,7 @@ class StationController extends Controller
             'date_deployed',
         ]);
 
-        UserActivity::create($request->all());
+        // UserActivity::create($request->all());
         Station::create($request->all());
         return redirect()->back()
                          ->with('success','Station created successfully.');
@@ -50,9 +55,9 @@ class StationController extends Controller
             'device_id' => 'required|max:255',
             'province' => 'required|max:255',
             'location' => 'required|max:255',
-            'lat' => 'required|min:6',
-            'lng' => 'required|min:6',
-            'type' => 'required|min:6',
+            'lat' => 'required',
+            'lng' => 'required',
+            'type' => 'required',
             'sim',
             'elevation',
             'date_deployed',
@@ -60,13 +65,6 @@ class StationController extends Controller
 
         Station::find($id)->update($request->all());
         return redirect()->back()
-                        ->with('success','Station updated successfully,');
+                        ->with('success','Station updated successfully.');
     }
-
-    // public function destroy(Request $request, $id)
-    // {
-    //     Station::find($id)->delete();
-    //     return redirect()->back()
-    //                     ->with('success','Station deleted successfully');
-    // }
 }

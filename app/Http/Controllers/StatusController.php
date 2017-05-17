@@ -4,32 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Part;
-use App\UserActivity;
+use App\Status;
 
-class PartController extends Controller
+class StatusController extends Controller
 {
     public function store(Request $request)
     {
         $this->validate($request, [
-            'part' => 'required'
+            'status' => 'required'
         ]);
 
-        Part::create($request->all());
+        Status::create($request->all());
         // UserActivity::create($request->all());
         return redirect()->back()
-                         ->with('success','Part added successfully.');
+                         ->with('success','Status added successfully.');
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'part' => 'required'
+            'status' => 'required'
         ]);
 
-        $part = Part::find($id);
-        $part->update($request->all());
+        $status = Status::find($id);
+        $status->update($request->all());
         return redirect()->back()
-                        ->with('success','Part updated successfully');
+                        ->with('success','Status updated successfully');
     }
 }

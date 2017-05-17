@@ -14,7 +14,7 @@
 <div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-lg-12">
         <div class="panel-body">
-            <table id="pending-reports" class="table table-striped table-bordered" cellspacing="0">
+            <table id="pending-reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>ID</th>

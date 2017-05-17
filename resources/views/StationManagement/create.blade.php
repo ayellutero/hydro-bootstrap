@@ -46,10 +46,9 @@
         
         <div class="col-md-6">
             <select class="form-control" name="type" id="type">
-                <option value="ARG">ARG</option>
-                <option value="WLMS">WLMS</option>
-                <option value="TDM">TDM</option>
-                <option value="AWS">AWS</option>
+                @foreach($types as $type)
+                <option value="{{ $type->type}}">{{ $type->type}}</option>
+                @endforeach
             </select>
 
             @if ($errors->has('type'))
@@ -88,13 +87,31 @@
         </div>
     </div><br>
 
+    <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+        <label for="status" class="col-md-4 control-label">Status</label>
+        
+        <div class="col-md-6">
+            <select class="form-control" name="status" id="status">
+                @foreach($statuses as $status)
+                <option value="{{ $status->status}}">{{ $status->status}}</option>
+                @endforeach
+            </select>
+
+            @if ($errors->has('status'))
+            <span class="help-block">
+                <strong>{{ $errors->first('status') }}</strong>
+            </span>
+            @endif
+        </div>
+    </div><br>
+
     <div class="form-group{{ $errors->has('sim') ? ' has-error' : '' }}">
         <label for="sim" class="col-md-4 control-label">Sim Network</label>
         
         <div class="col-md-6">
             <select class="form-control" name="sim" id="sim">
-                <option value="smart">Smart</option>
-                <option value="globe">Globe</option>
+                <option value="Smart">Smart</option>
+                <option value="Globe">Globe</option>
             </select>
 
             @if ($errors->has('sim'))

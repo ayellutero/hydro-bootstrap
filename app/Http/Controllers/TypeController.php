@@ -4,32 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Part;
-use App\UserActivity;
+use App\Type;
 
-class PartController extends Controller
+class TypeController extends Controller
 {
     public function store(Request $request)
     {
         $this->validate($request, [
-            'part' => 'required'
+            'type' => 'required'
         ]);
 
-        Part::create($request->all());
+        Type::create($request->all());
         // UserActivity::create($request->all());
         return redirect()->back()
-                         ->with('success','Part added successfully.');
+                         ->with('success','Type added successfully.');
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'part' => 'required'
+            'type' => 'required'
         ]);
 
-        $part = Part::find($id);
-        $part->update($request->all());
+        $type = Type::find($id);
+        $type->update($request->all());
         return redirect()->back()
-                        ->with('success','Part updated successfully');
+                        ->with('success','Type updated successfully');
     }
 }
