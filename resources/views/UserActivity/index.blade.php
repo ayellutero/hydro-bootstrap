@@ -12,7 +12,7 @@
                         <th>Timestamp</th>
                         <th>Employee ID</th>
                         <th>Name</th>
-                        <th>Position</th>
+                        <th>Designation</th>
                         <th>Activity</th>
                     </tr>
                 </thead>
@@ -23,7 +23,7 @@
                             <td>{{ \Carbon\Carbon::parse($activity->sent_at_date)->format('M d, Y') }} {{ \Carbon\Carbon::parse($activity->sent_at_time)->format('h:i A')  }}</td>
                             <td>{{ $activity->empID }}</td>
                             <td>{{ $activity->employee_name }}</td>
-                            <td>{{ $activity->position }}</td>
+                            <td>{{ $activity->employee_position }}</td>
                             <td>{{ $activity->activity }}</td>
                         </tr>
                     @endforeach

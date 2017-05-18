@@ -18,7 +18,7 @@ class CreateUseractivityTable extends Migration
             $table->increments('id');
             $table->integer('empID')->unsigned();
             $table->string('employee_name');
-            $table->string('position');             
+            $table->string('employee_position');             
             $table->text('activity');
             $table->date('sent_at_date');//->nullable();
             $table->time('sent_at_time');//->nullable();

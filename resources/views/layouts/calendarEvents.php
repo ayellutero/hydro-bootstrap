@@ -1,6 +1,7 @@
 <?php
 
 use App\Schedule;
+use App\User;
 
 try {
 
@@ -8,16 +9,19 @@ try {
 
     // Returning array
     $events = array();
-    $calEvents = array();
+    $calEvents = array(); 
 
     // Fetch results
     foreach($cals as $cal) {
+        $staff = User::where('employee_id', $cal->staff)->get()->first();
+        $staff = $staff->firstname.' '.$staff->lastname;
 
         $calEvents['id'] = $cal->id;
         $calEvents['title'] = $cal->title;
         $calEvents['start'] = $cal->start_date;
         $calEvents['allDay'] = false;
         $calEvents['staff'] = $cal->staff;
+        $calEvents['staff_name'] = $staff;
         $calEvents['is_confirmed'] = $cal->is_confirmed;
         $calEvents['email'] = $cal->email_to_notif;
 

@@ -95,3 +95,14 @@
         </div>
     </div><br>
 </div>
+
+<div class="hide">
+    <!-- USER ACTIVITY -->
+    <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
+    {!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+    {!! Form::text('employee_position', Auth::user()->designation,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+    {!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+    {!! Form::text('activity', 'Created a new user', ['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+    {!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
+    {!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}
+</div>

@@ -10,7 +10,7 @@ class UserActivity extends Model
     'id',
     'empID',
     'employee_name',
-    'position',
+    'employee_position',
     'activity',
     'sent_at_time',
     'sent_at_date'

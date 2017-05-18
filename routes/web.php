@@ -1,11 +1,5 @@
 <?php
 
-Route::get('sample', function(){
-    return view('sample');
-});
-
-
-Route::post('smp', 'CalendarController@smp');
 // Authentication
 Route::auth();
 
@@ -32,7 +26,7 @@ Route::group(['middleware' => ['web', 'roles']], function () {
     Route::post('/userCRUD/{id}/update/', [
         'uses' => 'UserCRUDController@update',
         'as' => 'userCRUD.update',
-        'roles' => ['Admin']
+        'roles' => ['Admin', 'User'] // included User for profile editing purposes
     ]);
 
     Route::delete('/userCRUD/{id}/destroy', [

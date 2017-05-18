@@ -382,7 +382,7 @@
                     side.html("<label>Date:</label><input type=text value='" + moment(calEvent.start).format('MMM DD, YYYY') + "' class='form-control' readonly></input>")
 
                     side = $('#eventStaff');
-                    side.html("<label>Staff-in-charge:</label><input type=text value='" + calEvent.staff + "' class='form-control' readonly onclick='this.select()'></input>")
+                    side.html("<label>Staff-in-charge:</label><input type=text value='" + calEvent.staff_name + "' class='form-control' readonly onclick='this.select()'></input>")
                     
                     side = $('#eventEmail');
                     side.html("<label>Email:</label><input type=text value='" + calEvent.email + "' class='form-control' readonly onclick='this.select()'></input>")

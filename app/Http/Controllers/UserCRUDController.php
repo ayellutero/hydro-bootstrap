@@ -55,7 +55,7 @@ class UserCRUDController extends Controller
         UserActivity::create($request->all());
 
         return redirect()->back()
-                         ->with('success','User created successfully');
+                         ->with('success','User created successfully.');
     }
 
     /**
@@ -91,13 +91,13 @@ class UserCRUDController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'email' => 'required',
-            'contact_num',
-            'designation' => 'required',
-            'password' => 'min:6',
-            'pass_confirm' => 'min:6|same:password',
-        ]);
+        // $this->validate($request, [
+        //     'email' => 'required',
+        //     'contact_num',
+        //     'designation' => 'required',
+        //     'password' => 'min:6',
+        //     'pass_confirm' => 'min:6|same:password',
+        // ]);
 
         $user = User::find($id);
         

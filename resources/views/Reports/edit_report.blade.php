@@ -94,7 +94,7 @@
        
         <!-- USER ACTIVITY -->
 		{!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-		{!! Form::text('position', Auth::user()->position,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+		{!! Form::text('employee_position', Auth::user()->desgination,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 		{!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 		{!! Form::text('activity', 'Edited a maintenance report',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 		{!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	

@@ -11,6 +11,7 @@ class Schedule extends Model
         'title',
         'start_date',
         'staff',
+        'staff_name',
         'notify_email',
         'email_to_notif',
         'notify_sms',

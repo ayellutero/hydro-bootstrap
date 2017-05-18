@@ -9,6 +9,7 @@ use Request;
 use Carbon\Carbon; 
 use App\Notifications\UpcomingMaintenance;
 use Borla\Chikka\Chikka;
+use App\UserActivity;
 
 class CalendarController extends Controller
 {
@@ -28,19 +29,22 @@ class CalendarController extends Controller
         $schedule=Request::all();
 
         // Get user chosen in the by the employee_id
-        $staff = User::where('employee_id',  $schedule['staff'])->get();
+        $staff = User::where('employee_id',  $schedule['staff'])->first();
+        $schedule['staff_name'] = $staff->firstname.' '.$staff->lastname;
     
         // Automatically set the email_to_notif to the chosen user's email
-        $schedule['email_to_notif'] =  $staff[0]->email;
+        $schedule['email_to_notif'] =  $staff->email;
 
         if(Request::has('notify_sms'))  // If notify via SMS is checked,
             if($schedule['notify_sms'] == 1) 
                 // Automatically set the email_to_notif to the chosen user's email
-                $schedule['sms_to_notif'] =  $staff[0]->contact_num;
+                $schedule['sms_to_notif'] =  $staff->contact_num;
 
         Schedule::create($schedule);
         $sch = Schedule::where('created_at', \Carbon\Carbon::now())->get()->first(); // get the newly created sched
-        // static::notifyUser($staff[0]->id, $schedule['start_date'], $schedule['title'], $sch->id);   
+        static::notifyUser($staff->id, $schedule['start_date'], $schedule['title'], $sch->id);   
+
+        UserActivity::create($schedule);
 
         return redirect('calendar')->with('message', 'Successfully scheduled a maintenance!');
     }
@@ -78,10 +82,6 @@ class CalendarController extends Controller
         
     }
 
-    public function update($id){
-
-    }
-
     public function notifyUser($id, $date, $title, $notif_id){
         $user = User::findOrFail($id);
         $user->notify(new UpcomingMaintenance($user, $date, $title, $notif_id));
@@ -98,14 +98,25 @@ class CalendarController extends Controller
             if($checkSched->is_confirmed == 0){
                 $confirm['is_confirmed'] = 1;
                 $sched->update($confirm);
+
+            $act['empID'] = $checkSched->staff;
+
+            $staff = User::select('firstname', 'lastname', 'designation')->where('employee_id', $checkSched->staff)->first();
+
+            $act['employee_name'] = $staff['firstname'].' '.$staff['lastname'];
+            $act['employee_position'] = $staff['designation'];
+            $act['activity'] = 'Confirmed his/her scheduled maintenance.';
+
+            $time = \Carbon\Carbon::now(new \DateTimeZone('Asia/Singapore'));
+            $act['sent_at_date'] = $time->toDateString();
+            $act['sent_at_time'] = $time->toTimeString();
+
+                UserActivity::create($act);
                 return view('Calendar.success');
             }
             
         }
         return view('Calendar.failed');
-
-        
-        //create User Activity
 
         
     }

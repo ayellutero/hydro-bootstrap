@@ -4,6 +4,12 @@
 
 @section('content')
 
+@if(Session::has('success'))
+<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{ Session::get('success') }}</strong>
+</div>
+@endif
 <!-- /.row -->
 <div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-lg-12">
@@ -19,7 +25,7 @@
                         <tr>
                             <th>Employee ID</th>
                             <th>Name</th>
-                            <th>Position</th>
+                            <th>Designation</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -28,7 +34,7 @@
                         <tr>
                             <td>{{ $user->employee_id }}</td>
                             <td>{{ $user->firstname }} {{ $user->lastname }}</td>
-                            <td>{{ $user->position }}</td>
+                            <td>{{ $user->designation }}</td>
                             <td>
                                 <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="View" data-toggle="modal" data-target="#viewUser-<?= $user->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                 <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Edit" data-toggle="modal" data-target="#editUser-<?= $user->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
@@ -74,12 +80,37 @@
                                 <div class="modal-body">
                                     {!! Form::model($user, ['method' => 'POST','route' => ['userCRUD.update', $user->id]]) !!}
                                     @include('UserCRUD.edit')
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+
+                                <div class="form-group">
+                                        <a id="changePWButton-{{$user->id}}" class="btn btn-info" onclick="showEditPassword({{$user->id}})">Change Password</a>
+                                    </div>
+                                </div>
+
+                                <div id="editUserPassword-{{$user->id}}" class="hide">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>New Password:</strong>
+                                            <input type="password" class="form-control" name="password" id="newPasswordInput">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Confirm Password:</strong>
+                                            <input type="password" class="form-control" name="pass_confirm" id="confPasswordInput">
+                                        </div>
+                                    </div>
+
+                                </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-success" type="submit" name="action">Save Changes</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
                                     {{ Form::close() }}
                                 </div>
+
+                                
                                 </div>
 
                             </div>
@@ -108,6 +139,8 @@
 
                             </div>
                         </div>
+                        
+ 
                     @endforeach
                     </tbody>
                 </table>
@@ -116,5 +149,29 @@
     </div>
 </div>
 
+   <script>
+        function showEditPassword(usrID){
+    
+            var str1 = 'cancelPassword(';
+            var str2 = ')';
+            
+            $('#editUserPassword-'+usrID).attr('class', '');
+            $('#changePWButton-'+usrID).html('Cancel');
+            $('#changePWButton-'+usrID).attr('onclick', str1.concat(usrID, str2));
+            $('#newPasswordInput').attr('required', true);
+            $('#confPasswordInput').attr('required', true);
+        }
+        function cancelPassword(usrID){
+
+            var str1 = 'showEditPassword(';
+            var str2 = ')';
+
+            $('#editUserPassword-'+usrID).attr('class', 'hide');
+            $('#changePWButton-'+usrID).html('Change Password');
+            $('#changePWButton-'+usrID).attr('onclick', str1.concat(usrID, str2));
+            $('#newPasswordInput').attr('required', false);
+            $('#confPasswordInput').attr('required', false);
+        }
+    </script>
 
 @endsection
