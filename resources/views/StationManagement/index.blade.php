@@ -152,9 +152,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $count = 1 ?>
                                     @foreach ($parts as $key => $part)
                                         <tr>
-                                            <td>{{ $part->id }}</td>
+                                            <td>{{ $count }}</td>
                                             <td>{{ $part->part }}</td>
                                             <td>{{ $part->created_at }}</td>
                                             <td>{{ $part->updated_at }}</td>
@@ -167,6 +168,7 @@
                                                 {!! Form::close() !!}
                                             </td>
                                         </tr>
+                                    <?php $count++ ?>
 
                                         <!-- Edit Part Modal -->
                                         <div id="editPart-<?= $part->id?>" class="modal fade" role="dialog">
@@ -219,9 +221,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $count = 1 ?>
                                 @foreach ($types as $key => $type)
                                     <tr>
-                                        <td>{{ $type->id }}</td>
+                                        <td>{{ $count }}</td>
                                         <td>{{ $type->type }}</td>
                                         <td>{{ $type->created_at }}</td>
                                         <td>{{ $type->updated_at }}</td>
@@ -234,6 +237,7 @@
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>
+                                <?php $count++ ?>
 
                                     <!-- Edit Type Modal -->
                                     <div id="editType-<?= $type->id?>" class="modal fade" role="dialog">
@@ -282,9 +286,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $count = 1 ?>
                                 @foreach ($works as $key => $work)
                                     <tr>
-                                        <td>{{ $work->id }}</td>
+                                        <td>{{ $count }}</td>
                                         <td>{{ $work->work }}</td>
                                         <td>{{ $work->created_at }}</td>
                                         <td>{{ $work->updated_at }}</td>
@@ -297,6 +302,7 @@
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>
+                                <?php $count++ ?>
                                     <!-- Edit Work Modal -->
                                     <div id="editWork-<?= $work->id?>" class="modal fade" role="dialog">
                                         <div class="modal-dialog">
@@ -345,9 +351,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $count = 1 ?>
                                     @foreach ($statuses as $key => $status)
                                         <tr>
-                                            <td>{{ $status->id }}</td>
+                                            <td>{{ $count }}</td>
                                             <td>{{ $status->status }}</td>
                                             <td>{{ $status->created_at }}</td>
                                             <td>{{ $status->updated_at }}</td>
@@ -360,6 +367,7 @@
                                             {!! Form::close() !!}
                                             </td>
                                         </tr>
+                                        <?php $count++ ?>
 
                                         <!-- Edit Status Modal -->
                                         <div id="editStatus-<?= $status->id?>" class="modal fade" role="dialog">
@@ -412,9 +420,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $count = 1 ?>
                                     @foreach ($sims as $key => $sim)
                                         <tr>
-                                            <td>{{ $sim->id }}</td>
+                                            <td>{{ $count }}</td>
                                             <td>{{ $sim->sim }}</td>
                                             <td>{{ $sim->created_at }}</td>
                                             <td>{{ $sim->updated_at }}</td>
@@ -427,6 +436,7 @@
                                                 {!! Form::close() !!}
                                             </td>
                                         </tr>
+                                        <?php $count++ ?>
 
                                         <!-- Edit Sim Modal -->
                                         <div id="editSim-<?= $sim->id?>" class="modal fade" role="dialog">
