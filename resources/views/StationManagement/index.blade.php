@@ -44,7 +44,7 @@
                                     <th>Province</th>
                                     <th>Latitude</th>
                                     <th>Longitude</th>
-                                    <th>Type</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -56,7 +56,7 @@
                                          <td>{{ $station->province }}</td>
                                          <td>{{ $station->lat }}</td>
                                          <td>{{ $station->lng }}</td>
-                                         <td>{{ $station->type }}</td>
+                                         <td>{{ $station->status }}</td>
                                          <td>
                                              <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="View" data-toggle="modal" data-target="#viewStation-<?= $station->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                              <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Edit" data-toggle="modal" data-target="#editStation-<?= $station->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
@@ -137,7 +137,7 @@
                     
                     <div class="tab-pane fade" id="parts">
                         {!! Form::open(array('route' => 'partManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
-                            {!! Form::text('part', null, ['required' => 'true']) !!}
+                            {!! Form::text('part', null, ['required' => 'true', 'autofocus' => 'autofocus']) !!}
                             <button class="btn btn-success" type="submit" name="action"><i class="fa fa-plus" aria-hidden="true"></i> Part</button>
                         {!! Form::close() !!}
 
@@ -204,7 +204,7 @@
                     
                     <div class="tab-pane fade" id="types">
                         {!! Form::open(array('route' => 'typeManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
-                            {!! Form::text('type', null, ['required' => 'true']) !!}
+                            {!! Form::text('type', null, ['required' => 'true', 'autofocus' => 'autofocus']) !!}
                             <button class="btn btn-success" type="submit" name="action"><i class="fa fa-plus" aria-hidden="true"></i> Type</button>
                         {!! Form::close() !!}
 
@@ -268,7 +268,7 @@
 
                     <div class="tab-pane fade" id="works">
                         {!! Form::open(array('route' => 'workManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
-                            {!! Form::text('work', null,['required' => 'true']) !!}
+                            {!! Form::text('work', null,['required' => 'true', 'autofocus' => 'autofocus']) !!}
                             <button class="btn btn-success" type="submit" name="action"><i class="fa fa-plus" aria-hidden="true"></i> Work</button>
                         {!! Form::close() !!}
                         <table id="all-works" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -311,7 +311,7 @@
                                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                                         <div class="form-group">
                                                             <strong>Name:</strong>
-                                                            {!! Form::text('work', $work->work, array('placeholder' => 'Work','autofocus' => 'Autofocus','class' => 'form-control')) !!}
+                                                            {!! Form::text('work', $work->work, array('placeholder' => 'Work','autofocus' => 'autofocus','class' => 'form-control')) !!}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -330,7 +330,7 @@
                     
                     <div class="tab-pane fade" id="statuses">
                         {!! Form::open(array('route' => 'statusManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
-                            {!! Form::text('status', null, ['required' => 'true']) !!}
+                            {!! Form::text('status', null, ['required' => 'true', 'autofocus' => 'autofocus']) !!}
                             <button class="btn btn-success" type="submit" name="action"><i class="fa fa-plus" aria-hidden="true"></i> Status</button>
                         {!! Form::close() !!}
 
@@ -397,7 +397,7 @@
                     
                     <div class="tab-pane fade" id="sims">
                         {!! Form::open(array('route' => 'simManagement.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
-                            {!! Form::text('sim', null, ['required' => 'true']) !!}
+                            {!! Form::text('sim', null, ['required' => 'true', 'autofocus' => 'autofocus']) !!}
                             <button class="btn btn-success" type="submit" name="action"><i class="fa fa-plus" aria-hidden="true"></i> Sim Network</button>
                         {!! Form::close() !!}
 

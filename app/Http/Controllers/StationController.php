@@ -4,25 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Station;
 use App\Part;
+use App\Sim;
+use App\Station;
 use App\Status;
 use App\Type;
 use App\Work;
-use App\Sim;
 
 class StationController extends Controller
 {
     public function index(Request $request)
     {
         $parts = Part::all();
-        $stations = Station::all();
-        $works = Work::all();
-        $types = Type::all();
-        $statuses = Status::all();
         $sims = Sim::all();
+        $stations = Station::all();
+        $statuses = Status::all();
+        $types = Type::all();
+        $works = Work::all();
 
-        return view('StationManagement.index',compact('stations', 'parts', 'works', 'types', 'statuses', 'sims'));
+        return view('StationManagement.index',compact('parts', 'sims', 'stations', 'statuses', 'types', 'works'));
     }
 
     public function create()
@@ -38,8 +38,8 @@ class StationController extends Controller
             'province' => 'required|max:255',
             'lat' => 'required',
             'lng' => 'required',
-            'type',
-            'sim',
+            'type' => 'required',
+            'sim' => 'required',
             'elevation',
             'date_deployed',
             'status',
