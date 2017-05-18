@@ -127,7 +127,7 @@
 			{!! Form::text('submitted_by', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true']) !!}
 		</div>
 
-		<div class="">
+		<div class="hide">
 
 			<?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
 			<!-- USER ACTIVITY -->
