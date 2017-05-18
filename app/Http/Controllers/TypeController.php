@@ -31,4 +31,11 @@ class TypeController extends Controller
         return redirect()->back()
                         ->with('success','Type updated successfully');
     }
+
+    public function destroy(Request $request, $id)
+    {
+        Type::find($id)->delete();
+        return redirect()->back()
+                        ->with('success','Type deleted successfully');
+    }
 }

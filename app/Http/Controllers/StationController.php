@@ -9,7 +9,7 @@ use App\Part;
 use App\Status;
 use App\Type;
 use App\Work;
-use App\UserActivity;
+use App\Sim;
 
 class StationController extends Controller
 {
@@ -20,8 +20,9 @@ class StationController extends Controller
         $works = Work::all();
         $types = Type::all();
         $statuses = Status::all();
+        $sims = Sim::all();
 
-        return view('StationManagement.index',compact('stations', 'parts', 'works', 'types', 'statuses'));
+        return view('StationManagement.index',compact('stations', 'parts', 'works', 'types', 'statuses', 'sims'));
     }
 
     public function create()
@@ -37,14 +38,13 @@ class StationController extends Controller
             'province' => 'required|max:255',
             'lat' => 'required',
             'lng' => 'required',
-            'type' => 'required',
+            'type',
             'sim',
             'elevation',
             'date_deployed',
             'status',
         ]);
 
-        // UserActivity::create($request->all());
         Station::create($request->all());
         return redirect()->back()
                          ->with('success','Station created successfully.');
@@ -58,7 +58,7 @@ class StationController extends Controller
             'location' => 'required|max:255',
             'lat' => 'required',
             'lng' => 'required',
-            'type' => 'required',
+            'type',
             'sim',
             'elevation',
             'date_deployed',
@@ -68,5 +68,12 @@ class StationController extends Controller
         Station::find($id)->update($request->all());
         return redirect()->back()
                         ->with('success','Station updated successfully.');
+    }
+    
+    public function destroy(Request $request, $id)
+    {
+        Station::find($id)->delete();
+        return redirect()->back()
+                        ->with('success','Station deleted successfully');
     }
 }

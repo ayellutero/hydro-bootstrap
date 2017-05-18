@@ -283,7 +283,7 @@
             });
             var tableAllWorks = $('#all-works').DataTable({
                language: {
-                    "emptyTable": "No data to display.",
+                    "emptyTable": "No works to display.",
                     "infoEmpty": ""
                 },
                 "fixedHeader": true
@@ -332,6 +332,20 @@
                     "infoEmpty": ""
                 },
                 "scrollX": true
+            });
+            
+            var tableAllStations = $('#all-statuses').dataTable({
+                language: {
+                    "emptyTable": "No status to display.",
+                    "infoEmpty": ""
+                },
+            });
+            
+            var tableAllStations = $('#all-sim').dataTable({
+                language: {
+                    "emptyTable": "No sim network to display.",
+                    "infoEmpty": ""
+                },
             });
             
             var tableSenReps = $('#station-reports').DataTable({

@@ -61,10 +61,11 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Sim Network:</strong>
-            <select class="form-control" name="sim">
+            <select class="form-control" name="sim" id="sim">
                 <option value="{{ $station->sim }}" selected="selected" disabled="disabled">Please select</option>
-                <option value ="Globe">Globe</option>
-                <option value ="Smart">Smart</option>
+                @foreach($sims as $sim)
+                    <option value="{{ $sim->sim}}">{{ $sim->sim}}</option>
+                @endforeach
             </select>
         </div>
     </div><br>
