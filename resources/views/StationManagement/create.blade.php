@@ -41,25 +41,6 @@
         </div>
     </div><br>
 
-    <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-        <label for="type" class="col-md-4 control-label">Type</label>
-        
-        <div class="col-md-6">
-            <select class="form-control" name="type" id="type">
-                <option value="none" selected="selected" disabled="disabled">Please select</option>
-                @foreach($types as $type)
-                <option value="{{ $type->type}}">{{ $type->type}}</option>
-                @endforeach
-            </select>
-
-            @if ($errors->has('type'))
-            <span class="help-block">
-                <strong>{{ $errors->first('type') }}</strong>
-            </span>
-            @endif
-        </div>
-    </div><br>
-
     <div class="form-group{{ $errors->has('lat') ? ' has-error' : '' }}">
         <label for="lat" class="col-md-4 control-label">Latitude</label>
         
@@ -83,6 +64,39 @@
             @if ($errors->has('lng'))
             <span class="help-block">
                 <strong>{{ $errors->first('lng') }}</strong>
+            </span>
+            @endif
+        </div>
+    </div><br>
+
+    <div class="form-group{{ $errors->has('elevation') ? ' has-error' : '' }}">
+        <label for="elevation" class="col-md-4 control-label">Elevation</label>
+        
+        <div class="col-md-6">
+            <input id="elevation" type="text" class="form-control" name="elevation">
+            
+            @if ($errors->has('elevation'))
+            <span class="help-block">
+                <strong>{{ $errors->first('elevation') }}</strong>
+            </span>
+            @endif
+        </div>
+    </div><br>
+
+    <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+        <label for="type" class="col-md-4 control-label">Type</label>
+        
+        <div class="col-md-6">
+            <select class="form-control" name="type" id="type">
+                <option value="none" selected="selected" disabled="disabled">Please select</option>
+                @foreach($types as $type)
+                <option value="{{ $type->type}}">{{ $type->type}}</option>
+                @endforeach
+            </select>
+
+            @if ($errors->has('type'))
+            <span class="help-block">
+                <strong>{{ $errors->first('type') }}</strong>
             </span>
             @endif
         </div>
@@ -121,20 +135,6 @@
             @if ($errors->has('sim'))
             <span class="help-block">
                 <strong>{{ $errors->first('sim') }}</strong>
-            </span>
-            @endif
-        </div>
-    </div><br>
-
-    <div class="form-group{{ $errors->has('elevation') ? ' has-error' : '' }}">
-        <label for="elevation" class="col-md-4 control-label">Elevation</label>
-        
-        <div class="col-md-6">
-            <input id="elevation" type="text" class="form-control" name="elevation">
-            
-            @if ($errors->has('elevation'))
-            <span class="help-block">
-                <strong>{{ $errors->first('elevation') }}</strong>
             </span>
             @endif
         </div>
