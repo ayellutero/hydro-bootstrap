@@ -7,12 +7,6 @@ use App\Report;
 
 class StatController extends Controller
 {
-    // public function index()
-    // {
-    //      $statsData = $this->genStat();
-    //      return view('index')->with('statsData', (json_encode($statsData)));
-    // }
-
     public function retSenStat($id){                
         $statsData = $this->senStat($id);
         return view('Stations.station_stats')
@@ -20,52 +14,7 @@ class StatController extends Controller
             ->with('dev_id', $id);
     }
 
-    // public static function genStat(){
-    //     $commDefect = Report::select('actual_defects')->where('if_approved', 1)->get();
-    //     $cdData = array();
-    //     foreach($commDefect as $def){
-    //         $cdData[$def->actual_defects] = 0;
-    //     }
-
-    //     foreach($commDefect as $def){
-    //         $cdData[$def->actual_defects] += 1;        
-    //     }
-
-    //     // $keyCount = count($partReps);
-    //     $cdArray = array();
-    //     $stats = array();
-    //     foreach($cdData as $key => $value){
-    //         $stats['label'] = $key;
-    //         $stats['data'] = $value;
-
-    //         array_push($cdArray, $stats);
-    //     }
-    //     // ......... //
-    //     $partReps = Report::select('part_replaced')->where('if_approved', 1)->get();
-    //     $prData = array();
-    //     foreach($partReps as $part){
-    //         $prData[$part->part_replaced] = 0;
-    //     }
-
-    //     foreach($partReps as $part){
-    //         $prData[$part->part_replaced] += 1;        
-    //     }
-
-   
-    //     $prArray= array();
-    //     $stats = array();
-    //     foreach($prData as $key => $value){
-    //         $stats['label'] = $key;
-    //         $stats['data'] = $value;
-
-    //         array_push($prArray, $stats);
-    //     }
-    //     $statsData = [ $prArray, $cdArray ];
-
-    //     return $statsData;
-    // }
-
-    public function senStat($id){
+    public function senStat($id){ // For specific stations/sensors
         $commDefect = Report::select('actual_defects')
                     ->where('station_id', $id)
                     ->where('if_approved', 1)
@@ -80,7 +29,6 @@ class StatController extends Controller
             $cdData[$def->actual_defects] += 1;        
         }
 
-        // $keyCount = count($partReps);
         $cdArray = array();
         $stats = array();
         foreach($cdData as $key => $value){
@@ -89,7 +37,7 @@ class StatController extends Controller
 
             array_push($cdArray, $stats);
         }
-        // ......... //
+    
         $partReps = Report::select('part_replaced')
                     ->where('station_id', $id)
                     ->where('if_approved', 1)

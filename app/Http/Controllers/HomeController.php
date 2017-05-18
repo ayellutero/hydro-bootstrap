@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // this is the STATISTICS controller
+        // this is the STATISTICS controller for the Dashboard stats
         $locations = Station::all();
         $commDefect = Report::select('work_done')->where('if_approved', 1)->get();
         $cdData = array();
@@ -37,7 +37,6 @@ class HomeController extends Controller
             $cdData[$def->work_done] += 1;        
         }
 
-        // ......... //
         $partReps = Report::select('part_installed')->where('if_approved', 1)->get();
         $prData = array();
         foreach($partReps as $part){
