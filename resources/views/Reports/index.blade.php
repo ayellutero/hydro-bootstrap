@@ -77,6 +77,7 @@
 		<div class="form-group">
 			{!! Form::label('work_done', 'Work/s Done:') !!}
 	        <select class="selectpicker form-control" name="work_done[]" id="workDone" data-live-search="true" required multiple>
+				<option value ="None">None</option>				
 				@foreach($works as $work)
 					<option value ="{{$work->work}}">{{$work->work}}</option>
 				@endforeach
@@ -86,6 +87,7 @@
 	    <div class="form-group">
 	        {!! Form::label('part_installed', 'Parts Replaced/Installed:') !!}
 			<select class="selectpicker form-control" name="part_installed[]" id="partInstalled" data-live-search="true" multiple>
+				<option value ="None">None</option>
 				@foreach($parts as $part)
 					<option value ="{{$part->part}}">{{$part->part}}</option>
 				@endforeach
@@ -125,12 +127,12 @@
 			{!! Form::text('submitted_by', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true']) !!}
 		</div>
 
-		<div class="hide">
+		<div class="">
 
 			<?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
 			<!-- USER ACTIVITY -->
 			{!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-			{!! Form::text('employee_position', Auth::user()->desgination,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+			{!! Form::text('employee_position', Auth::user()->designation,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 			{!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 			{!! Form::text('activity', 'Submitted a new maintenance report',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 			{!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	

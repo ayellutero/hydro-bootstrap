@@ -12,15 +12,6 @@ class Report extends Model
                                                                                     // foreign key: device_id, report_id
     }
 
-    // public function hasRole($role) // check if a user has a role
-    // {
-    //     if ($this->roles()->where('name', $role)->first()) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
-
     protected $fillable=[
         'emp_id',
         'station_id',

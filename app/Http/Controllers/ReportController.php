@@ -24,9 +24,6 @@ class ReportController extends Controller
         $report=Request::all();
         $loc = Station::where('location', $report['station_name'])->first();
         $report['location'] = $loc->location.', '.$loc->province;
-        
-        if($report['part_installed'] == null)
-            $report['part_installed'] = "None";
 
         $station_id = Station::select('device_id', 'type')->where('location', $report['station_name'])->get()->first();
         $report['station_id'] = $station_id['device_id'];
@@ -37,13 +34,12 @@ class ReportController extends Controller
         $report['part_installed'] = static::parseInputArray($report['part_installed']);
         $report['work_done'] = static::parseInputArray($report['work_done']);
 
-        $supervisor = User::select('position', 'firstname', 'lastname')
+        $supervisor = User::select('designation', 'firstname', 'lastname')
                       ->where('employee_id', $report['supervisor'])->get()->first();
 
-        $report['designation'] = $supervisor['position'];
+        $report['designation'] = $supervisor['designation'];
         $report['supervisor'] = $supervisor['firstname'].' '.$supervisor['lastname'];
-        Report::create($report);
-     
+        // Report::create($report);
         UserActivity::create($report);
 
         return redirect('addMaintenanceReport')

@@ -1,7 +1,5 @@
 <h4 class="header2">Maintenance Form</h4>
     <!-- FIX FORM -->
-
-        
 		<div class="form-group">
 			{!! Form::label('station_name', 'Station:') !!}
             {!! Form::text('s_name', $report->station_id.' '.$report->location,['class'=>'form-control', 'readonly'=>'true']) !!}
@@ -76,28 +74,9 @@
        
         <!-- USER ACTIVITY -->
 		{!! Form::text('empID', Auth::user()->employee_id,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
-		{!! Form::text('employee_position', Auth::user()->desgination,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
+		{!! Form::text('employee_position', Auth::user()->designation,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 		{!! Form::text('employee_name', Auth::user()->firstname.' '.Auth::user()->lastname,['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}
 		{!! Form::text('activity', 'Edited a maintenance report',['class'=>'form-control', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 		{!! Form::text('sent_at_date', $time->toDateString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 		{!! Form::text('sent_at_time', $time->toTimeString(),['class'=>'form-control datepicker', 'readonly'=>'true', 'hidden'=>'true']) !!}	
 	</div>
-
-  <!--  <script>
-    $(document).ready(function() {
-        $('select').material_select();
-        
-        $sensorType = $report->sensor_type;
-        if($sensorType == "ARG"){
-            $("#st_opt1").attr("selected", "true");
-        }else if($sensorType == "WLMS"){
-            $("#st_opt2").attr("selected", "true");
-        }else if($sensorType == "TDM"){
-            $("#st_opt3").attr("selected", "true");
-        }else{
-            $("#st_opt4").attr("selected", "true");
-        }
-		
-    });
-
-    </script>-->

@@ -15,7 +15,6 @@
                             <th>Location</th>
                             <th>Province</th>
                             <th>Sim Network</th>
-                            <th>Last Data</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -27,8 +26,7 @@
                             <td>{{ $station->device_id }}</td>
                             <td>{{ $station->location }}</td>
                             <td>{{ $station->province }}</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $station->sim }}</td>
                             <td>
                                 <a data-toggle="tooltip" data-container="body" style="z-index:1000; position:relative" title="Reports" href="station-{{$station->device_id}}-maintenance-history"><i style="margin: .2em .25em .15em" class="fa fa-file-text-o fa-2x " aria-hidden="true"></i></a>&nbsp;
                                 <a  class="withTooltip" data-container="body" style="z-index:1000; position:relative" title="Statistics" href="station-{{$station->device_id}}-statistics"><i style="margin: .2em .25em .15em" class="fa fa-bar-chart-o fa-2x " aria-hidden="true"></i></a>

@@ -35,9 +35,6 @@
         </div>
     </div>
 
-    
-
-
     <div class="hide">
         <!-- USER ACTIVITY -->
         <?php  $time = Carbon\Carbon::now(new DateTimeZone('Asia/Singapore')); ?>
