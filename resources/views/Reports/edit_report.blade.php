@@ -70,7 +70,7 @@
 
 	    <div class="form-group">
 	        {!! Form::label('status', 'Status: ') !!}
-	        <select class="form-control" name="status" id="part_replaced" required>
+	        <select class="form-control" name="status" id="part_installed" required>
 				<option value ="Operational">Operational</option>
 				<option value ="For Repair">For Repair</option>
 				<option value ="Non-Operational">Non-Operational</option>
@@ -84,7 +84,7 @@
 		</div>
 
 		<div class="form-group"  style="padding-top:2%">
-			{!! Form::label('supervisor', 'Supervisor:') !!}
+			{!! Form::label('supervisor', 'Verified by:') !!}
 			{!! Form::text('supervisor_name', $report->supervisor,['class'=>'form-control', 'readonly' => 'true']) !!}
 		</div>
         <br><br>

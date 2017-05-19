@@ -325,6 +325,15 @@
                 order: [[ 0, "desc" ]],
                 "scrollX": true
             });
+
+            var tableUserAct = $('#my-scheds').DataTable({
+                order: [[ 1, "desc" ]],
+                language: {
+                    "emptyTable": "No schedules yet.",
+                    "infoEmpty": ""
+                },
+                "scrollX": true
+            });
             
             var tableAllStations = $('#all-stations').dataTable({
                 language: {
@@ -393,7 +402,7 @@
                 }
             });  // end fullcalendar
 
-            /* FLOT pie charts */
+            /* FLOT bar charts */
             var statData = $('#all-stat-data').html();  
             var data =  JSON.parse(statData) ;
             
@@ -405,7 +414,7 @@
                     bars: {
                         show: true,
                         barWidth: 0.7,
-                        align: "center"
+                        align: "center",
                     }
                 },
                 xaxis: {
@@ -425,7 +434,7 @@
                     bars: {
                         show: true,
                         barWidth: 0.7,
-                        align: "center"
+                        align: "center",
                     }
                 },
                 xaxis: {
@@ -437,21 +446,6 @@
                 }
             });
      });// end of main
-
-     function pieHoverFRP(event, pos, obj) {
-            if (!obj)
-                return;
-        
-            percent = parseFloat(obj.series.percent).toFixed(2);
-            $("#flot-memo_frp").html('<span style="font-weight: bold;">'+obj.series.label+': '+ obj.series.data[0][1] +' ('+percent+'%)</span>');
-        }
-        function pieHoverMCD(event, pos, obj) {
-            if (!obj)
-                return;
-        
-            percent = parseFloat(obj.series.percent).toFixed(2);
-            $("#flot-memo_mcd").html('<span style="font-weight: bold;">'+obj.series.label+': '+ obj.series.data[0][1] +' ('+percent+'%)</span>');
-        }
     </script>
 </body>
 </html>

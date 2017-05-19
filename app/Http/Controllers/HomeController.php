@@ -30,21 +30,37 @@ class HomeController extends Controller
         $commDefect = Report::select('work_done')->where('if_approved', 1)->get();
         $cdData = array();
         foreach($commDefect as $def){
-            $cdData[$def->work_done] = 0;
+            if($def->work_done != NULL){
+                $workArray = str_getcsv($def->work_done, ',');
+                foreach($workArray as $wd)
+                    $cdData[$wd] = 0;
+            }
         }
 
         foreach($commDefect as $def){
-            $cdData[$def->work_done] += 1;        
+            if($def->work_done != NULL){
+                $workArray = str_getcsv($def->work_done, ',');
+                foreach($workArray as $wd)
+                    $cdData[$wd] += 1;
+            }        
         }
 
         $partReps = Report::select('part_installed')->where('if_approved', 1)->get();
         $prData = array();
         foreach($partReps as $part){
-            $prData[$part->part_installed] = 0;
+            if($part->part_installed != NULL){
+                $partArray = str_getcsv($part->part_installed, ',');
+                foreach($partArray as $pr)
+                    $prData[$pr] = 0;
+            }
         }
 
         foreach($partReps as $part){
-            $prData[$part->part_installed] += 1;        
+            if($part->part_installed != NULL){
+                $partArray = str_getcsv($part->part_installed, ',');
+                foreach($partArray as $pr)
+                    $prData[$pr] += 1;
+            }      
         }
         
         $parts_arr = array();
@@ -62,6 +78,7 @@ class HomeController extends Controller
         }
 
         $statsData = [ $parts_arr, $defects_arr ];
+        print_r(json_encode($statsData));
         return view('index',compact('locations'))->with('statsData', (json_encode($statsData)));
         
     }

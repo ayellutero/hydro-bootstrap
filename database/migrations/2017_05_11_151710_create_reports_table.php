@@ -31,8 +31,8 @@ class CreateReportsTable extends Migration
             // Post repair
             $table->date('onsite_date');
             $table->text('actual_findings');
-            $table->text('work_done');
-            $table->text('part_installed');
+            $table->text('work_done')->nullable();
+            $table->text('part_installed')->nullable();
             $table->string('status');
             $table->string('conducted_by');
 

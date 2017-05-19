@@ -28,19 +28,23 @@ class ReportController extends Controller
         $station_id = Station::select('device_id', 'type')->where('location', $report['station_name'])->get()->first();
         $report['station_id'] = $station_id['device_id'];
         $report['sensor_type'] = $station_id['type'];
-
+        
         $report['conducted_by'] = static::parseInputArray($report['conducted_by']);
         $report['assessed_by'] = static::parseInputArray($report['assessed_by']);
-        $report['part_installed'] = static::parseInputArray($report['part_installed']);
-        $report['work_done'] = static::parseInputArray($report['work_done']);
+        if(Request::has('part_installed')){
+            $report['part_installed'] = static::parseInputArray($report['part_installed']);
+        }
+        if(Request::has('work_done')){
+            $report['work_done'] = static::parseInputArray($report['work_done']);
+        }
 
         $supervisor = User::select('designation', 'firstname', 'lastname')
                       ->where('employee_id', $report['supervisor'])->get()->first();
 
         $report['designation'] = $supervisor['designation'];
         $report['supervisor'] = $supervisor['firstname'].' '.$supervisor['lastname'];
-        // Report::create($report);
-        UserActivity::create($report);
+        Report::create($report);
+        // UserActivity::create($report);
 
         return redirect('addMaintenanceReport')
                 ->with('message', 'SUCCESS! Your report has been submitted for confirmation.');
@@ -50,21 +54,16 @@ class ReportController extends Controller
     static function parseInputArray($array){
       $str = '';
         foreach($array as $arr){
-            $str = $arr.', '.$str;
+            $str = $arr.','.$str;
         }
 
-        $newStr = rtrim($str,', '); // remove trailing comma and space
+        $newStr = rtrim($str,','); // remove trailing comma and space
 
-      return $newStr;
+        return $newStr;
     }
     public function update($id){
       $reportUpdate = Request::all();
       $report = Report::find($id);
-
-      // $reportUpdate['conducted_by'] = static::parseInputArray($reportUpdate['conducted_by']);
-      // $reportUpdate['assessed_by'] = static::parseInputArray($reportUpdate['assessed_by']);
-      // $reportUpdate['part_installed'] = static::parseInputArray($reportUpdate['part_installed']);
-      // $reportUpdate['work_done'] = static::parseInputArray($reportUpdate['work_done']);
 
       $report->update($reportUpdate);
       UserActivity::create($reportUpdate);
@@ -82,16 +81,6 @@ class ReportController extends Controller
                ->with('message', 'SUCCESS! Your report has been edited.');
       }
     }
-
-    // public function approve($id){
-    //   $reportUpdate = Request::all();
-    //   $report = Report::find($id);
-    //   $report->update($reportUpdate);
-      
-
-    //   return redirect('viewPendingReports');//->with('message', 'EDIT');
-    
-    // }
 
     public function display_report(){
       $reports = DB::table('reports')->get();

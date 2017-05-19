@@ -156,14 +156,14 @@
                         </div>
                         <div class="panel-body">
                             <div class="col-sm-6" style="text-align: center;">
-                                <h4>Frequency of Parts Replaced</h4>
-                                <div id="sen_frp" style="margin-left: 15%;width:350px;height:350px"></div>
+                                <h4>Parts Replaced</h4>
+                                <div id="sen_frp" style="width:100%;height:350px"></div>
                                 <br>
                                 <div id="flot-memo1">&nbsp;</div>
                             </div>
                             <div class="col-sm-6" style="text-align: center;">
-                                <h4>Frequency of Work Done</h4>
-                                <div id="sen_mcd" style="margin-left: 15%;width:350px;height:350px"></div>   
+                                <h4>Work Done</h4>
+                                <div id="sen_mcd" style="width:100%;height:350px"></div>   
                                 <br>
                                 <div id="flot-memo2">&nbsp;</div>
                             </div>

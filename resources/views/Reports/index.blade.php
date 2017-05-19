@@ -76,8 +76,7 @@
 
 		<div class="form-group">
 			{!! Form::label('work_done', 'Work/s Done:') !!}
-	        <select class="selectpicker form-control" name="work_done[]" id="workDone" data-live-search="true" required multiple>
-				<option value ="None">None</option>				
+	        <select class="selectpicker form-control" name="work_done[]" id="workDone" data-live-search="true" multiple>			
 				@foreach($works as $work)
 					<option value ="{{$work->work}}">{{$work->work}}</option>
 				@endforeach
@@ -87,7 +86,6 @@
 	    <div class="form-group">
 	        {!! Form::label('part_installed', 'Parts Replaced/Installed:') !!}
 			<select class="selectpicker form-control" name="part_installed[]" id="partInstalled" data-live-search="true" multiple>
-				<option value ="None">None</option>
 				@foreach($parts as $part)
 					<option value ="{{$part->part}}">{{$part->part}}</option>
 				@endforeach
@@ -96,7 +94,7 @@
 
 	    <div class="form-group">
 	        {!! Form::label('status', 'Status: ') !!}
-	        <select class="form-control" name="status" id="part_replaced" required>
+	        <select class="form-control" name="status" id="part_installed" required>
 				<option value ="Operational">Operational</option>
 				<option value ="For Repair">For Repair</option>
 				<option value ="Non-Operational">Non-Operational</option>
@@ -115,7 +113,7 @@
 		
 
 		<div class="form-group"  style="padding-top:2%">
-			{!! Form::label('supervisor', 'Supervisor:') !!}
+			{!! Form::label('supervisor', 'Verified by:') !!}
 			<select class="form-control" name="supervisor" required>
 				@foreach($users as $user)
 					<option value ="{{$user->employee_id}}">{{$user->firstname." ".$user->lastname}}</option>

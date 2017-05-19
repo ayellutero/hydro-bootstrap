@@ -12,7 +12,34 @@
 <!-- Count Widgets -->
 <div class="row" style="margin:0%; margin-top:0%;">
     @if ( Auth::user()->hasRole('Admin') )
-        <div class="col-lg-4 col-md-6">
+    <div class="col-lg-3 col-md-6">
+    @else
+    <div class="col-lg-4 col-md-6">
+    @endif
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-bell fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{ App\Schedule::where(['is_confirmed' => 0, 'staff' => Auth::user()->employee_id ])->get()->count() }}</div>
+                        <div>My Schedules</div>
+                    </div>
+                </div>
+            </div>
+            <a href="mySchedules-{{ Auth::user()->employee_id }}">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    @if ( Auth::user()->hasRole('Admin') )
+        <div class="col-lg-3 col-md-6">
             <div class="panel panel-red">
                 <div class="panel-heading">
                     <div class="row">
@@ -37,9 +64,9 @@
     @endif
 
     @if ( Auth::user()->hasRole('Admin') )
-    <div class="col-lg-4 col-md-6">
+    <div class="col-lg-3 col-md-6">
     @else
-    <div class="col-lg-6 col-md-6">
+    <div class="col-lg-4 col-md-6">
     @endif
         <div class="panel panel-green">
             <div class="panel-heading">
@@ -64,9 +91,9 @@
     </div>
 
     @if ( Auth::user()->hasRole('Admin') )
-    <div class="col-lg-4 col-md-6">
+    <div class="col-lg-3 col-md-6">
     @else
-    <div class="col-lg-6 col-md-6">
+    <div class="col-lg-4 col-md-6">
     @endif
         <div class="panel panel-yellow">
             <div class="panel-heading">
@@ -93,26 +120,26 @@
 
 <!-- Graph of stations and number of times a report/maintenance was performed on them -->
 <div class="row" style="margin:0%; margin-top:0%;">
-    <div class="col-xs-12 col-md-12">
+    <!--<div class="col-xs-12 col-md-12">-->
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-wrench"></i> Stations and Reports *</h3>
             </div>
             <div class="panel-body">
-                <div class="col-sm-6" style="text-align: center;">
-                    <h4>Frequency of Parts Replaced</h4>
-                     <div id='freq_replaced_part' style="width:500px;height:350px"></div>
+                <div class="col-sm-12" style="text-align: center;">
+                    <h4>Parts Replaced</h4>
+                     <div id='freq_replaced_part' style="width:100%;height:350px"></div>
                     <br>
                 </div>
-                <div class="col-sm-6" style="text-align: center;">
-                    <h4>Frequency of Work Done</h4>
-                    <div id='most_common_defect' style="width:500px;height:350px"></div>
+                <div class="col-sm-12" style="text-align: center;">
+                    <h4>Work Done</h4>
+                    <div id='most_common_defect' style="width:100%;height:350px"></div>
                     <br>
                 </div>
             </div>
         </div>
         <h6 class="pull-right">*Results are based entirely on approved reports.</h6>
-    </div>
+    <!--</div>-->
 </div>
 
 <!---->

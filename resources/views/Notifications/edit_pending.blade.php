@@ -64,7 +64,7 @@
 		</div>
 
 		<div class="form-group"  style="padding-top:2%">
-			{!! Form::label('supervisor', 'Supervisor:') !!}
+			{!! Form::label('supervisor', 'Verified by:') !!}
 			{!! Form::text('supervisor_name', $report->supervisor,['class'=>'form-control', 'readonly' => 'true']) !!}
 		</div>
         <br><br>

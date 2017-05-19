@@ -2,6 +2,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Employee ID:</strong>
+            
             {!! Form::text('employee_id', $user->employee_id, array('placeholder' => 'Employee ID','class' => 'form-control', 'disabled' => 'disabled')) !!}
         </div>
     </div>
@@ -9,14 +10,14 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Designation:</strong>
-            {!! Form::text('designation', $user->designation, array('placeholder' => 'Designation','class' => 'form-control')) !!}
+            <input type="text" name="designation" placeholder="Designation" value="{{$user->designation}}" class="form-control" required />
         </div>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>E-mail:</strong>
-            {!! Form::email('email', $user->email, array('placeholder' => 'E-mail','class' => 'form-control')) !!}
+            <input type="email" name="email" placeholder="E-mail address" value="{{$user->email}}" class="form-control" required />
         </div>
     </div>
 

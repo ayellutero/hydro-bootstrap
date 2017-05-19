@@ -15,18 +15,26 @@ class StatController extends Controller
     }
 
     public function senStat($id){ // For specific stations/sensors
-        $commDefect = Report::select('actual_defects')
+        $commDefect = Report::select('work_done')
                     ->where('station_id', $id)
                     ->where('if_approved', 1)
                     ->get();
 
         $cdData = array();
         foreach($commDefect as $def){
-            $cdData[$def->actual_defects] = 0;
+            if($def->work_done != NULL){
+                $workArray = str_getcsv($def->work_done, ',');
+                foreach($workArray as $wd)
+                    $cdData[$wd] = 0;
+            }
         }
 
         foreach($commDefect as $def){
-            $cdData[$def->actual_defects] += 1;        
+            if($def->work_done != NULL){
+                $workArray = str_getcsv($def->work_done, ',');
+                foreach($workArray as $wd)
+                    $cdData[$wd] += 1;
+            }        
         }
 
         $cdArray = array();
@@ -38,17 +46,25 @@ class StatController extends Controller
             array_push($cdArray, $stats);
         }
     
-        $partReps = Report::select('part_replaced')
+        $partReps = Report::select('part_installed')
                     ->where('station_id', $id)
                     ->where('if_approved', 1)
                     ->get();
         $prData = array();
         foreach($partReps as $part){
-            $prData[$part->part_replaced] = 0;
+            if($part->part_installed != NULL){
+                $partArray = str_getcsv($part->part_installed, ',');
+                foreach($partArray as $pr)
+                    $prData[$pr] = 0;
+            }
         }
 
         foreach($partReps as $part){
-            $prData[$part->part_replaced] += 1;        
+            if($part->part_installed != NULL){
+                $partArray = str_getcsv($part->part_installed, ',');
+                foreach($partArray as $pr)
+                    $prData[$pr] += 1;
+            }        
         }
 
    

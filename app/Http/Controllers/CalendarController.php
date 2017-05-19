@@ -42,7 +42,7 @@ class CalendarController extends Controller
 
         Schedule::create($schedule);
         $sch = Schedule::where('created_at', \Carbon\Carbon::now())->get()->first(); // get the newly created sched
-        static::notifyUser($staff->id, $schedule['start_date'], $schedule['title'], $sch->id);   
+        // static::notifyUser($staff->id, $schedule['start_date'], $schedule['title'], $sch->id);   
 
         UserActivity::create($schedule);
 
@@ -99,17 +99,17 @@ class CalendarController extends Controller
                 $confirm['is_confirmed'] = 1;
                 $sched->update($confirm);
 
-            $act['empID'] = $checkSched->staff;
+                $act['empID'] = $checkSched->staff;
 
-            $staff = User::select('firstname', 'lastname', 'designation')->where('employee_id', $checkSched->staff)->first();
+                $staff = User::select('firstname', 'lastname', 'designation')->where('employee_id', $checkSched->staff)->first();
 
-            $act['employee_name'] = $staff['firstname'].' '.$staff['lastname'];
-            $act['employee_position'] = $staff['designation'];
-            $act['activity'] = 'Confirmed his/her scheduled maintenance.';
+                $act['employee_name'] = $staff['firstname'].' '.$staff['lastname'];
+                $act['employee_position'] = $staff['designation'];
+                $act['activity'] = 'Confirmed his/her scheduled maintenance.';
 
-            $time = \Carbon\Carbon::now(new \DateTimeZone('Asia/Singapore'));
-            $act['sent_at_date'] = $time->toDateString();
-            $act['sent_at_time'] = $time->toTimeString();
+                $time = \Carbon\Carbon::now(new \DateTimeZone('Asia/Singapore'));
+                $act['sent_at_date'] = $time->toDateString();
+                $act['sent_at_time'] = $time->toTimeString();
 
                 UserActivity::create($act);
                 return view('Calendar.success');
@@ -117,8 +117,42 @@ class CalendarController extends Controller
             
         }
         return view('Calendar.failed');
+    }
 
-        
+    public function showUnconfirmed($staff_id){
+        $myScheds = Schedule::where('staff', $staff_id)->get();
+
+        return view('Calendar.unconfirmed')->with('scheds', $myScheds);
+    }
+
+    public function update($id){
+        $staff = '';
+        if(Schedule::find($id)){
+            $sched = Schedule::find($id);
+            $checkSched = Schedule::where('id', $id)->first();
+            $staff= $checkSched->staff;
+            if($checkSched->is_confirmed == 0){
+                $confirm['is_confirmed'] = 1;
+                $sched->update($confirm);
+
+                $act['empID'] = $checkSched->staff;
+
+                $staff = User::select('firstname', 'lastname', 'designation')->where('employee_id', $checkSched->staff)->first();
+
+                $act['employee_name'] = $staff['firstname'].' '.$staff['lastname'];
+                $act['employee_position'] = $staff['designation'];
+                $act['activity'] = 'Confirmed his/her scheduled maintenance.';
+
+                $time = \Carbon\Carbon::now(new \DateTimeZone('Asia/Singapore'));
+                $act['sent_at_date'] = $time->toDateString();
+                $act['sent_at_time'] = $time->toTimeString();
+
+                UserActivity::create($act);
+                return redirect()->back()->with('success', 'SUCCESS! You have confirmed your schedule');
+            }
+        }
+        return redirect()->back()->with('error', 'ERROR! The schedule has either been deleted or confirmed.');
+          
     }
 
 }

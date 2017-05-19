@@ -62,7 +62,7 @@
                                     {!! Form::label('title', 'Station Name:') !!}
                                     <select class="form-control" name="title" id="title" required>
                                     @foreach($stations as $station)
-                                            <option value ="{{$station->device_id ." ". $station->location}}">{{ $station->device_id . " " . $station->location }}</option>
+                                            <option value ="{{$station->device_id ." ". $station->location.', '.$station->province}}">{{ $station->device_id . " " . $station->location.", ".$station->province }}</option>
                                     @endforeach
                                     </select>
                                 </div>

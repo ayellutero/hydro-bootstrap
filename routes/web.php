@@ -95,8 +95,10 @@ Route::group(['middleware' => ['web', 'roles']], function () {
         'roles' => ['Admin', 'Head', 'User']
     ]);
 
+    Route::get('mySchedules-{id}', 'CalendarController@showUnconfirmed');
+    
     Route::get('confirmSchedule/{id}', 'CalendarController@confirmSched');
-
+    
     Route::get('calendarEvents', function(){
         return view('layouts.calendarEvents');
     });
