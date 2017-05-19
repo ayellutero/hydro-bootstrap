@@ -4,24 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Station;
 use App\Part;
+use App\Sim;
+use App\Station;
 use App\Status;
 use App\Type;
 use App\Work;
-use App\UserActivity;
 
 class StationController extends Controller
 {
     public function index(Request $request)
     {
         $parts = Part::all();
+        $sims = Sim::all();
         $stations = Station::all();
-        $works = Work::all();
-        $types = Type::all();
         $statuses = Status::all();
+        $types = Type::all();
+        $works = Work::all();
 
-        return view('StationManagement.index',compact('stations', 'parts', 'works', 'types', 'statuses'));
+        return view('StationManagement.index',compact('parts', 'sims', 'stations', 'statuses', 'types', 'works'));
     }
 
     public function create()
@@ -38,13 +39,12 @@ class StationController extends Controller
             'lat' => 'required',
             'lng' => 'required',
             'type' => 'required',
-            'sim',
+            'sim' => 'required',
             'elevation',
             'date_deployed',
             'status',
         ]);
 
-        // UserActivity::create($request->all());
         Station::create($request->all());
         return redirect()->back()
                          ->with('success','Station created successfully.');
@@ -58,7 +58,7 @@ class StationController extends Controller
             'location' => 'required|max:255',
             'lat' => 'required',
             'lng' => 'required',
-            'type' => 'required',
+            'type',
             'sim',
             'elevation',
             'date_deployed',
@@ -68,5 +68,12 @@ class StationController extends Controller
         Station::find($id)->update($request->all());
         return redirect()->back()
                         ->with('success','Station updated successfully.');
+    }
+    
+    public function destroy(Request $request, $id)
+    {
+        Station::find($id)->delete();
+        return redirect()->back()
+                        ->with('success','Station deleted successfully');
     }
 }

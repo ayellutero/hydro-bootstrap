@@ -4,38 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Work;
+use App\Sim;
 
-class WorkController extends Controller
+class SimController extends Controller
 {
     public function store(Request $request)
     {
         $this->validate($request, [
-            'work' => 'required'
+            'sim' => 'required'
         ]);
 
-        Work::create($request->all());
+        Sim::create($request->all());
         return redirect()->back()
-                         ->with('success','Work created successfully');
+                        ->with('success','Sim added successfully.');
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'work',
+            'sim' => 'required'
         ]);
- 
-        $work = Work::find($id);
-        $work->update($request->all());
-        
+
+        $sim = Sim::find($id);
+        $sim->update($request->all());
         return redirect()->back()
-                        ->with('success','Work updated successfully');
+                        ->with('success','Sim updated successfully');
     }
 
     public function destroy(Request $request, $id)
     {
-        Work::find($id)->delete();
+        Sim::find($id)->delete();
         return redirect()->back()
-                        ->with('success','Work deleted successfully');
+                        ->with('success','Sim deleted successfully');
     }
 }

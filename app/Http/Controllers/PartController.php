@@ -32,4 +32,11 @@ class PartController extends Controller
         return redirect()->back()
                         ->with('success','Part updated successfully');
     }
+
+    public function destroy(Request $request, $id)
+    {
+        Part::find($id)->delete();
+        return redirect()->back()
+                        ->with('success','Part deleted successfully');
+    }
 }

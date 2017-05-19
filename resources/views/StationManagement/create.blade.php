@@ -41,25 +41,6 @@
         </div>
     </div><br>
 
-    <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-        <label for="type" class="col-md-4 control-label">Type</label>
-        
-        <div class="col-md-6">
-            <select class="form-control" name="type" id="type">
-                <option value="none" selected="selected" disabled="disabled">Please select</option>
-                @foreach($types as $type)
-                <option value="{{ $type->type}}">{{ $type->type}}</option>
-                @endforeach
-            </select>
-
-            @if ($errors->has('type'))
-            <span class="help-block">
-                <strong>{{ $errors->first('type') }}</strong>
-            </span>
-            @endif
-        </div>
-    </div><br>
-
     <div class="form-group{{ $errors->has('lat') ? ' has-error' : '' }}">
         <label for="lat" class="col-md-4 control-label">Latitude</label>
         
@@ -88,16 +69,48 @@
         </div>
     </div><br>
 
+    <div class="form-group{{ $errors->has('elevation') ? ' has-error' : '' }}">
+        <label for="elevation" class="col-md-4 control-label">Elevation</label>
+        
+        <div class="col-md-6">
+            <input id="elevation" type="text" class="form-control" name="elevation">
+            
+            @if ($errors->has('elevation'))
+            <span class="help-block">
+                <strong>{{ $errors->first('elevation') }}</strong>
+            </span>
+            @endif
+        </div>
+    </div><br>
+
+    <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+        <label for="type" class="col-md-4 control-label">Type</label>
+        
+        <div class="col-md-6">
+            <select class="form-control" name="type" id="type">
+                <option value="none" selected="selected" disabled="disabled">Please select</option>
+                @foreach($types as $type)
+                <option value="{{ $type->type}}">{{ $type->type}}</option>
+                @endforeach
+            </select>
+
+            @if ($errors->has('type'))
+            <span class="help-block">
+                <strong>{{ $errors->first('type') }}</strong>
+            </span>
+            @endif
+        </div>
+    </div><br>
+
     <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
         <label for="status" class="col-md-4 control-label">Status</label>
         
         <div class="col-md-6">
             <select class="form-control" name="status" id="status">
                 <option value="none" selected="selected" disabled="disabled">Please select</option>
-				<option value ="Operational">Operational</option>
-				<option value ="For Repair">For Repair</option>
-				<option value ="Non-Operational">Non-Operational</option>
-				<option value ="For Relocation">For Relocation</option>
+                @foreach($statuses as $status)
+                <option value="{{ $status->status}}">{{ $status->status}}</option>
+                @endforeach
             </select>
 
             @if ($errors->has('status'))
@@ -113,28 +126,15 @@
         
         <div class="col-md-6">
             <select class="form-control" name="sim" id="sim" required>
-                <option value="none" selected="selected" disabled="disabled">Please select</option>
-                <option value="Smart">Smart</option>
-                <option value="Globe">Globe</option>
+                <option value="smart" selected="selected" disabled="disabled">Please select</option>
+                @foreach($sims as $sim)
+                <option value="{{ $sim->sim}}">{{ $sim->sim}}</option>
+                @endforeach
             </select>
 
             @if ($errors->has('sim'))
             <span class="help-block">
                 <strong>{{ $errors->first('sim') }}</strong>
-            </span>
-            @endif
-        </div>
-    </div><br>
-
-    <div class="form-group{{ $errors->has('elevation') ? ' has-error' : '' }}">
-        <label for="elevation" class="col-md-4 control-label">Elevation</label>
-        
-        <div class="col-md-6">
-            <input id="elevation" type="text" class="form-control" name="elevation">
-            
-            @if ($errors->has('elevation'))
-            <span class="help-block">
-                <strong>{{ $errors->first('elevation') }}</strong>
             </span>
             @endif
         </div>

@@ -142,7 +142,6 @@
     <!--</div>-->
 </div>
 
-<!---->
 <div id="all-stat-data" class="hide">
     {{ $statsData }}
 </div>
@@ -172,8 +171,9 @@
                 infoWindow: {
                     content:'<b>Device ID: </b>' + value.device_id + '</br><b>Location: </b>' 
                             + value.location + ' ' + value.province 
-                            + '<br><b>Latitude: </b>' + value.lat + '<b> Longitude: </b>' + value.lng + '<br><b>Status: </b>' + value.status + '<br><b>Elevation: </b>' + value.elevation
-                            + '<br><b>Type: </b>' + value.type + '<br>'
+                            + '<br><b>Latitude: </b>' + value.lat + '<b> Longitude: </b>' + value.lng + '<b> Elevation: </b>' + value.elevation
+                            + '<br><b>Type: </b>' + value.type + '<b> Sim Network: </b>' + value.sim
+                            + '<br><b>Status: </b>' + value.status 
                 },
                 click: function(e) {
                     infoWindow.open();

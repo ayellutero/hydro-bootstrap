@@ -38,7 +38,7 @@
         <div class="form-group">
             <strong>Status:</strong>
             <select class="form-control" name="status" id="status">
-                <option value="{{ $station->status }}" selected="selected" disabled="disabled">Please select</option>
+                <option value="{{ $station->status }}" selected="selected" disabled="disabled">{{ $station->status}}</option>
                 @foreach($statuses as $status)
                     <option value="{{ $status->status}}">{{ $status->status}}</option>
                 @endforeach
@@ -50,7 +50,7 @@
         <div class="form-group">
             <strong>Type:</strong>
             <select class="form-control" name="type" id="type">
-                <option value="{{ $station->type }}" selected="selected" disabled="disabled">Please select</option>
+                <option value="{{ $station->type }}" selected="selected" disabled="disabled">{{ $station->type }}</option>
                 @foreach($types as $type)
                     <option value="{{ $type->type}}">{{ $type->type}}</option>
                 @endforeach
@@ -61,10 +61,11 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Sim Network:</strong>
-            <select class="form-control" name="sim">
-                <option value="{{ $station->sim }}" selected="selected" disabled="disabled">Please select</option>
-                <option value ="Globe">Globe</option>
-                <option value ="Smart">Smart</option>
+            <select class="form-control" name="sim" id="sim">
+                <option value="{{ $station->sim }}" selected="selected" disabled="disabled">{{ $station->sim }}</option>
+                @foreach($sims as $sim)
+                    <option value="{{ $sim->sim}}">{{ $sim->sim}}</option>
+                @endforeach
             </select>
         </div>
     </div><br>

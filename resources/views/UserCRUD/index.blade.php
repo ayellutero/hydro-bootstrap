@@ -10,6 +10,7 @@
   <strong>{{ Session::get('success') }}</strong>
 </div>
 @endif
+
 <!-- /.row -->
 <div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-lg-12">
@@ -49,70 +50,65 @@
                         <!-- View User Modal -->
                         <div id="viewUser-<?= $user->id?>" class="modal fade" role="dialog">
                             <div class="modal-dialog">
-
                                 <!-- Modal content-->
                                 <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">{{ $user->firstname }} {{ $user->lastname }}</h4>
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">{{ $user->firstname }} {{ $user->lastname }}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        @include('UserCRUD.show')
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    @include('UserCRUD.show')
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                                </div>
-
                             </div>
                         </div>
 
                         <!-- Edit User Modal -->
                         <div id="editUser-<?= $user->id?>" class="modal fade" role="dialog">
                             <div class="modal-dialog">
-
                                 <!-- Modal content-->
                                 <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Edit User {{ $user->firstname }} {{ $user->lastname }}</h4>
-                                </div>
-                                <div class="modal-body">
-                                    {!! Form::model($user, ['method' => 'POST','route' => ['userCRUD.update', $user->id]]) !!}
-                                    @include('UserCRUD.edit')
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-
-                                <div class="form-group">
-                                        <a id="changePWButton-{{$user->id}}" class="btn btn-info" onclick="showEditPassword({{$user->id}})">Change Password</a>
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Edit User {{ $user->firstname }} {{ $user->lastname }}</h4>
                                     </div>
-                                </div>
+                                    <div class="modal-body">
+                                        {!! Form::model($user, ['method' => 'POST','route' => ['userCRUD.update', $user->id]]) !!}
+                                        @include('UserCRUD.edit')
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                        <a id="changePWButton-{{$user->id}}" class="btn btn-info" onclick="showEditPassword({{$user->id}})">Change Password</a>
+                                                    </div>
+                                                </div>
 
-                                <div id="editUserPassword-{{$user->id}}" class="hide">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>New Password:</strong>
-                                            <input type="password" class="form-control" name="password" id="newPasswordInput">
+                                                <div id="editUserPassword-{{$user->id}}" class="hide">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <strong>New Password:</strong>
+                                                            <input type="password" class="form-control" name="password" id="newPasswordInput">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <strong>Confirm Password:</strong>
+                                                            <input type="password" class="form-control" name="pass_confirm" id="confPasswordInput">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- Closing tag for the div class row in the UserCRUD.edit -->
+                                        
+                                        <div class="modal-footer">
+                                            <button class="btn btn-success" type="submit" name="action">Save Changes</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
+                                            {{ Form::close() }}
                                         </div>
                                     </div>
-
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Confirm Password:</strong>
-                                            <input type="password" class="form-control" name="pass_confirm" id="confPasswordInput">
-                                        </div>
-                                    </div>
-
                                 </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-success" type="submit" name="action">Save Changes</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
-                                    {{ Form::close() }}
-                                </div>
-
-                                
-                                </div>
-
                             </div>
                         </div>
 
@@ -122,25 +118,22 @@
 
                                 <!-- Modal content-->
                                 <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">New User</h4>
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">New User</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        {!! Form::open(array('route' => 'userCRUD.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
+                                        @include('UserCRUD.create')
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-success" type="submit" name="action">Add</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
+                                        {{ Form::close() }}
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    {!! Form::open(array('route' => 'userCRUD.store','method'=>'POST', 'class' => 'form-horizontal')) !!}
-                                    @include('UserCRUD.create')
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-success" type="submit" name="action">Add</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel-button">Cancel</button>
-                                    {{ Form::close() }}
-                                </div>
-                                </div>
-
                             </div>
                         </div>
-                        
- 
                     @endforeach
                     </tbody>
                 </table>
@@ -151,27 +144,20 @@
 
    <script>
         function showEditPassword(usrID){
-    
             var str1 = 'cancelPassword(';
             var str2 = ')';
             
             $('#editUserPassword-'+usrID).attr('class', '');
             $('#changePWButton-'+usrID).html('Cancel');
             $('#changePWButton-'+usrID).attr('onclick', str1.concat(usrID, str2));
-            $('#newPasswordInput').attr('required', true);
-            $('#confPasswordInput').attr('required', true);
         }
         function cancelPassword(usrID){
-
             var str1 = 'showEditPassword(';
             var str2 = ')';
 
             $('#editUserPassword-'+usrID).attr('class', 'hide');
             $('#changePWButton-'+usrID).html('Change Password');
             $('#changePWButton-'+usrID).attr('onclick', str1.concat(usrID, str2));
-            $('#newPasswordInput').attr('required', false);
-            $('#confPasswordInput').attr('required', false);
         }
     </script>
-
 @endsection

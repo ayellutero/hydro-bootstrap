@@ -7,7 +7,6 @@ use App\User;
 use App\Role;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\UserActivity;
 
 class UserCRUDController extends Controller
 {
@@ -23,16 +22,6 @@ class UserCRUDController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('UserCRUD.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -45,15 +34,13 @@ class UserCRUDController extends Controller
             'lastname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6',
-            'pass_confirm' => 'min:6|same:password',
+            'pass_confirm' => 'required|min:6|same:password',
             'contact_num',
             'employee_id',
             'designation' => 'required',
         ]);
 
         User::create($request->all());
-        UserActivity::create($request->all());
-
         return redirect()->back()
                          ->with('success','User created successfully.');
     }
@@ -71,18 +58,6 @@ class UserCRUDController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $user = User::find($id);
-        return view('UserCRUD.edit',compact('user'));
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -91,13 +66,13 @@ class UserCRUDController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->validate($request, [
-        //     'email' => 'required',
-        //     'contact_num',
-        //     'designation' => 'required',
-        //     'password' => 'min:6',
-        //     'pass_confirm' => 'min:6|same:password',
-        // ]);
+        $this->validate($request, [
+            'email' => 'required',
+            'contact_num',
+            'designation' => 'required',
+            'password' => 'min:6',
+            'pass_confirm' => 'min:6|same:password',
+        ]);
 
         $user = User::find($id);
         
@@ -110,8 +85,6 @@ class UserCRUDController extends Controller
         }
 
         $user->update($request->all());
-        UserActivity::create($request->all());
-
         return redirect()->back()
                         ->with('success','User updated successfully');
     }
@@ -125,10 +98,7 @@ class UserCRUDController extends Controller
     public function destroy(Request $request, $id)
     {
         User::find($id)->delete();
-        UserActivity::create($request->all());
         return redirect()->back()
                         ->with('success','User deleted successfully');
     }
-
-
 }

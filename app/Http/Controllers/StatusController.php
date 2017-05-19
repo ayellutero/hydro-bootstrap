@@ -31,4 +31,11 @@ class StatusController extends Controller
         return redirect()->back()
                         ->with('success','Status updated successfully');
     }
+
+    public function destroy(Request $request, $id)
+    {
+        Status::find($id)->delete();
+        return redirect()->back()
+                        ->with('success','Status deleted successfully');
+    }
 }
