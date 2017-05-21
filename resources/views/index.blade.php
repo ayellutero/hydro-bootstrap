@@ -9,12 +9,24 @@
 <?php
     $myScheds = App\Schedule::getMyScheds(Auth::user()->employee_id);
     $tomorrow = \Carbon\Carbon::tomorrow(new \DateTimeZone('Asia/Singapore'))->toDateString();
+    $twoDays = Carbon\Carbon::tomorrow(new \DateTimeZone('Asia/Singapore'))->addDay()->toDateString();
+    $now = \Carbon\Carbon::now(new \DateTimeZone('Asia/Singapore'))->toDateString();
 ?>
 <!-- for reminding the user of a maintenance, a day before the schedule -->
 @foreach($myScheds as $mys) 
     @if(strcmp($mys->start_date, $tomorrow) == 0 && $mys->is_confirmed == 0)
+        <div class="alert alert-info">
+            <strong>You have an upcoming maintenance tomorrow for Station {{ $mys->title }}.</strong>
+        </div>
+<!-- for reminding the user of a maintenance on the day of the schedule -->
+    @elseif(strcmp($mys->start_date, $now) == 0 && $mys->is_confirmed == 0)
         <div class="alert alert-warning">
-            <strong>You have an upcoming maintenance tomorrow on Station {{ $mys->title }}.</strong>
+            <strong>You have a scheduled maintenance today for Station {{ $mys->title }}.</strong>
+        </div>
+<!-- for reminding the user of a maintenance, two days before the schedule -->
+    @elseif(strcmp($mys->start_date, $twoDays) == 0 && $mys->is_confirmed == 0)
+        <div class="alert alert-info">
+            <strong>You have a scheduled maintenance two days from now for Station {{ $mys->title }}.</strong>
         </div>
     @endif
 <!-- for reminding the user of any unconfirmed schedule that is already past its date -->
