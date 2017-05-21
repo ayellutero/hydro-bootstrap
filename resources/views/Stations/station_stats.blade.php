@@ -192,6 +192,7 @@
     <!-- FLOT Script -->
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.categories.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.resize.js') }}"></script>
     
     <script> // MAIN Script
    

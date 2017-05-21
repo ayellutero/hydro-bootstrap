@@ -207,6 +207,7 @@
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.pie.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.categories.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.resize.js') }}"></script>
     
     <!-- Bootstrap select Script -->
     <script type="text/javascript" src="{{ asset('vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
