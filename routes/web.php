@@ -5,6 +5,7 @@ Route::auth();
 
 // Dashboard
 Route::get('/', 'HomeController@index');
+
 Route::get('sample', function(){
     return view('sampleReport');
 });

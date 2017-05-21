@@ -214,8 +214,6 @@
 
     <script> // MAIN Script
         $(document).ready(function() {
-            
-
             var panels = $('.user-infos');
             var panelsButton = $('.dropdown-user');
             panels.hide();

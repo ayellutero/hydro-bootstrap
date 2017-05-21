@@ -19,7 +19,7 @@ class Schedule extends Model
         'is_confirmed'
     ];
 
-    public static function countMyScheds($staff_id){
+    public static function getMyScheds($staff_id){
         $scheds = Schedule::all();
 
         $scheds2 = array();
@@ -29,12 +29,19 @@ class Schedule extends Model
             $scheds2[$i] = str_getcsv($sch->staff, ','); // parse every ID of a schedule
             foreach($scheds2[$i] as $s){ // foreach ID in that specific schedule,
                 if($s == $staff_id && $sch->is_confirmed == 0){ // check if it contains the ID of the viewer
-                    $schedCount++; // if so, increment count
+                    array_push($schedIDs, $sch->id); // if so, put it in array
                     break;
                 }
             }
             $i++;
         }
-        return $schedCount;
+
+        $myScheds = array();
+        foreach($schedIDs as $sid){ // push all schedules for user into one array
+            $id = Schedule::where('id', $sid)->get()->first();
+            array_push($myScheds, $id);
+        }
+
+        return $myScheds;
     }
 }

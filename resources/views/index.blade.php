@@ -6,6 +6,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="http://maps.google.com/maps/api/js"></script>
 
+<?php
+    $myScheds = App\Schedule::getMyScheds(Auth::user()->employee_id);
+    $tomorrow = \Carbon\Carbon::tomorrow(new \DateTimeZone('Asia/Singapore'))->toDateString();
+?>
+<!-- for reminding the user of a maintenance, a day before the schedule -->
+@foreach($myScheds as $mys) 
+    @if(strcmp($mys->start_date, $tomorrow) == 0 && $mys->is_confirmed == 0)
+        <div class="alert alert-warning">
+            <strong>You have an upcoming maintenance tomorrow on Station {{ $mys->title }}.</strong>
+        </div>
+    @endif
+<!-- for reminding the user of any unconfirmed schedule that is already past its date -->
+    @if(\Carbon\Carbon::createFromFormat('Y-m-d H', $mys->start_date.' 0')->isPast() && $mys->is_confirmed == 0)
+        <div class="alert alert-danger">
+            <strong>You have an unconfirmed schedule on {{ $mys->start_date }} for Station {{ $mys->title }}.</strong>
+        </div>
+    @endif
+@endforeach
+
+
 <!-- Google Map -->
 <div id="mymap" style="width:100%;border:1px solid red;height:400px;margin-bottom: 10px"></div>
 
@@ -23,7 +43,7 @@
                         <i class="fa fa-bell fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ App\Schedule::countMyScheds(Auth::user()->employee_id) }}</div>
+                        <div class="huge">{{ count(App\Schedule::getMyScheds(Auth::user()->employee_id)) }}</div>
                         <div>My Schedules</div>
                     </div>
                 </div>

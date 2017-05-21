@@ -139,7 +139,7 @@
                         <div id="editUserPassword" class="hide">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>New Password:</strong>
+                                    <strong>New Password (must be at least 6 characters):</strong>
                                     <input type="password" class="form-control" name="password" id="newPasswordInput">
                                     </div>
                             </div>
