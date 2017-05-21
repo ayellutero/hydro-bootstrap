@@ -40,7 +40,7 @@
                         <td>@if($sched->is_confirmed == 1) Yes @else No @endif</td>
                         <td>
                             @if($sched->is_confirmed == 0)
-                            {!! Form::model($sched,['method' => 'PATCH','route'=>['calendar.update',$sched->id]]) !!}
+                            {!! Form::model($sched,['method' => 'PATCH','route'=>['calendar.update',$sched->id.','.Auth::user()->employee_id]]) !!}
                             <button class="btn btn-info" type="submit" style="z-index:1000; position:relative">Confirm Schedule</a>
                             {!! Form::close() !!}
                             @endif

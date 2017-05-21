@@ -28,7 +28,7 @@
 
     <!-- Calendar CSS -->    
     <link href="{{ asset('vendor/fullcalendar/css/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
-
+    
     <!-- Bootstrap select CSS -->    
     <link href="{{ asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
 
@@ -214,6 +214,8 @@
 
     <script> // MAIN Script
         $(document).ready(function() {
+            
+
             var panels = $('.user-infos');
             var panelsButton = $('.dropdown-user');
             panels.hide();
@@ -415,7 +417,6 @@
                     
                 }
             });  // end fullcalendar
-
             /* FLOT bar charts */
             var statData = $('#all-stat-data').html();  
             var data =  JSON.parse(statData) ;
@@ -429,14 +430,15 @@
                         show: true,
                         barWidth: 0.7,
                         align: "center",
+                        horizontal: true
                     }
                 },
                 xaxis: {
-                    mode: "categories",
-                    tickLength: 0
+                    tickDecimals: 0
                 },
                 yaxis: {
-                    tickDecimals: 0
+                    mode: "categories",
+                    tickLength: 0
                 }
             });
 
@@ -449,14 +451,15 @@
                         show: true,
                         barWidth: 0.7,
                         align: "center",
+                        horizontal: true
                     }
                 },
                 xaxis: {
-                    mode: "categories",
-                    tickLength: 0
+                    tickDecimals: 0
                 },
                 yaxis: {
-                    tickDecimals: 0
+                    mode: "categories",
+                    tickLength: 0
                 }
             });
      });// end of main

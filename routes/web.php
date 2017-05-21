@@ -5,6 +5,9 @@ Route::auth();
 
 // Dashboard
 Route::get('/', 'HomeController@index');
+Route::get('sample', function(){
+    return view('sampleReport');
+});
 
 // Group of ROUTES w Permissions
 Route::group(['middleware' => ['web', 'roles']], function () {
@@ -98,6 +101,12 @@ Route::group(['middleware' => ['web', 'roles']], function () {
     Route::get('mySchedules-{id}', 'CalendarController@showUnconfirmed');
     
     Route::get('confirmSchedule/{id}', 'CalendarController@confirmSched');
+
+    Route::get('confirmSchedule/{id}userID={userID}', [
+		'uses' => 'CalendarController@update',
+		'as' => 'calendar.confirmMySched',
+        'roles' => ['Admin', 'User']
+	]);
     
     Route::get('calendarEvents', function(){
         return view('layouts.calendarEvents');

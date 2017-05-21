@@ -49,7 +49,7 @@ class UpcomingMaintenance extends Notification
                     ->subject('Upcoming Hydromet Station Maintenance')
                     ->line('The this is to remind you of the upcoming maintenance for the Hydromet station '.$this->station.' due on '.\Carbon\Carbon::parse($this->maintenanceDate)->format('M d, Y').'.')
                     ->line('If maintenance has already been done, please confirm by clicking the button below.')
-                    ->action('Confirm Schedule', url('confirmSchedule', $this->id));
+                    ->action('Confirm Schedule', url('confirmSchedule', $this->id.','.$this->user->employee_id));
                     //  ->line('Thank you for using our application!');
     }
 

@@ -67,14 +67,17 @@
                                     </select>
                                 </div>
 
+                                <?php $today = \Carbon\Carbon::now(new \DateTimeZone('Asia/Singapore'));
+                                      $today = $today->toDateString();
+                                ?>
                                 <div class="form-group">
                                     {!! Form::label('start_date_label', 'Date:') !!}
-                                    <input type="date" name="start_date" class="datepicker" required>
+                                    <input name="start_date" type="date" min="{{$today}}" required>
                                 </div>
 
                                 <div class="form-group">
-                                    {!! Form::label('staff-in-charge', 'Staff-in-Charge:') !!}   
-                                    <select class="form-control" name="staff" id="staff" required>
+                                    {!! Form::label('staff-in-charge', 'Staff-in-Charge:') !!}  
+                                    <select class="selectpicker form-control" name="staff[]" id="conductedBy" data-live-search="true" required multiple>
                                     @foreach($users as $user)
                                             <option value ="{{$user->employee_id}}">{{ $user->lastname . ", " . $user->firstname }}</option>
                                     @endforeach

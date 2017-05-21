@@ -67,18 +67,17 @@ class HomeController extends Controller
         $defects_arr = array();
         $cnt = 0;
         foreach($prData as $key => $value){
-           $parts_arr[$cnt] = [$key, $value];
+           $parts_arr[$cnt] = [$value, $key];
            $cnt++;
         }
 
         $cnt = 0;
         foreach($cdData as $key => $value){
-           $defects_arr[$cnt] = [$key, $value];
+           $defects_arr[$cnt] = [$value, $key];
            $cnt++;
         }
 
         $statsData = [ $parts_arr, $defects_arr ];
-        print_r(json_encode($statsData));
         return view('index',compact('locations'))->with('statsData', (json_encode($statsData)));
         
     }

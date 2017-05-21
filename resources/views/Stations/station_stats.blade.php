@@ -157,15 +157,11 @@
                         <div class="panel-body">
                             <div class="col-sm-6" style="text-align: center;">
                                 <h4>Parts Replaced</h4>
-                                <div id="sen_frp" style="width:100%;height:350px"></div>
-                                <br>
-                                <div id="flot-memo1">&nbsp;</div>
+                                <div id="sen_frp" style="height:350px"></div>
                             </div>
                             <div class="col-sm-6" style="text-align: center;">
                                 <h4>Work Done</h4>
-                                <div id="sen_mcd" style="width:100%;height:350px"></div>   
-                                <br>
-                                <div id="flot-memo2">&nbsp;</div>
+                                <div id="sen_mcd" style="height:350px"></div>   
                             </div>
                             <div class="text-right hide">
                                 <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
@@ -174,7 +170,6 @@
                     </div>
                     <h6 class="pull-right">*Results are based entirely on approved reports.</h6>
                 </div>
-                
             </div>
 
             <!---->
@@ -213,15 +208,16 @@
                     bars: {
                         show: true,
                         barWidth: 0.7,
-                        align: "center"
+                        align: "center",
+                        horizontal: true
                     }
                 },
                 xaxis: {
-                    mode: "categories",
-                    tickLength: 0
+                    tickDecimals: 0
                 },
                 yaxis: {
-                    tickDecimals: 0
+                    mode: "categories",                    
+                    tickLength: 0
                 }
             });  // end of chart: frequently replaced part  
     
@@ -233,34 +229,20 @@
                     bars: {
                         show: true,
                         barWidth: 0.7,
-                        align: "center"
+                        align: "center",
+                        horizontal: true
                     }
                 },
                 xaxis: {
-                    mode: "categories",
-                    tickLength: 0
+                    tickDecimals: 0
                 },
                 yaxis: {
-                    tickDecimals: 0
+                    mode: "categories",                    
+                    tickLength: 0
                 }
             });  // end of chart: frequently replaced part  
 
 
         })//main
-
-        function pieHover1(event, pos, obj) {
-            if (!obj)
-                return;
-        
-            percent = parseFloat(obj.series.percent).toFixed(2);
-            $("#flot-memo1").html('<span style="font-weight: bold;">'+obj.series.label+': '+ obj.series.data[0][1] +' ('+percent+'%)</span>');
-        }
-        function pieHover2(event, pos, obj) {
-            if (!obj)
-                return;
-        
-            percent = parseFloat(obj.series.percent).toFixed(2);
-            $("#flot-memo2").html('<span style="font-weight: bold;">'+obj.series.label+': '+ obj.series.data[0][1] +' ('+percent+'%)</span>');
-        }
 
     </script>

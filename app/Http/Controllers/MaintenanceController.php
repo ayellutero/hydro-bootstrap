@@ -45,7 +45,10 @@ class MaintenanceController extends Controller
     }
 
     public function viewStationHistory($id){
-        return view('Stations.station_reports')->with('reports', Report::where('station_id', $id)->get());
+        $station = Station::where('device_id', $id)->first();
+        return view('Stations.station_reports')
+                    ->with('devDetails', $station->device_id.' '.$station->location.', '.$station->province)
+                    ->with('reports', Report::where('station_id', $id)->get());
     }
 
     

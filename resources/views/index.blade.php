@@ -23,7 +23,7 @@
                         <i class="fa fa-bell fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ App\Schedule::where(['is_confirmed' => 0, 'staff' => Auth::user()->employee_id ])->get()->count() }}</div>
+                        <div class="huge">{{ App\Schedule::countMyScheds(Auth::user()->employee_id) }}</div>
                         <div>My Schedules</div>
                     </div>
                 </div>
@@ -126,14 +126,14 @@
                 <h3 class="panel-title"><i class="fa fa-wrench"></i> Stations and Reports *</h3>
             </div>
             <div class="panel-body">
-                <div class="col-sm-12" style="text-align: center;">
+                <div class="col-sm-6" style="text-align: center;">
                     <h4>Parts Replaced</h4>
-                     <div id='freq_replaced_part' style="width:100%;height:350px"></div>
+                     <div id='freq_replaced_part' style="height:350px"></div>
                     <br>
                 </div>
-                <div class="col-sm-12" style="text-align: center;">
+                <div class="col-sm-6" style="text-align: center;">
                     <h4>Work Done</h4>
-                    <div id='most_common_defect' style="width:100%;height:350px"></div>
+                    <div id='most_common_defect' style="height:350px"></div>
                     <br>
                 </div>
             </div>
