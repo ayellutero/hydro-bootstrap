@@ -38,11 +38,7 @@
                                             <td>Permissions</td>
                                             <td>
                                                 @if ( Auth::user()->hasRole('User') ? 'checked' : '' )
-                                                User
-                                                @endif
-                                                -
-                                                @if ( Auth::user()->hasRole('Head') ? 'checked' : '' )
-                                                Head
+                                                Staff
                                                 @endif
                                                 -
                                                 @if ( Auth::user()->hasRole('Admin') ? 'checked' : '' )

@@ -27,11 +27,7 @@
         <div class="form-group">
             <strong>Can access as:</strong>
             @if ( $user->hasRole('User') ? 'checked' : '' )
-            User
-            @endif
-            -
-            @if ( $user->hasRole('Head') ? 'checked' : '' )
-            Head
+            Staff
             @endif
             -
             @if ( $user->hasRole('Admin') ? 'checked' : '' )
