@@ -44,7 +44,7 @@ class ReportController extends Controller
         $report['designation'] = $supervisor['designation'];
         $report['supervisor'] = $supervisor['firstname'].' '.$supervisor['lastname'];
         Report::create($report);
-        // UserActivity::create($report);
+        UserActivity::create($report);
 
         return redirect('addMaintenanceReport')
                 ->with('message', 'SUCCESS! Your report has been submitted for confirmation.');

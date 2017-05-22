@@ -13,12 +13,14 @@
                 <table id="all-reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Device ID</th>
+                            <th>ID</th>
                             <th>Location</th>
-                            <th>Sensor Type</th>
-                            <th>Date Visited</th>
-                            <th>Author</th>
-                            <th>Date Noted</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Initial Findings</th>
+                            <th>Onsite Date</th>
+                            <th>Part Replaced/Installed</th>
+                            <th>Work Done</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -30,9 +32,11 @@
                             <td>{{ $report->station_id }}</td>
                             <td>{{ $report->station_name.', '.$report->location }}</td>
                             <td>{{ $report->sensor_type }}</td>
+                            <td>{{ $report->status }}</td>
+                            <td>{{ $report->init_findings }}</td>
                             <td>{{ $report->onsite_date }}</td>
-                            <td>{{ $report->conducted_by }}</td>
-                            <td>{{ $report->date_approved }}</td>
+                            <td>{{ $report->part_installed }}</td>
+                            <td>{{ $report->work_done }}</td>
                             <td>
                                 <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" data-toggle="modal" title="View" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                             </td>

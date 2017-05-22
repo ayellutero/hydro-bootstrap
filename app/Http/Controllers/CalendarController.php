@@ -33,14 +33,11 @@ class CalendarController extends Controller
         $str2 = '';
         $str3 = '';
         foreach($schedule['staff'] as $arr){
-            // $str = $arr.','.$str;
             $s = User::where('employee_id',  $arr)->first();
             $str = $s->firstname.' '.$s->lastname.', '.$str;
             $str2 = $s->employee_id.','.$str2;
             $str3 = $s->email.','.$str3;
         }
-        // print_r($staffNames);
-        // print_r($staffIDs);
 
          $sNames = rtrim($str,', '); // remove trailing comma and space
          $sIDs = rtrim($str2, ',');

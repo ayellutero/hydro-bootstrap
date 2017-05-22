@@ -32,9 +32,6 @@
     <!-- Bootstrap select CSS -->    
     <link href="{{ asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
 
-    <!--FLOT-->
-    <!--<link href="{{ asset('vendor/flot/excanvas.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">-->
-    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -201,7 +198,6 @@
     <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/jquery-ui.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/fullcalendar/lib/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/fullcalendar/js/fullcalendar.min.js') }}"></script>
-    <!--<script type="text/javascript" src="{{ asset('vendor/fullcalendar/fullcalendar-script.js') }}"></script>-->
 
     <!-- FLOT Script -->
     <script type="text/javascript" src="{{ asset('vendor/flot/jquery.flot.js') }}"></script>
@@ -239,19 +235,6 @@
                     }
                 })
             });
-
-            // hide PW field button
-            $('#pw_change').hide();
-
-            $('#pw_btn').on('click', function (event) {
-                $('#pw_btn').hide();
-                $('#pw_change').show();
-            });
-
-            $('#cancel-button').on('click', function (event) {
-                $('#pw_btn').show();
-                $('#pw_change').hide();
-            }); 
 
             // Datatable JS
             var stationsTable = $('#all-station').DataTable({
@@ -298,7 +281,7 @@
             });
             
             var tableMyReps = $('#my-reports').DataTable({
-                order: [[ 3, "desc" ], [ 4, "desc" ]],
+                order: [[ 5, "desc" ]],
                 language: {
                     "emptyTable": "You have not created a report yet.",
                     "infoEmpty": ""
@@ -314,7 +297,7 @@
                 "scrollX": true
             });
             var tablePenReps = $('#pending-reports').DataTable({
-                order: [[ 4, "desc" ]],
+                order: [[ 5, "desc" ]],
                 language: {
                     "emptyTable": "There are no pending reports.",
                     "infoEmpty": ""
@@ -359,7 +342,7 @@
             });
             
             var tableSenReps = $('#station-reports').DataTable({
-                order: [[ 5, "desc" ], [ 3, "desc" ]],
+                order: [[ 4, "desc" ]],
                 language: {
                     "emptyTable": "No reports yet for this station.",
                     "infoEmpty": ""

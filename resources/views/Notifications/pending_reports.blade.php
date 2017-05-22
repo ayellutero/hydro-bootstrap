@@ -17,11 +17,14 @@
             <table id="pending-reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Station Name</th>
-                        <th>Location</th>
+                        <th>Station</th>
                         <th>Sensor Type</th>
-                        <th>Date Visited</th>
+                        <th>Status</th>
+                        <th>Last Data</th>
+                        <th>Init Findings</th>
+                        <th>Onsite Date</th>
+                        <th>Part Replaced/Installed</th>
+                        <th>Work Done</th>
                         <th>Conducted By</th>
                         <th>Action</th>
                     </tr>
@@ -31,11 +34,14 @@
                 @foreach ($reports as $report)
                     @if ($report->if_approved == '0')
                     <tr>
-                        <td>{{ $report->id }}</td>
-                        <td>{{ $report->station_name }}</td>
-                        <td>{{ $report->location }}</td>
+                        <td>{{ $report->station_id.' '.$report->station_name.', '.$report->location }}</td>
                         <td>{{ $report->sensor_type }}</td>
+                        <td>{{ $report->status }}</td>
+                        <td>{{ $report->last_data }}</td>
+                        <td>{{ $report->init_findings }}</td>
                         <td>{{ $report->onsite_date }}</td>
+                        <td>{{ $report->part_installed }}</td>
+                        <td>{{ $report->work_done }}</td>
                         <td>{{ $report->conducted_by }}</td>
                         <td>
                             <a class="btn" data-toggle="modal" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>

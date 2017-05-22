@@ -19,10 +19,6 @@
     <!-- Custom CSS -->
     <link href="{{ asset('dist/css/sb-admin.css') }}" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="{{ asset('vendor/datatables-plugins/dataTables.bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/datatables-responsive/dataTables.responsive.css') }}" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
   
