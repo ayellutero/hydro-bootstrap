@@ -40,6 +40,7 @@
                             <thead>
                                 <tr>
                                     <th>Device ID</th>
+                                    <th>Type</th>
                                     <th>Location</th>
                                     <th>Province</th>
                                     <th>Latitude</th>
@@ -52,6 +53,7 @@
                                  @foreach ($stations as $key => $station)
                                      <tr>
                                          <td>{{ $station->device_id }}</td>
+                                         <td>{{ $station->type }}</td>
                                          <td>{{ $station->location }}</td>
                                          <td>{{ $station->province }}</td>
                                          <td>{{ $station->lat }}</td>

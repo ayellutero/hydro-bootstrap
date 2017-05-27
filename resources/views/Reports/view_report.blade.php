@@ -39,6 +39,7 @@
                             <td>{{ $report->work_done }}</td>
                             <td>
                                 <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" data-toggle="modal" title="View" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+                                <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Download PDF" href="{{ route('pdfview',['download'=>'pdf', 'data'=>$report->id]) }}"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                         @endif
@@ -56,6 +57,7 @@
                                         @include('Reports/display_report')
                                     </div>
                                     <div class="modal-footer">
+                                        <a class="btn btn-info" href="{{ route('pdfview',['download'=>'pdf', 'data'=>$report->id]) }}">Download PDF</a>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>

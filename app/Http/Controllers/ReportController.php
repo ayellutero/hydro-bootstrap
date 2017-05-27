@@ -23,7 +23,7 @@ class ReportController extends Controller
     {
         $report=Request::all();
         $loc = Station::where('location', $report['station_name'])->first();
-        $report['location'] = $loc->location.', '.$loc->province;
+        $report['location'] = $loc->province;
 
         $station_id = Station::select('device_id', 'type')->where('location', $report['station_name'])->get()->first();
         $report['station_id'] = $station_id['device_id'];

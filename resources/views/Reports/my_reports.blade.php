@@ -49,6 +49,7 @@
                                     <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" data-toggle="modal" title="View" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                                     @if($report->if_approved == 1)
                                     <a class="btn" data-toggle="tooltip" data-container="body" style="z-index:1000; position:relative" title="Approved"><i class="fa fa-check-square fa-2x" aria-hidden="true"></i></a>
+                                    <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" title="Download PDF" href="{{ route('pdfview',['download'=>'pdf', 'data'=>$report->id]) }}"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
                                     @else
                                     <a class="btn withTooltip" title="Edit" data-toggle="modal" data-target="#editReport-<?= $report->id?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
                                     @endif

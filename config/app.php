@@ -182,6 +182,9 @@ return [
 
         //Chikka
         Borla\Chikka\Service::class,
+
+        // PDF
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -233,6 +236,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Chikka'=> Borla\Chikka\Support\Facades\Chikka::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     
     ],
 

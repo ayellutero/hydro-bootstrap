@@ -6,9 +6,7 @@ Route::auth();
 // Dashboard
 Route::get('/', 'HomeController@index');
 
-Route::get('sample', function(){
-    return view('sampleReport');
-});
+Route::get('pdfview',array('as'=>'pdfview','uses'=>'PDFController@pdfview'));
 
 // Group of ROUTES w Permissions
 Route::group(['middleware' => ['web', 'roles']], function () {
