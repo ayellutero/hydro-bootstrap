@@ -38,7 +38,7 @@
                             <td>{{ $report->part_installed }}</td>
                             <td>{{ $report->conducted_by }}</td>
                             <td>
-                                <a class="btn withTooltip" data-toggle="modal" title="View" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+                                <a class="btn withTooltip" data-container="body" style="z-index:1000; position:relative" data-toggle="modal" title="View" data-target="#viewReport-<?= $report->id?>"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                         @endif
