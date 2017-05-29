@@ -5,9 +5,9 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
+                <h6><a href="maintenanceHistory"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Stations</a></h6>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h6><a href="maintenanceHistory"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Stations</a></h6>
                 <h4> {{ $devDetails }} </h4>
             </div>
             <div class="panel-body">
