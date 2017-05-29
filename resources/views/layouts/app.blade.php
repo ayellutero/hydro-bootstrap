@@ -130,20 +130,23 @@
                         <li>
                             <a href="/"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
                         </li>
+                        @if ( Auth::user()->hasRole('Admin') )
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#stationmgt"><i class="fa fa-th-list fa-fw"></i> Station Management <i class="fa fa-caret-down"></i></a>
                             <ul id="stationmgt" class="collapse">
-                                @if ( Auth::user()->hasRole('Admin') )
                                 <li>
                                     <a href="stationManagement"><i class="fa fa-flag fa-fw" aria-hidden="true"></i> Stations and Devices</a>
                                 </li>
-                                @endif
                                 <li>
                                     <a href="maintenanceHistory"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Reports and Stats</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
+                        @else
+                        <li>
+                            <a href="maintenanceHistory"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Reports and Stats</a>
+                        </li>
+                        @endif
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-wrench fa-fw"></i> Maintenance Reports <i class="fa fa-caret-down"></i></a>
                             <ul id="demo" class="collapse">
