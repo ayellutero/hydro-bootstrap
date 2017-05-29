@@ -10,13 +10,15 @@ use App\User;
 use App\Station;
 use App\StationReport;
 use App\Part;
+use App\Status;
+
 
 class ReportController extends Controller
 {
     public function index()
     {
       $reports=Report::all();
-      return view('Reports.view_report',compact('reports'))->with('parts', $parts);
+      return view('Reports.view_report',compact('reports'))->with('parts', $parts)->with('statuses', $statuses);
     }
 
     public function store()
@@ -36,6 +38,9 @@ class ReportController extends Controller
         }
         if(Request::has('work_done')){
             $report['work_done'] = static::parseInputArray($report['work_done']);
+        }
+        if(Request::has('status')){
+            $report['status'] = static::parseInputArray($report['status']);
         }
 
         $supervisor = User::select('designation', 'firstname', 'lastname')

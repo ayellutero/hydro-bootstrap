@@ -8,21 +8,23 @@ use App\Report;
 use App\User;
 use App\Part;
 use App\Work;
-
+use App\Status;
 use App\StationReport;
+
 class MaintenanceController extends Controller
 {
-    //
     public function addRepView(){
         $stations = Station::orderBy('location')->get();
         $parts=Part::all();
         $users=User::all();
         $works=Work::all();
+        $statuses=Status::all();
         return view('/Reports.index')
                     ->with('users', $users)
                     ->with('works', $works)
                     ->with('parts', $parts)
-                    ->with('stations', $stations);
+                    ->with('stations', $stations)
+                    ->with('statuses', $statuses);
     }
 
     public function allRepsView(){

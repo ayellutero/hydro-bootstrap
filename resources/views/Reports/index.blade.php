@@ -94,13 +94,12 @@
 
 	    <div class="form-group">
 	        {!! Form::label('status', 'Status: ') !!}
-	        <select class="form-control" name="status" id="part_installed" required>
-				<option value ="Operational">Operational</option>
-				<option value ="For Repair">For Repair</option>
-				<option value ="Non-Operational">Non-Operational</option>
-				<option value ="For Relocation">For Relocation</option>
-            </select>
-		</div>
+			<select class="selectpicker form-control" name="status" id="status" data-live-search="true">
+				@foreach($statuses as $status)
+					<option value ="{{$status->status}}">{{$status->status}}</option>
+				@endforeach
+			</select>
+	    </div>
 
 	    <div class="form-group"  style="padding-top:2%">
 			{!! Form::label('conducted_by', 'Conducted by:') !!}
