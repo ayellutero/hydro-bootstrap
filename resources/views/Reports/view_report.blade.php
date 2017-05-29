@@ -5,10 +5,6 @@
 @section('content')
 <div class="row" style="margin:0%; margin-top:0%;">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Approved Reports
-            </div>
             <div class="panel-body">
                 <table id="all-reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
@@ -67,7 +63,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
     </div>
 </div>
 
