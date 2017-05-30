@@ -217,7 +217,7 @@
             var panels = $('.user-infos');
             var panelsButton = $('.dropdown-user');
             panels.hide();
-            
+
             //Click dropdown
             panelsButton.click(function() {
                 //get data-for attribute
@@ -356,6 +356,21 @@
             //tooltip
             $('[data-toggle="tooltip"]').tooltip(); 
             $('.withTooltip').tooltip();
+
+            //START return to current tab after refresh
+            $(function() { 
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                    // save the latest tab; use cookies if you like 'em better:
+                    localStorage.setItem('lastTab', $(this).attr('href'));
+                });
+
+                // go to the latest tab, if it exists:
+                var lastTab = localStorage.getItem('lastTab');
+                if (lastTab) {
+                    $('[href="' + lastTab + '"]').tab('show');
+                }
+            });
+            //END return to current tab after refresh
 
             // customize fullcalendar
             $('#calendar').fullCalendar({
